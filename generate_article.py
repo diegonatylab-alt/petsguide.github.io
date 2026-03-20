@@ -154,30 +154,49 @@ def generate_article(cat, topic):
     return data
 
 
+def _find_array_bounds(html):
+    """Encuentra los límites del array articles en el HTML usando conteo de corchetes."""
+    match = re.search(r"const articles\s*=\s*\[", html)
+    if not match:
+        raise ValueError("No se encontró 'const articles = [' en el HTML")
+
+    bracket_start = match.end() - 1  # posición del [
+    depth = 0
+    in_string = False
+    escape = False
+
+    for i in range(bracket_start, len(html)):
+        ch = html[i]
+        if escape:
+            escape = False
+            continue
+        if ch == '\\' and in_string:
+            escape = True
+            continue
+        if ch == '"':
+            in_string = not in_string
+            continue
+        if not in_string:
+            if ch == '[':
+                depth += 1
+            elif ch == ']':
+                depth -= 1
+                if depth == 0:
+                    return match.start(), bracket_start, i + 1
+
+    raise ValueError("No se encontró el cierre del array articles")
+
+
 def load_existing_articles(html):
     """Extrae el array articles del HTML de forma robusta."""
+    _, bracket_start, bracket_end = _find_array_bounds(html)
+    raw = html[bracket_start:bracket_end]
 
-    # Buscar el bloque: const articles = [...];
-    match = re.search(r"const articles\s*=\s*(\[.*?\]);", html, re.DOTALL)
-    if not match:
-        raise ValueError("No se encontró 'const articles = [...]' en el HTML")
+    # Eliminar trailing commas (válidas en JS, inválidas en JSON)
+    raw = re.sub(r',\s*([\]}])', r'\1', raw)
 
-    raw = match.group(1)
-
-    # Intento 1: JSON estricto directo
     try:
         return json.loads(raw)
-    except json.JSONDecodeError:
-        pass
-
-    # Intento 2: reemplazar true/false/null de JS a JSON
-    fixed = raw
-    fixed = re.sub(r'\btrue\b', 'true', fixed)
-    fixed = re.sub(r'\bfalse\b', 'false', fixed)
-    fixed = re.sub(r'\bnull\b', 'null', fixed)
-
-    try:
-        return json.loads(fixed)
     except json.JSONDecodeError as e:
         print(f"ERROR al parsear articles. Primeros 500 chars del array:\n{raw[:500]}")
         raise e
@@ -185,14 +204,10 @@ def load_existing_articles(html):
 
 def save_articles(html, articles):
     """Reemplaza el array articles en el HTML."""
+    decl_start, _, bracket_end = _find_array_bounds(html)
+    semi_pos = html.index(';', bracket_end - 1) + 1
     new_json = json.dumps(articles, ensure_ascii=False, indent=6)
-    result = re.sub(
-        r"const articles\s*=\s*\[.*?\];",
-        f"const articles = {new_json};",
-        html,
-        flags=re.DOTALL,
-    )
-    return result
+    return html[:decl_start] + "const articles = " + new_json + ";" + html[semi_pos:]
 
 
 def main():
