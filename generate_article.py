@@ -15,6 +15,7 @@ import os
 import re
 import json
 import random
+import shutil
 import datetime
 import unicodedata
 import urllib.request
@@ -122,15 +123,29 @@ TOPIC_POOL = {
 
 # ─── UTILIDADES ─────────────────────────────────────────────────
 
+# Palabras de relleno a eliminar del slug
+_STOPWORDS = {
+    "a", "al", "con", "de", "del", "el", "en", "es", "la", "las", "lo", "los",
+    "para", "por", "que", "se", "si", "su", "sus", "tu", "tus", "un", "una",
+    "y", "o", "como", "todo", "toda", "todos", "sobre", "mas", "muy", "sin",
+    "cuando", "donde", "este", "esta", "estos", "son", "ser",
+}
+
+
 def slugify(text):
-    """Convierte un título en slug URL-amigable."""
+    """Convierte un título en slug URL-amigable y corto."""
     text = text.lower().strip()
     text = unicodedata.normalize("NFD", text)
     text = "".join(c for c in text if unicodedata.category(c) != "Mn")
     text = re.sub(r"[^\w\s-]", "", text)
-    text = re.sub(r"[\s_]+", "-", text)
-    text = re.sub(r"-+", "-", text)
-    return text[:80]
+    words = text.split()
+    words = [w for w in words if w not in _STOPWORDS]
+    slug = "-".join(words)
+    slug = re.sub(r"-+", "-", slug).strip("-")
+    # Cortar en límite de palabra (~45 chars)
+    if len(slug) > 45:
+        slug = slug[:45].rsplit("-", 1)[0]
+    return slug
 
 
 def pick_topic(existing_titles):
@@ -270,7 +285,7 @@ def generate_article_html(article):
     read_time = article["readTime"]
     content   = article["content"]
     image_url = article.get("image", "")
-    canonical = f"{SITE_URL}/{ARTICLES_DIR}/{slug}.html"
+    canonical = f"{SITE_URL}/{ARTICLES_DIR}/{slug}/"
     og_image  = image_url if image_url else f"{SITE_URL}/og-default.jpg"
 
     # Agregar imagen hero si el contenido no la tiene ya
@@ -466,18 +481,34 @@ def main():
     articles = load_existing_articles(html)
     print(f"Artículos existentes: {len(articles)}")
 
-    # ── Generar HTMLs para artículos existentes sin slug o sin archivo ──
+    # ── Migrar slugs viejos a nuevos más cortos y estructura de carpetas ──
     slugs_added = False
     for a in articles:
-        if not a.get("slug"):
-            a["slug"] = slugify(a["title"])
+        old_slug = a.get("slug", "")
+        new_slug = slugify(a["title"])
+        if old_slug != new_slug:
+            a["slug"] = new_slug
             slugs_added = True
-        filepath = os.path.join(ARTICLES_DIR, f"{a['slug']}.html")
+            # Migrar archivo viejo .html si existe
+            old_file = os.path.join(ARTICLES_DIR, f"{old_slug}.html")
+            if os.path.exists(old_file):
+                os.remove(old_file)
+                print(f"  Eliminado archivo viejo: {old_slug}.html")
+            # Eliminar carpeta vieja si existe
+            old_folder = os.path.join(ARTICLES_DIR, old_slug)
+            if old_slug and os.path.isdir(old_folder):
+                shutil.rmtree(old_folder)
+                print(f"  Eliminada carpeta vieja: {old_slug}/")
+        # Actualizar campo url
+        a["url"] = f"/{ARTICLES_DIR}/{a['slug']}/"
+        folder = os.path.join(ARTICLES_DIR, a['slug'])
+        filepath = os.path.join(folder, "index.html")
         if not os.path.exists(filepath):
+            os.makedirs(folder, exist_ok=True)
             article_html = generate_article_html(a)
             with open(filepath, "w", encoding="utf-8") as f:
                 f.write(article_html)
-            print(f"  HTML generado: {a['slug']}.html")
+            print(f"  HTML generado: {a['slug']}/index.html")
 
     if slugs_added:
         print(f"Slugs agregados a artículos existentes.")
@@ -517,12 +548,14 @@ def main():
         "featured": False,
         "image":    image["thumb"] if image else "",
         "content":  content_with_image,
-        "url":      f"/{ARTICLES_DIR}/{slug}.html",
+        "url":      f"/{ARTICLES_DIR}/{slug}/",
     }
 
     # Guardar HTML individual del nuevo artículo
+    folder = os.path.join(ARTICLES_DIR, slug)
+    os.makedirs(folder, exist_ok=True)
     article_html = generate_article_html(new_article)
-    filepath = os.path.join(ARTICLES_DIR, f"{slug}.html")
+    filepath = os.path.join(folder, "index.html")
     with open(filepath, "w", encoding="utf-8") as f:
         f.write(article_html)
     print(f"HTML individual generado: {filepath}")
@@ -539,7 +572,7 @@ def main():
         f.write(html_updated)
 
     print(f"✅ Artículo publicado: {new_article['title']}")
-    print(f"   URL: {SITE_URL}/{ARTICLES_DIR}/{slug}.html")
+    print(f"   URL: {SITE_URL}/{ARTICLES_DIR}/{slug}/")
 
 
 if __name__ == "__main__":
