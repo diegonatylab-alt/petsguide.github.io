@@ -8,6 +8,18 @@
   </url>
 
   <url>
+    <loc>https://petsguia.com/articulos/alimentos-toxicos-perros-quizas-no-conoces/</loc>
+    <lastmod>2026-03-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://petsguia.com/articulos/erizo-africano-mascota-guia-completa/</loc>
+    <lastmod>2026-03-26</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>https://petsguia.com/articulos/come-iguana-domestica-guia-completa/</loc>
     <lastmod>2026-03-25</lastmod>
     <priority>0.8</priority>
@@ -118,13 +130,13 @@
   <url>
     <loc>https://petsguia.com/contacto.html</loc>
     <lastmod>2026-03-25</lastmod>
-    <priority>0.5</priority>
+    <priority>0.1</priority>
   </url>
 
   <url>
     <loc>https://petsguia.com/acerca-de.html</loc>
     <lastmod>2026-03-25</lastmod>
-    <priority>0.5</priority>
+    <priority>0.1</priority>
   </url>
 
 </urlset>
