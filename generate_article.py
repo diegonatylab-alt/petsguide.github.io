@@ -28,7 +28,7 @@ UNSPLASH_KEY    = os.environ.get("UNSPLASH_ACCESS_KEY")
 HTML_FILE       = "index.html"
 ARTICLES_DIR    = "articulos"
 MAX_ARTICLES    = 60
-SITE_URL        = "https://diegonatylab-alt.github.io"
+SITE_URL = "https://petsguia.com"
 SITE_NAME       = "PetsGuía"
 # ────────────────────────────────────────────────────────────────
 
@@ -301,6 +301,7 @@ def generate_article_html(article):
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
+  <script>if(location.protocol!=='https:')location.replace('https://'+location.hostname+location.pathname+location.search);</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{title} – {SITE_NAME}</title>
   <meta name="description" content="{excerpt}"/>
