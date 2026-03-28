@@ -1,24 +1,6 @@
-### robots.txt
-```
 User-agent: *
 Allow: /
 Disallow: /privacidad.html
 Disallow: /aviso-legal.html
 
 Sitemap: https://petsguia.com/sitemap.xml
-```
-
-> ⚠️ Verificá que los nombres de los archivos de privacidad y aviso legal coincidan exactamente con los que tenés en tu repo.
-
----
-
-## ¿Dónde subirlos?
-
-Ambos archivos van en la **raíz del repositorio**, al mismo nivel que tu `index.html`:
-```
-diegonatylab-alt.github.io/
-├── index.html
-├── sitemap.xml       ← acá
-├── robots.txt        ← acá
-├── articulos/
-│   └── ...
