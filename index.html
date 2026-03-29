@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Forzar HTTPS -->
+  <script>
+    if (location.protocol !== 'https:') {
+      location.replace('https://' + location.hostname + location.pathname + location.search);
+    }
+  </script>
   <meta charset="UTF-8" />
-  <script>if(location.protocol!=='https:')location.replace('https://'+location.hostname+location.pathname+location.search);</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PetsGuía – Todo sobre tus mascotas</title>
   <meta name="description" content="Guías, consejos y cuidados para perros, gatos, aves, reptiles y mascotas exóticas. Información confiable para dueños apasionados." />
@@ -101,9 +106,7 @@
     .hero-content { position: relative; max-width: 700px; margin: 0 auto; }
 
     .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      display: inline-block;
       background: var(--accent);
       color: white;
       font-size: 0.75rem;
@@ -143,9 +146,6 @@
     }
 
     .hero-cat {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
       background: rgba(255,255,255,0.1);
       border: 1px solid rgba(255,255,255,0.15);
       color: rgba(255,255,255,0.85);
@@ -290,20 +290,11 @@
     .featured-card:hover .read-more::after { transform: translateX(4px); }
 
     .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 12px;
       font-size: 0.78rem;
       color: var(--ink2);
       margin-top: auto;
       padding-top: 12px;
       border-top: 1px solid var(--border);
-    }
-
-    .card-meta span {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
     }
 
     /* ── ARTICLE GRID ── */
@@ -369,13 +360,7 @@
       align-items: center;
     }
 
-    .article-date {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.75rem;
-      color: var(--ink2);
-    }
+    .article-date { font-size: 0.75rem; color: var(--ink2); }
 
     /* ── SIDEBAR ── */
     .sidebar { display: flex; flex-direction: column; gap: 24px; }
@@ -410,12 +395,7 @@
       transition: background 0.2s;
     }
     .cat-list li a:hover { background: var(--surface2); }
-    .cat-list li a .cat-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .cat-list li a span.cnt {
+    .cat-list li a span {
       background: var(--border);
       font-size: 0.75rem;
       padding: 2px 8px;
@@ -442,6 +422,49 @@
       color: var(--ink);
     }
     .popular-item:hover .popular-title { color: var(--accent); }
+
+    /* Newsletter widget */
+    .newsletter-widget {
+      background: var(--ink);
+      color: var(--bg);
+      border: none;
+    }
+    .newsletter-widget .widget-title {
+      color: var(--bg);
+      border-bottom-color: rgba(255,255,255,0.15);
+    }
+    .newsletter-widget p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 14px;
+    }
+    .newsletter-input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      margin-bottom: 10px;
+      outline: none;
+    }
+    .newsletter-input::placeholder { color: rgba(255,255,255,0.4); }
+    .newsletter-btn {
+      width: 100%;
+      padding: 10px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .newsletter-btn:hover { background: #b84515; }
 
     /* Ad widget placeholder */
     .ad-widget {
@@ -508,19 +531,11 @@
     .article-meta {
       display: flex;
       gap: 16px;
-      align-items: center;
       color: var(--ink2);
       font-size: 0.85rem;
       margin-bottom: 32px;
       padding-bottom: 24px;
       border-bottom: 2px solid var(--border);
-      flex-wrap: wrap;
-    }
-
-    .article-meta span {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
     }
 
     .article-content h2 {
@@ -584,40 +599,24 @@
     <!-- HERO -->
     <section class="hero">
       <div class="hero-content">
-        <span class="hero-badge">
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7z"/></svg>
-          Tu guía de mascotas
-        </span>
+        <span class="hero-badge">🐾 Tu guía de mascotas</span>
         <h1>Todo lo que tu <em>mascota</em> necesita saber</h1>
         <p>Guías expertas sobre cuidados, salud, alimentación y comportamiento para cada tipo de animal.</p>
         <div class="hero-cats">
-          <span class="hero-cat" onclick="filterCat('Perros')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.25 16.25h1.5L12 17z"/><path d="M16 14v.5"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444a11.702 11.702 0 0 0-.493-3.309"/><path d="M8 14v.5"/><path d="M8.5 8.5c-.384 1.05-1.083 2.028-2.5 2.5l1.25 1.25C8.5 13 8.5 13 10 13h4c1.5 0 1.5 0 2.75-1.25L18 10.5c-1.417-.472-2.116-1.45-2.5-2.5"/><path d="M18.5 5.5a1 1 0 0 1 1 1v3.5a1 1 0 0 1-1 1H18l-1.5-2.5v-2a1 1 0 0 1 1-1z"/><path d="M5.5 5.5a1 1 0 0 0-1 1v3.5a1 1 0 0 0 1 1H6l1.5-2.5v-2a1 1 0 0 0-1-1z"/></svg>
-            Perros
-          </span>
-          <span class="hero-cat" onclick="filterCat('Gatos')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.68.26 6.5 2.23A9.04 9.04 0 0 1 12 5z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17z"/></svg>
-            Gatos
-          </span>
-          <span class="hero-cat" onclick="filterCat('Aves')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h.01"/><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"/><path d="m20 7 2 .5-2 .5"/><path d="M10 18v3"/><path d="M14 17.75v3.25"/><path d="M7 18a6 6 0 0 0 3.84-10.61"/></svg>
-            Aves
-          </span>
-          <span class="hero-cat" onclick="filterCat('Reptiles')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
-            Reptiles
-          </span>
-          <span class="hero-cat" onclick="filterCat('Exóticas')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M6 16a3 3 0 0 0-2.24 5"/><path d="M8 16a5 5 0 0 1 8 0"/><path d="M4 13.5V12a8 8 0 0 1 16 0v1.5"/><path d="M16 6a2 2 0 0 1 4 0v2a2 2 0 0 1-4 0z"/><path d="M4 6a2 2 0 0 1 4 0v2a2 2 0 0 1-4 0z"/></svg>
-            Exóticas
-          </span>
+          <span class="hero-cat" onclick="filterCat('Perros')">🐶 Perros</span>
+          <span class="hero-cat" onclick="filterCat('Gatos')">🐱 Gatos</span>
+          <span class="hero-cat" onclick="filterCat('Aves')">🦜 Aves</span>
+          <span class="hero-cat" onclick="filterCat('Reptiles')">🦎 Reptiles</span>
+          <span class="hero-cat" onclick="filterCat('Exóticas')">🐇 Exóticas</span>
         </div>
       </div>
     </section>
 
     <!-- AD BANNER (oculto hasta activar AdSense) -->
     <div style="display:none; padding: 16px 24px; justify-content:center;">
-      <div class="ad-banner">Espacio publicitario — Google AdSense 728×90</div>
+      <div class="ad-banner">
+        📢 Espacio publicitario — Google AdSense 728×90
+      </div>
     </div>
 
     <!-- MAIN CONTENT -->
@@ -630,84 +629,46 @@
             <h2 class="section-title">Artículo destacado</h2>
           </div>
 
-          <a href="#" class="featured-card" id="featured-link">
-            <div class="featured-img" id="featured-emoji"></div>
+          <a href="#" class="featured-card" onclick="openArticle(0); return false;" id="featured-link">
+            <div class="featured-img" id="featured-emoji">🐶</div>
             <div class="featured-body">
               <span class="tag" id="featured-tag">Perros</span>
-              <h3 class="card-title" id="featured-title">Cargando...</h3>
-              <p class="card-excerpt" id="featured-excerpt"></p>
+              <h3 class="card-title" id="featured-title">Cómo enseñarle a tu perro a quedarse solo en casa sin ansiedad</h3>
+              <p class="card-excerpt" id="featured-excerpt">La separación es uno de los mayores desafíos para los perros domésticos. Descubrí técnicas probadas para que tu perro aprenda a estar solo de forma tranquila y segura.</p>
               <span class="read-more">Leer artículo</span>
-              <div class="card-meta" id="featured-meta"></div>
+              <div class="card-meta" id="featured-meta">📅 18 de marzo, 2026 · ⏱ 6 min de lectura</div>
             </div>
           </a>
 
           <div class="section-header" style="margin-top: 40px;">
             <h2 class="section-title">Últimos artículos</h2>
-            <span class="section-count" id="article-count">0 artículos</span>
+            <span class="section-count" id="article-count">8 artículos</span>
           </div>
 
-          <div class="articles-grid" id="articles-grid"></div>
+          <div class="articles-grid" id="articles-grid">
+            <!-- Generado dinámicamente por JS -->
+          </div>
         </main>
 
         <!-- SIDEBAR -->
         <aside class="sidebar">
 
           <!-- Ad widget (oculto hasta activar AdSense) -->
-          <div class="ad-widget" style="display:none">Google AdSense 300×250</div>
+          <div class="ad-widget" style="display:none">
+            📢 Google AdSense<br>300×250
+          </div>
 
           <!-- Categories -->
           <div class="widget">
             <h3 class="widget-title">Categorías</h3>
             <ul class="cat-list">
-              <li><a href="#" onclick="filterCat('Perros')">
-                <span class="cat-label">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.25 16.25h1.5L12 17z"/><path d="M16 14v.5"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444a11.702 11.702 0 0 0-.493-3.309"/><path d="M8 14v.5"/><path d="M8.5 8.5c-.384 1.05-1.083 2.028-2.5 2.5l1.25 1.25C8.5 13 8.5 13 10 13h4c1.5 0 1.5 0 2.75-1.25L18 10.5c-1.417-.472-2.116-1.45-2.5-2.5"/><path d="M18.5 5.5a1 1 0 0 1 1 1v3.5a1 1 0 0 1-1 1H18l-1.5-2.5v-2a1 1 0 0 1 1-1z"/><path d="M5.5 5.5a1 1 0 0 0-1 1v3.5a1 1 0 0 0 1 1H6l1.5-2.5v-2a1 1 0 0 0-1-1z"/></svg>
-                  Perros
-                </span>
-                <span class="cnt" id="cnt-perros">0</span>
-              </a></li>
-              <li><a href="#" onclick="filterCat('Gatos')">
-                <span class="cat-label">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.68.26 6.5 2.23A9.04 9.04 0 0 1 12 5z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17z"/></svg>
-                  Gatos
-                </span>
-                <span class="cnt" id="cnt-gatos">0</span>
-              </a></li>
-              <li><a href="#" onclick="filterCat('Aves')">
-                <span class="cat-label">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h.01"/><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"/><path d="m20 7 2 .5-2 .5"/><path d="M10 18v3"/><path d="M14 17.75v3.25"/><path d="M7 18a6 6 0 0 0 3.84-10.61"/></svg>
-                  Aves
-                </span>
-                <span class="cnt" id="cnt-aves">0</span>
-              </a></li>
-              <li><a href="#" onclick="filterCat('Reptiles')">
-                <span class="cat-label">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
-                  Reptiles
-                </span>
-                <span class="cnt" id="cnt-reptiles">0</span>
-              </a></li>
-              <li><a href="#" onclick="filterCat('Exóticas')">
-                <span class="cat-label">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M6 16a3 3 0 0 0-2.24 5"/><path d="M8 16a5 5 0 0 1 8 0"/><path d="M4 13.5V12a8 8 0 0 1 16 0v1.5"/><path d="M16 6a2 2 0 0 1 4 0v2a2 2 0 0 1-4 0z"/><path d="M4 6a2 2 0 0 1 4 0v2a2 2 0 0 1-4 0z"/></svg>
-                  Exóticas
-                </span>
-                <span class="cnt" id="cnt-exoticas">0</span>
-              </a></li>
-              <li><a href="#" onclick="filterCat('Salud')">
-                <span class="cat-label">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg>
-                  Salud
-                </span>
-                <span class="cnt" id="cnt-salud">0</span>
-              </a></li>
-              <li><a href="#" onclick="filterCat('Alimentación')">
-                <span class="cat-label">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>
-                  Alimentación
-                </span>
-                <span class="cnt" id="cnt-alim">0</span>
-              </a></li>
+              <li><a href="#" onclick="filterCat('Perros')">🐶 Perros <span id="cnt-perros">0</span></a></li>
+              <li><a href="#" onclick="filterCat('Gatos')">🐱 Gatos <span id="cnt-gatos">0</span></a></li>
+              <li><a href="#" onclick="filterCat('Aves')">🦜 Aves <span id="cnt-aves">0</span></a></li>
+              <li><a href="#" onclick="filterCat('Reptiles')">🦎 Reptiles <span id="cnt-reptiles">0</span></a></li>
+              <li><a href="#" onclick="filterCat('Exóticas')">🐇 Exóticas <span id="cnt-exoticas">0</span></a></li>
+              <li><a href="#" onclick="filterCat('Salud')">💊 Salud <span id="cnt-salud">0</span></a></li>
+              <li><a href="#" onclick="filterCat('Alimentación')">🍖 Alimentación <span id="cnt-alim">0</span></a></li>
             </ul>
           </div>
 
@@ -728,13 +689,18 @@
     <span class="tag" id="art-tag">Perros</span>
     <h1 id="art-title">Título del artículo</h1>
     <div class="article-meta">
-      <span id="art-date"></span>
-      <span id="art-read"></span>
-      <span id="art-cat"></span>
+      <span id="art-date">📅 18 de marzo, 2026</span>
+      <span id="art-read">⏱ 6 min de lectura</span>
+      <span id="art-cat">🐶 Perros</span>
     </div>
-    <div class="in-article-ad" style="display:none">Google AdSense — In-article 728×90</div>
+
+    <!-- In-article ad (oculto hasta activar AdSense) -->
+    <div class="in-article-ad" style="display:none">📢 Google AdSense — In-article 728×90</div>
+
     <div class="article-content" id="art-content"></div>
-    <div class="in-article-ad" style="display:none; margin-top:32px;">Google AdSense — In-article 300×250</div>
+
+    <!-- In-article ad 2 (oculto hasta activar AdSense) -->
+    <div class="in-article-ad" style="display:none; margin-top:32px;">📢 Google AdSense — In-article 300×250</div>
   </div>
 
   <footer>
@@ -752,13 +718,6 @@
   </footer>
 
   <script>
-    // ── ÍCONOS SVG INLINE ──
-    const SVG = {
-      calendar: `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>`,
-      clock:    `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
-      tag:      `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg>`,
-    };
-
     // ── DATOS DE ARTÍCULOS ──
     // El script de Python reemplaza este array con los artículos reales
     const articles = [
@@ -773,10 +732,276 @@
             "readTime": "6",
             "featured": true,
             "image": "https://images.unsplash.com/photo-1628768534892-2951194dbcaf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MDEwODR8MHwxfHNlYXJjaHw1fHxwZXQlMjBmb29kJTIwZG9nJTIwY2F0JTIwYWxpbWVudG9zJTIwdCVDMyVCM3hpY29zJTIwcGFyYXxlbnwxfDB8fHwxNzc0NzM5OTY2fDA&ixlib=rb-4.1.0&q=80&w=1080&w=800&q=75&fm=webp&fit=crop",
-            "content": "<figure style=\"margin:0 0 28px 0;\"><img src=\"https://images.unsplash.com/photo-1628768534892-2951194dbcaf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MDEwODR8MHwxfHNlYXJjaHw1fHxwZXQlMjBmb29kJTIwZG9nJTIwY2F0JTIwYWxpbWVudG9zJTIwdCVDMyVCM3hpY29zJTIwcGFyYXxlbnwxfDB8fHwxNzc0NzM5OTY2fDA&ixlib=rb-4.1.0&q=80&w=1080&w=800&q=75&fm=webp&fit=crop\" alt=\"green plant beside gray steel fence\" width=\"800\" height=\"420\" style=\"width:100%;border-radius:10px;max-height:420px;object-fit:cover;\" loading=\"lazy\"/><figcaption style=\"font-size:0.75rem;color:#888;margin-top:6px;\">Foto de <a href=\"https://unsplash.com/@anniespratt?utm_source=petsguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Annie Spratt</a> en <a href=\"https://unsplash.com/?utm_source=petsguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Unsplash</a></figcaption></figure><h1>Alimentos tóxicos para perros que quizás no conocés</h1><p>Como propietario de un perro, es fundamental conocer cuáles son los alimentos tóxicos para perros que pueden representar un riesgo grave para su salud. Muchas personas desconocen que ciertos alimentos comunes en nuestras cocinas pueden ser sumamente peligrosos e incluso fatales para nuestras mascotas. En este artículo te mostraremos una lista detallada de alimentos prohibidos para perros y cómo mantener a tu compañero peludo seguro y saludable.</p><h2>¿Por qué algunos alimentos son tóxicos para los perros?</h2><p>Los perros tienen un sistema digestivo diferente al de los humanos. Su metabolismo procesa los alimentos de manera distinta, lo que significa que sustancias que son seguras para nosotros pueden ser extremadamente tóxicas para ellos. La toxicidad de ciertos alimentos en perros se debe a componentes químicos específicos que sus organismos no pueden procesar adecuadamente, generando daños en órganos vitales como el hígado, los riñones o el corazón.</p><h2>Alimentos tóxicos para perros más comunes</h2><p>Existen varios alimentos que debes evitar dar a tu perro a toda costa. Estos productos pueden causar desde malestares leves hasta envenenamiento grave:</p><ul><li><strong>Chocolate:</strong> Contiene teobromina y cafeína que pueden causar vómitos, diarrea, taquicardia y convulsiones en perros. El chocolate negro es más peligroso que el chocolate con leche.</li><li><strong>Uvas y pasas:</strong> Causan insuficiencia renal aguda en perros. Incluso pequeñas cantidades pueden ser mortales, especialmente en perros pequeños.</li><li><strong>Aguacate:</strong> Contiene persina, una toxina que causa vómitos, diarrea y problemas cardíacos en los perros.</li><li><strong>Alimentos con xilitol:</strong> Este edulcorante artificial causa hipoglucemia severa e insuficiencia hepática en perros, incluso en cantidades muy pequeñas.</li><li><strong>Cebolla y ajo:</strong> Contienen tiosulfatos que dañan los glóbulos rojos y causan anemia hemolítica en perros.</li><li><strong>Macadamia:</strong> Estas nueces causan debilidad, parálisis y problemas gastrointestinales en perros.</li><li><strong>Alimentos con huesos cocidos:</strong> Pueden astillarse y causar obstrucciones o perforaciones internas.</li></ul><h2>¿Cuándo debo llevar a mi perro al veterinario?</h2><p>Si sospechas que tu perro ha ingerido alguno de estos alimentos tóxicos, es crucial actuar rápidamente. Los síntomas de envenenamiento pueden aparecer dentro de minutos u horas después de la ingestión. Algunos signos de alerta incluyen vómitos persistentes, diarrea sangrienta, letargo extremo, convulsiones, dificultad para respirar o comportamiento anormal. No esperes a que los síntomas empeoren: lleva a tu perro al veterinario inmediatamente o contacta con una línea de emergencia veterinaria si es fuera de horario.</p><h2>Alimentos seguros como alternativas saludables</h2><p>Afortunadamente, existen muchas opciones seguras y nutritivas que puedes ofrecer a tu perro como premios o snacks:</p><ul><li><strong>Manzana (sin semillas):</strong> Rica en fibra y vitaminas, excelente para la digestión.</li><li><strong>Zanahoria:</strong> Baja en calorías y buena para los dientes y encías del perro.</li><li><strong>Plátano:</strong> Proporciona potasio y vitaminas del complejo B en cantidades seguras.</li><li><strong>Pollo cocido sin sal:</strong> Proteína magra y segura para cualquier edad de perro.</li><li><strong>Calabaza cocida:</strong> Excelente para la salud digestiva y el control de peso.</li><li><strong>Arándanos:</strong> Antioxidantes naturales que son seguros y beneficiosos para los perros.</li></ul><h2>Conclusión: Protege a tu perro conociendo los riesgos</h2><p>Ahora que conoces los alimentos tóxicos para perros más comunes, estás mejor preparado para proteger a tu mascota. La educación es la clave para prevenir accidentes que podrían comprometer la salud y vida de tu compañero peludo. Mantén esta información a mano, comparte con otros dueños de perros, y ante cualquier duda sobre la seguridad de un alimento, siempre consulta con tu veterinario.</p>",
+            "content": "<figure style=\"margin:0 0 28px 0;\"><img src=\"https://images.unsplash.com/photo-1628768534892-2951194dbcaf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MDEwODR8MHwxfHNlYXJjaHw1fHxwZXQlMjBmb29kJTIwZG9nJTIwY2F0JTIwYWxpbWVudG9zJTIwdCVDMyVCM3hpY29zJTIwcGFyYXxlbnwxfDB8fHwxNzc0NzM5OTY2fDA&ixlib=rb-4.1.0&q=80&w=1080&w=800&q=75&fm=webp&fit=crop\" alt=\"green plant beside gray steel fence\" width=\"800\" height=\"420\" style=\"width:100%;border-radius:10px;max-height:420px;object-fit:cover;\" loading=\"lazy\"/><figcaption style=\"font-size:0.75rem;color:#888;margin-top:6px;\">Foto de <a href=\"https://unsplash.com/@anniespratt?utm_source=petsguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Annie Spratt</a> en <a href=\"https://unsplash.com/?utm_source=petsguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Unsplash</a></figcaption></figure><h1>Alimentos tóxicos para perros que quizás no conocés</h1><p>Como propietario de un perro, es fundamental conocer cuáles son los alimentos tóxicos para perros que pueden representar un riesgo grave para su salud. Muchas personas desconocen que ciertos alimentos comunes en nuestras cocinas pueden ser sumamente peligrosos e incluso fatales para nuestras mascotas. En este artículo te mostraremos una lista detallada de alimentos prohibidos para perros y cómo mantener a tu compañero peludo seguro y saludable.</p><h2>¿Por qué algunos alimentos son tóxicos para los perros?</h2><p>Los perros tienen un sistema digestivo diferente al de los humanos. Su metabolismo procesa los alimentos de manera distinta, lo que significa que sustancias que son seguras para nosotros pueden ser extremadamente tóxicas para ellos. La toxicidad de ciertos alimentos en perros se debe a componentes químicos específicos que sus organismos no pueden procesar adecuadamente, generando daños en órganos vitales como el hígado, los riñones o el corazón.</p><h2>Alimentos tóxicos para perros más comunes</h2><p>Existen varios alimentos que debes evitar dar a tu perro a toda costa. Estos productos pueden causar desde malestares leves hasta envenenamiento grave:</p><ul><li><strong>Chocolate:</strong> Contiene teobromina y cafeína que pueden causar vómitos, diarrea, taquicardia y convulsiones en perros. El chocolate negro es más peligroso que el chocolate con leche.</li><li><strong>Uvas y pasas:</strong> Causan insuficiencia renal aguda en perros. Incluso pequeñas cantidades pueden ser mortales, especialmente en perros pequeños.</li><li><strong>Aguacate:</strong> Contiene persina, una toxina que causa vómitos, diarrea y problemas cardíacos en los perros.</li><li><strong>Alimentos con xilitol:</strong> Este edulcorante artificial causa hipoglucemia severa e insuficiencia hepática en perros, incluso en cantidades muy pequeñas.</li><li><strong>Cebolla y ajo:</strong> Contienen tiosulfatos que dañan los glóbulos rojos y causan anemia hemolítica en perros.</li><li><strong>Macadamia:</strong> Estas nueces causan debilidad, parálisis y problemas gastrointestinales en perros.</li><li><strong>Alimentos con huesos cocidos:</strong> Pueden astillarse y causar obstrucciones o perforaciones internas.</li></ul><h2>¿Cuándo debo llevar a mi perro al veterinario?</h2><p>Si sospechas que tu perro ha ingerido alguno de estos alimentos tóxicos, es crucial actuar rápidamente. Los síntomas de envenenamiento pueden aparecer dentro de minutos u horas después de la ingestión. Algunos signos de alerta incluyen vómitos persistentes, diarrea sangrienta, letargo extremo, convulsiones, dificultad para respirar o comportamiento anormal. No esperes a que los síntomas empeoren: lleva a tu perro al veterinario inmediatamente o contacta con una línea de emergencia veterinaria si es fuera de horario.</p><h2>Alimentos seguros como alternativas saludables</h2><p>Afortunadamente, existen muchas opciones seguras y nutritivas que puedes ofrecer a tu perro como premios o snacks:</p><ul><li><strong>Manzana (sin semillas):</strong> Rica en fibra y vitaminas, excelente para la digestión.</li><li><strong>Zanahoria:</strong> Baja en calorías y buena para los dientes y encías del perro.</li><li><strong>Plátano:</strong> Proporciona potasio y vitaminas del complejo B en cantidades seguras.</li><li><strong>Pollo cocido sin sal:</strong> Proteína magra y segura para cualquier edad de perro.</li><li><strong>Calabaza cocida:</strong> Excelente para la salud digestiva y el control de peso.</li><li><strong>Arándanos:</strong> Antioxidantes naturales que son seguros y beneficiosos para los perros.</li></ul><h2>Consejos para prevenir accidentes tóxicos en el hogar</h2><p>La prevención es la mejor estrategia para mantener a tu perro seguro. Algunos consejos prácticos incluyen: almacenar todos los alimentos potencialmente tóxicos en lugares altos e inaccesibles, nunca dejar comida sin supervisión sobre mesas o pisos bajos, mantener a tu perro alejado de la cocina durante la preparación de comidas, educar a familia y amigos sobre los alimentos prohibidos, y revisar regularmente la basura para asegurarte de que no contenga restos peligrosos. También es importante enseñar a tu perro el comando \"suelta\" o \"no\" para situaciones de emergencia.</p><h2>Lecturas de etiquetas de alimentos comerciales</h2><p>Cuando compres alimentos o golosinas comerciales para tu perro, siempre revisa cuidadosamente las etiquetas. Busca productos que tengan ingredientes naturales y evita aquellos que contengan xilitol u otros edulcorantes artificiales. Los alimentos premium generalmente tienen mejores controles de calidad. Si tienes dudas sobre algún ingrediente específico, consulta con tu veterinario antes de darlo a tu mascota.</p><h2>¿Qué hacer en caso de intoxicación?</h2><p>Si tu perro ha comido algo tóxico, anota exactamente qué comió, cuándo lo comió y en qué cantidad. Esta información es vital para que el veterinario determine el tratamiento adecuado. En algunos casos, el veterinario puede inducir vómitos o hacer lavado gástrico. El tratamiento dependerá del tipo de toxina y la cantidad ingerida. Nunca intentes tratar la intoxicación en casa sin consultar con un profesional veterinario.</p><h2>Conclusión: Protege a tu perro conociendo los riesgos</h2><p>Ahora que conoces los alimentos tóxicos para perros más comunes, estás mejor preparado para proteger a tu mascota. La educación es la clave para prevenir accidentes que podrían comprometer la salud y vida de tu compañero peludo. Mantén esta información a mano, comparte con otros dueños de perros, y ante cualquier duda sobre la seguridad de un alimento, siempre consulta con tu veterinario. Tu perro depende de ti para mantenerse seguro y saludable, así que toma todas las precauciones necesarias. ¿Ya revisaste tu cocina para eliminar estos peligros potenciales?</p>",
             "url": "/articulos/alimentos-toxicos-perros-quizas-no-conoces/"
+      },
+      {
+            "id": 18,
+            "slug": "erizo-africano-mascota-guia-completa",
+            "title": "Erizo africano como mascota: guía completa",
+            "excerpt": "Descubre si el erizo africano es una buena mascota. Todo sobre cuidados, comportamiento y requisitos para tener uno en casa.",
+            "category": "Exóticas",
+            "emoji": "🐇",
+            "date": "26 de marzo, 2026",
+            "readTime": "7",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1620069761109-61a6ef32cd48?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MDEwODR8MHwxfHNlYXJjaHw0fHxleG90aWMlMjBwZXQlMjByYWJiaXQlMjBoYW1zdGVyJTIwZXJpem8lMjBhZnJpY2FubyUyMGVzfGVufDF8MHx8fDE3NzQ1MjM3MTJ8MA&ixlib=rb-4.1.0&q=80&w=400",
+            "content": "<figure style=\"margin:0 0 28px 0;\"><img src=\"https://images.unsplash.com/photo-1620069761109-61a6ef32cd48?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MDEwODR8MHwxfHNlYXJjaHw0fHxleG90aWMlMjBwZXQlMjByYWJiaXQlMjBoYW1zdGVyJTIwZXJpem8lMjBhZnJpY2FubyUyMGVzfGVufDF8MHx8fDE3NzQ1MjM3MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080\" alt=\"brown and white animal on brown rock\" style=\"width:100%;border-radius:10px;max-height:420px;object-fit:cover;\" loading=\"lazy\"/><figcaption style=\"font-size:0.75rem;color:#888;margin-top:6px;\">Foto de <a href=\"https://unsplash.com/@jonasvandermeiren?utm_source=petsguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Jonas Vandermeiren</a> en <a href=\"https://unsplash.com/?utm_source=petsguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Unsplash</a></figcaption></figure><h1>Erizo africano como mascota: guía completa</h1><p>El erizo africano es una mascota exótica cada vez más popular entre los amantes de los animales. Si te estás preguntando si el erizo africano es buena mascota, esta guía te ayudará a tomar la mejor decisión. Estos pequeños animales tienen características únicas que los hacen fascinantes, pero también requieren cuidados específicos y un compromiso real de sus propietarios.</p><h2>¿Por qué el erizo africano es buena mascota?</h2><p>El erizo africano destaca por ser una mascota excepcional por varias razones fundamentales. Primero, son animales relativamente tranquilos y silenciosos, ideales para personas que viven en apartamentos o espacios reducidos. A diferencia de otras mascotas exóticas, el erizo africano no requiere paseos diarios ni demanda constante de atención.</p><p>Además, estos animales tienen una vida útil de 4 a 6 años, lo que representa un compromiso manejable comparado con otras mascotas. Son criaturas solitarias por naturaleza, así que no necesitan compañía de otros erizos. Esta característica los hace perfectos para personas que buscan una mascota independiente pero interactiva.</p><h2>Características principales del erizo africano</h2><p>El erizo africano es un animal pequeño que pesa entre 400 y 700 gramos en la edad adulta. Su cuerpo está cubierto de aproximadamente 5,000 a 7,000 púas, que son estructuras defensivas modificadas del pelaje. Estas púas no son venenosas ni se lanzan como las del puercoespín, sino que se utilizan como mecanismo de defensa cuando se sienten amenazados.</p><p>Estos animales tienen un hocico alargado, orejas grandes y ojos pequeños. Aunque tienen mala visión, compensan con un excelente olfato y audición. El erizo africano es un animal nocturno, lo que significa que es más activo durante la noche, aspecto importante a considerar si decides tener uno en casa.</p><h2>Requisitos esenciales para cuidar un erizo africano</h2><p>Si decidiste que el erizo africano es buena mascota para ti, debes conocer los requisitos básicos de cuidado. Estos no son animales que necesiten lujos, pero sí necesidades específicas que deben cumplirse para su bienestar.</p><ul><li>Jaula o terrario de al menos 120 x 60 cm con sustrato seguro como papel reciclado o virutas de madera blanda</li><li>Rueda de ejercicio de mínimo 30 cm de diámetro para mantener su actividad física diaria</li><li>Temperatura ambiente entre 24 y 26 grados centígrados, con zona de calor de 27 a 30 grados</li><li>Escondites y cuevas para que puedan dormir cómodamente durante el día</li><li>Comedero y bebedero con agua fresca disponible en todo momento</li></ul><h2>¿Cuándo es el mejor momento para adoptar un erizo africano?</h2><p>La edad ideal para adoptar un erizo africano es entre 6 y 8 semanas. A esta edad ya han sido destetados y pueden alimentarse de forma independiente. Es fundamental que provengan de criadores responsables que aseguren que los animales han sido socializados adecuadamente.</p><p>Considera también el momento de tu vida. El erizo africano requiere consistencia en su rutina, así que elige un momento en el que puedas dedicar tiempo a su adaptación. Los cambios de ambiente pueden estresar a estos animales, por lo que necesitarán un período de aclimatación en su nuevo hogar.</p><h2>Alimentación adecuada para el erizo africano</h2><p>La alimentación es crucial para que el erizo africano sea una mascota saludable. Estos animales son insectívoros por naturaleza, por lo que su dieta debe basarse principalmente en proteína animal de alta calidad.</p><ul><li>Alimento comercial específico para erizos con un contenido de proteína entre 30 y 40 por ciento</li><li>Grillos, cucarachas y gusanos de seda como complemento proteico vivo</li><li>Frutas y verduras ocasionalmente en pequeñas porciones, como manzana o calabaza</li><li>Evitar completamente el chocolate, alimentos procesados y alimentos para gatos o perros</li></ul><h2>Temperamento y comportamiento del erizo africano</h2><p>El erizo africano es generalmente dócil cuando se maneja correctamente desde joven. Aunque parezcan animales tímidos, pueden desarrollar relaciones afectivas con sus cuidadores. Sin embargo, es importante entender que no son mascotas para acariciar constantemente.</p><p>Cuando se sienten amenazados, los erizos africanos se enrollan formando una bola defensiva. Esta es su respuesta natural y no indica agresividad. Con paciencia y manejo frecuente desde pequeños, muchos erizos aprenden a confiar en sus propietarios y pueden disfrutar de ciertas interacciones.</p><h2>Consideraciones de salud y veterinario</h2><p>Antes de decidir que el erizo africano es buena mascota para ti, considera el aspecto veterinario. No todos los veterinarios están especializados en animales exóticos. Es importante ubicar un veterinario con experiencia en erizos antes de adoptar uno.</p><ul><li>Los erizos pueden sufrir síndrome de quills (pérdida excesiva de púas por estrés)</li><li>Son propensos a obesidad si no reciben ejercicio suficiente</li><li>Pueden desarrollar infecciones de oído si viven en ambientes demasiado húmedos</li><li>Requieren revisiones veterinarias anuales para monitorear su salud general</li></ul><h2>Costo inicial y mantenimiento del erizo africano</h2><p>El erizo africano es una mascota relativamente económica comparada con otras mascotas exóticas. El costo inicial incluye el precio del animal (generalmente entre 150 y 300 euros), la jaula, accesorios y equipo de temperatura.</p><p>El mantenimiento mensual es moderado: alimento, sustrato y ocasionalmente suplementos vitamínicos. A largo plazo, el costo principal será la atención veterinaria especializada, que puede ser más cara que la de mascotas convencionales.</p><h2>¿Es el erizo africano la mascota ideal para ti?</h2><p>El erizo africano es buena mascota si buscas un animal fascinante, relativamente independiente y que no requiera paseos diarios. Sin embargo, no es adecuado para niños pequeños que quieran una mascota muy interactiva o para personas que buscan un animal cariñoso y demostrativo.</p><p>Antes de adoptar, considera honestamente tu disponibilidad de tiempo, tu presupuesto y tu compromiso a largo plazo. Un erizo africano merece un hogar donde sus necesidades específicas sean comprendidas y cumplidas.</p><p>Si después de evaluar todos estos aspectos sientes que el erizo africano es la mascota que buscas, contacta con criadores responsables o refugios especializados. Proporcionar un hogar adecuado a uno de estos increíbles animales es una experiencia gratificante que te acercará al fascinante mundo de las mascotas exóticas.</p>",
+            "url": "/articulos/erizo-africano-mascota-guia-completa/"
+      },
+      {
+            "id": 17,
+            "slug": "come-iguana-domestica-guia-completa",
+            "title": "Qué come una iguana doméstica: guía completa",
+            "excerpt": "Descubre qué come una iguana doméstica, alimentos seguros y prohibidos. Guía nutricional completa para cuidar la salud de tu reptil.",
+            "category": "Reptiles",
+            "emoji": "🦎",
+            "date": "24 de marzo, 2026",
+            "readTime": "8",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1638319037011-f717b74d95ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MDEwODR8MHwxfHNlYXJjaHwzfHxyZXB0aWxlJTIwbGl6YXJkJTIwcGV0JTIwcXUlQzMlQTklMjBjb21lJTIwdW5hfGVufDF8MHx8fDE3NzQzNDg2NDB8MA&ixlib=rb-4.1.0&q=80&w=400",
+            "content": "<figure style=\"margin:0 0 28px 0;\"><img src=\"https://images.unsplash.com/photo-1638319037011-f717b74d95ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MDEwODR8MHwxfHNlYXJjaHwzfHxyZXB0aWxlJTIwbGl6YXJkJTIwcGV0JTIwcXUlQzMlQTklMjBjb21lJTIwdW5hfGVufDF8MHx8fDE3NzQzNDg2NDB8MA&ixlib=rb-4.1.0&q=80&w=1080\" alt=\"a large lizard sitting on top of a rock\" style=\"width:100%;border-radius:10px;max-height:420px;object-fit:cover;\" loading=\"lazy\"/><figcaption style=\"font-size:0.75rem;color:#888;margin-top:6px;\">Foto de <a href=\"https://unsplash.com/@cramtek?utm_source=petsguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Carlos Cram</a> en <a href=\"https://unsplash.com/?utm_source=petsguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Unsplash</a></figcaption></figure><h1>Qué come una iguana doméstica: guía completa de nutrición</h1><p>Si tienes una iguana doméstica, saber qué come es fundamental para mantenerla sana y feliz. Las iguanas son reptiles herbívoros que requieren una dieta específica muy diferente a la de otros animales domésticos. En esta guía completa, te mostraremos exactamente qué debe comer tu iguana, desde las verduras más recomendadas hasta los alimentos que debes evitar a toda costa.</p><h2>¿Qué come una iguana doméstica en su hábitat natural?</h2><p>En la naturaleza, las iguanas son principalmente herbívoras y se alimentan de hojas, flores, frutas y tallos de plantas tropicales. Este dato es crucial para entender que qué come una iguana doméstica debe replicar lo más posible esta dieta natural. Las iguanas adultas consumen entre 85% y 95% de vegetales, mientras que los ejemplares jóvenes pueden incluir un poco más de proteína animal ocasionalmente.</p><h2>Alimentos principales: verduras para tu iguana</h2><p>Las verduras de hoja verde son la base de la alimentación de una iguana doméstica. Estas deben representar el 70-80% de su dieta diaria. Es importante variar constantemente los tipos de verduras para asegurar una nutrición equilibrada y evitar que tu reptil se aburra.</p><ul><li>Hojas de col rizada (kale): rica en calcio y vitaminas, excelente para huesos fuertes</li><li>Berza: otro tipo de repollo oscuro muy nutritivo y seguro</li><li>Escarola: baja en oxalatos, perfecta para consumo regular</li><li>Mostaza verde: proporciona nutrientes esenciales y variedad en la dieta</li><li>Brócoli: aunque debe ser ocasional, aporta vitaminas importantes</li><li>Espinacas: consumir con moderación por su contenido de oxalatos</li></ul><h2>Frutas: complementos nutritivos con moderación</h2><p>Las frutas deben representar solo el 10-20% de la dieta de tu iguana doméstica. Son ricas en azúcares naturales, por lo que deben ofrecerse de manera ocasional como complemento. Las frutas más recomendadas incluyen papaya, mango, fresas y melón. Estas aportan vitaminas, fibra y enriquecen la experiencia alimenticia de tu mascota.</p><h2>¿Cuándo introducir proteína animal en la dieta?</h2><p>Las iguanas jóvenes (menores de 2 años) pueden incluir insectos ocasionalmente en su dieta, representando máximo el 10% de su consumo. Los insectos recomendados son grillos, langostas y cucarachas de Madagascar. Sin embargo, a medida que la iguana crece, esta proporción debe reducirse hasta casi desaparecer en adultos. Las iguanas adultas deben mantener una dieta casi exclusivamente herbívora.</p><h2>Alimentos prohibidos: qué nunca debe comer tu iguana</h2><p>Existen varios alimentos que son tóxicos o peligrosos para las iguanas domésticas. Conocer qué no debe comer tu iguana es tan importante como saber qué sí puede consumir. Algunos propietarios cometen errores graves alimentando a sus reptiles con productos inadecuados.</p><ul><li>Alimentos con alto contenido de fósforo: limitan la absorción de calcio</li><li>Carnes de cualquier tipo: pueden causar problemas digestivos graves</li><li>Productos lácteos: las iguanas no son capaces de digerirlos</li><li>Alimentos procesados o con condimentos: muy peligrosos para su sistema digestivo</li><li>Plantas tóxicas: como aguacate, chocolate y algunas flores ornamentales</li><li>Alimentos con oxalatos altos: como la espinaca en exceso</li></ul><h2>Suplementos vitamínicos: ¿son necesarios?</h2><p>Los suplementos son esenciales para una iguana doméstica. El calcio y la vitamina D3 son especialmente importantes para prevenir enfermedades óseas metabólicas. Se recomienda espolvorear un suplemento de calcio sobre los alimentos 3-4 veces por semana, y vitamina D3 dos veces por semana. La luz ultravioleta UVB también es crucial, ya que ayuda a tu iguana a sintetizar el calcio de manera natural.</p><h2>¿Cómo estructurar un plan de alimentación diario?</h2><p>Un plan de alimentación bien estructurado es fundamental para la salud de tu iguana. La consistencia es clave en el cuidado de estos reptiles. Debes ofrecer alimento fresco diariamente, preferiblemente por la mañana cuando tu iguana está más activa y tiene mayor apetito.</p><ul><li>Ofrece una variedad de 2-3 tipos de verduras de hoja verde diariamente</li><li>Incluye una pequeña porción de frutas de 2-3 veces por semana</li><li>Proporciona agua fresca mediante riego de las plantas o un plato poco profundo</li><li>Retira los alimentos no consumidos después de 24 horas</li><li>Monitorea el peso y comportamiento para ajustar las porciones</li></ul><h2>Cantidad de comida según la edad de tu iguana</h2><p>La cantidad de comida que necesita una iguana varía significativamente según su edad y tamaño. Las iguanas jóvenes requieren más alimento en proporción a su peso corporal, mientras que los adultos pueden comer menos frecuentemente. Como regla general, ofrece una cantidad de alimento similar al tamaño de la cabeza de tu iguana. Las iguanas adultas pueden alimentarse cada dos días, mientras que los juveniles necesitan comer diariamente.</p><h2>Hidratación: el agua también es importante</h2><p>Aunque no es comida, la hidratación es fundamental. Las iguanas obtienen gran parte del agua de las plantas que comen, pero también necesitan beber directamente. Proporciona agua mediante el riego de verduras frescas o utilizando un gotero. Algunas iguanas prefieren beber del agua que gotea sobre las hojas.</p><h2>Conclusión: cuida la alimentación de tu iguana doméstica</h2><p>Saber qué come una iguana doméstica es la base para tener un reptil sano y longevo. Recuerda que las iguanas son herbívoras que necesitan una dieta rica en verduras de hoja verde, frutas ocasionales, y suplementos vitamínicos. Evita los alimentos tóxicos, mantén la variedad en su dieta y consulta regularmente con un veterinario especialista en reptiles para asegurar que tu mascota recibe la nutrición óptima. Con dedicación y los conocimientos correctos, tu iguana doméstica vivirá una vida plena y saludable durante 15-20 años.</p>",
+            "url": "/articulos/come-iguana-domestica-guia-completa/"
+      },
+      {
+            "id": 16,
+            "slug": "vacunas-perros-cada-ano-guia-completa",
+            "title": "Vacunas para perros cada año: guía completa",
+            "excerpt": "Descubre qué vacunas necesita tu perro cada año para mantenerlo sano. Calendarios, tipos y recomendaciones veterinarias esenciales.",
+            "category": "Perros",
+            "emoji": "🐶",
+            "date": "23 de marzo, 2026",
+            "readTime": "8",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1773952302096-117d51904966?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MDEwODR8MHwxfHNlYXJjaHwyfHxkb2clMjBwZXQlMjBxdSVDMyVBOSUyMHZhY3VuYXMlMjBuZWNlc2l0YXxlbnwxfDB8fHwxNzc0MjkwOTc0fDA&ixlib=rb-4.1.0&q=80&w=400",
+            "content": "<figure style=\"margin:0 0 28px 0;\"><img src=\"https://images.unsplash.com/photo-1773952302096-117d51904966?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MDEwODR8MHwxfHNlYXJjaHwyfHxkb2clMjBwZXQlMjBxdSVDMyVBOSUyMHZhY3VuYXMlMjBuZWNlc2l0YXxlbnwxfDB8fHwxNzc0MjkwOTc0fDA&ixlib=rb-4.1.0&q=80&w=1080\" alt=\"A person petting a fluffy dog on its back.\" style=\"width:100%;border-radius:10px;max-height:420px;object-fit:cover;\" loading=\"lazy\"/><figcaption style=\"font-size:0.75rem;color:#888;margin-top:6px;\">Foto de <a href=\"https://unsplash.com/@a1liam?utm_source=petsguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Liam</a> en <a href=\"https://unsplash.com/?utm_source=petsguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Unsplash</a></figcaption></figure><h1>Vacunas para perros cada año: guía completa</h1><p>Las vacunas para perros cada año son fundamentales para proteger la salud de tu mascota y prevenir enfermedades graves. Como propietario responsable, debes conocer cuál es el calendario de vacunación recomendado por los veterinarios para asegurar que tu perro reciba la protección necesaria durante toda su vida. En este artículo te explicaremos en detalle qué vacunas necesita tu perro anualmente y por qué son tan importantes.</p><h2>¿Cuáles son las vacunas esenciales para perros?</h2><p>Existen dos tipos de vacunas para perros: las esenciales y las opcionales. Las vacunas esenciales son aquellas que todo perro debe recibir, independientemente de su estilo de vida. Estas protegen contra enfermedades potencialmente mortales que pueden afectar a cualquier perro.</p><ul><li>Vacuna contra la rabia: protege contra una enfermedad mortal transmisible a humanos</li><li>Vacuna contra el moquillo canino: previene una enfermedad viral grave y altamente contagiosa</li><li>Vacuna contra la parvovirosis: protege contra un virus intestinal peligroso</li><li>Vacuna contra la hepatitis infecciosa canina: previene inflamación hepática grave</li></ul><h2>¿Por qué son importantes las vacunas anuales?</h2><p>La inmunidad que proporcionan las vacunas no es permanente. Con el paso del tiempo, la protección disminuye, por lo que los perros necesitan refuerzos regulares para mantener una defensa efectiva contra las enfermedades. Las vacunas anuales garantizan que tu perro mantenga niveles óptimos de anticuerpos para combatir infecciones.</p><p>Además, las vacunas anuales permiten al veterinario realizar un examen físico completo de tu mascota, detectando posibles problemas de salud antes de que se conviertan en algo grave. Este chequeo anual es tan importante como la vacuna misma.</p><h2>Calendario de vacunación recomendado</h2><p>El calendario de vacunación puede variar según la edad y el historial médico de tu perro. Sin embargo, existe un esquema general que la mayoría de veterinarios siguen:</p><ul><li>Cachorros: primeras vacunas entre 6 y 8 semanas, refuerzos cada 3-4 semanas hasta las 16 semanas</li><li>Perros adultos: refuerzo anual de las vacunas esenciales</li><li>Perros senior: mantener el esquema anual incluso después de los 7 años</li><li>Perros rescatados: iniciar esquema completo con orientación veterinaria</li></ul><h2>Vacunas opcionales para perros</h2><p>Además de las vacunas esenciales, existen otras que tu veterinario podría recomendar según el estilo de vida de tu perro. Estas vacunas opcionales protegen contra enfermedades menos comunes pero que pueden afectar a ciertos perros según su exposición ambiental.</p><p>La vacuna contra la tos de las perreras es recomendada si tu perro socializa frecuentemente con otros perros en parques, guarderías o exposiciones. La vacuna contra la leptospirosis es importante si tu perro pasa tiempo en áreas rurales o cerca de agua. La vacuna contra la enfermedad de Lyme es esencial en zonas donde hay muchas garrapatas.</p><h2>¿Cuándo llevar a tu perro al veterinario?</h2><p>Lo ideal es llevar a tu perro al veterinario una vez al año para el refuerzo de vacunas si es adulto. Los cachorros necesitan visitas más frecuentes durante los primeros meses, mientras que los perros senior (mayores de 7 años) podrían beneficiarse de chequeos cada 6 meses.</p><p>Marca en tu calendario la fecha de la próxima vacuna y establece recordatorios. Mantener un registro actualizado de las vacunas de tu perro es esencial, especialmente si necesitas viajar o ingresar a tu mascota en una guardería.</p><h2>Efectos secundarios y precauciones</h2><p>Las vacunas son seguras, pero como cualquier procedimiento médico, pueden tener efectos secundarios leves. Algunos perros pueden experimentar inflamación en el sitio de inyección, letargo temporal o fiebre baja después de la vacunación.</p><p>Estos síntomas suelen desaparecer en 24-48 horas. Si observas reacciones más graves como dificultad respiratoria, vómitos persistentes o hinchazón facial, contacta inmediatamente al veterinario. Es raro que ocurran reacciones severas, pero es importante estar atento.</p><h2>Costo de las vacunas para perros</h2><p>El costo de las vacunas varía según tu región y el veterinario, pero generalmente oscila entre 50 y 150 euros anuales. Este es un gasto pequeño considerando la protección que proporciona contra enfermedades que podrían costar miles en tratamiento.</p><p>Algunos centros veterinarios ofrecen paquetes anuales que incluyen vacunación, chequeo y desparasitación a un precio reducido. Consulta con tu veterinario sobre opciones económicas disponibles.</p><h2>Protege a tu perro: mantén sus vacunas al día</h2><p>Las vacunas para perros cada año son una responsabilidad fundamental del dueño. No solo protegen a tu mascota de enfermedades graves, sino que también contribuyen a la salud pública al reducir la propagación de enfermedades zoonóticas. Consulta con tu veterinario para diseñar el plan de vacunación más adecuado para tu perro y mantén sus registros actualizados. Tu perro merece vivir una vida larga, saludable y protegida.</p>",
+            "url": "/articulos/vacunas-perros-cada-ano-guia-completa/"
+      },
+      {
+            "id": 15,
+            "slug": "loro-sano-senales-clave-salud-aves",
+            "title": "Loro sano: señales clave de salud en aves",
+            "excerpt": "Descubre cómo identificar si tu loro está sano. Conoce los signos de bienestar físico y mental que todo propietario debe observar diariamente.",
+            "category": "Aves",
+            "emoji": "🦜",
+            "date": "20 de marzo, 2026",
+            "readTime": "7",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1627851756778-c80b164b2905?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MDEwODR8MHwxfHNlYXJjaHwxfHxwZXQlMjBiaXJkJTIwcGFycm90JTIwYyVDMyVCM21vJTIwc2FiZXIlMjBzaXxlbnwxfDB8fHwxNzc0MDM1OTM1fDA&ixlib=rb-4.1.0&q=80&w=400",
+            "content": "<figure style=\"margin:0 0 28px 0;\"><img src=\"https://images.unsplash.com/photo-1627851756778-c80b164b2905?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MDEwODR8MHwxfHNlYXJjaHwxfHxwZXQlMjBiaXJkJTIwcGFycm90JTIwYyVDMyVCM21vJTIwc2FiZXIlMjBzaXxlbnwxfDB8fHwxNzc0MDM1OTM1fDA&ixlib=rb-4.1.0&q=80&w=1080\" alt=\"brown and white bird on persons hand\" style=\"width:100%;border-radius:10px;max-height:420px;object-fit:cover;\" loading=\"lazy\"/><figcaption style=\"font-size:0.75rem;color:#888;margin-top:6px;\">Foto de <a href=\"https://unsplash.com/@fotovalentin?utm_source=petsguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Vasile Barbu</a> en <a href=\"https://unsplash.com/?utm_source=petsguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Unsplash</a></figcaption></figure><h1>Cómo saber si un loro está sano: señales clave para cuidadores</h1><p>Saber si un loro está sano es una responsabilidad fundamental para cualquier propietario de aves. Los loros son mascotas inteligentes y longevas que requieren atención constante a su bienestar físico y mental. En este artículo te enseñaremos cómo identificar los signos de un loro saludable y cuándo debes preocuparte por su estado de salud.</p><h2>¿Cuáles son los signos de un loro completamente sano?</h2><p>Un loro sano presenta características muy específicas que puedes observar a diario. Estos signos son tu primera línea de defensa para detectar problemas antes de que se conviertan en enfermedades graves.</p><ul><li>Plumaje brillante, liso y sin calvas: Las plumas deben verse limpias y coloridas, sin áreas de pérdida de pelo inexplicable</li><li>Ojos claros y brillantes: Los ojos deben estar abiertos, alerta y sin secreciones acuosas o pegajosas</li><li>Comportamiento activo y juguetón: Tu loro debe pasar tiempo explorando, jugando y socializando</li><li>Alimentación normal y consistente: Come regularmente sin rechazar sus alimentos favoritos</li><li>Vocalización normal: Canta, graznidos y sonidos característicos de su especie sin cambios bruscos</li></ul><h2>¿Cómo verificar el peso y la condición corporal del loro?</h2><p>El peso es un indicador crucial de la salud en los loros. Un loro con peso inadecuado puede estar enfermo o mal alimentado. Para verificar correctamente el peso de tu loro, necesitarás una balanza digital para mascotas.</p><p>Coloca a tu loro en la balanza regularmente y anota el peso. Consulta con tu veterinario cuál es el peso ideal para la especie específica de tu loro. Si notas cambios significativos en el peso (pérdida o ganancia rápida), es motivo de preocupación.</p><p>Además, puedes palpar suavemente el pecho del loro. Deberías sentir una pequeña protuberancia ósea sin exceso de grasa alrededor. Un loro obeso tendrá un pecho grueso y redondo, mientras que un loro desnutrido tendrá costillas muy prominentes.</p><h2>¿Por qué es importante revisar las deposiciones del loro?</h2><p>Las deposiciones son un espejo de la salud digestiva de tu loro. Los cambios en la consistencia, color o frecuencia de las heces pueden indicar problemas serios.</p><p>Las heces normales de un loro tienen tres componentes: la parte blanca (ácido úrico), la parte verde o marrón (las heces) y la parte acuosa (orina). Si observas cambios como diarrea persistente, heces de color muy oscuro o ausencia total de deposiciones durante varias horas, consulta a un veterinario especializado en aves.</p><h2>Señales de alarma: cuándo visitar al veterinario urgentemente</h2><p>Algunos signos indican que tu loro necesita atención veterinaria inmediata. No ignores estos síntomas, ya que los loros pueden deteriorarse rápidamente.</p><ul><li>Dificultad para respirar o respiración acelerada en reposo</li><li>Desorientación, pérdida de equilibrio o caídas frecuentes</li><li>Sangrado de cualquier parte del cuerpo</li><li>Vómito o regurgitación excesiva</li><li>Alas caídas o incapacidad para volar</li><li>Letargo extremo: el loro permanece inmóvil todo el día</li></ul><h2>Cuidados preventivos para mantener a tu loro sano</h2><p>La prevención es siempre mejor que el tratamiento. Implementa estos cuidados en la rutina diaria de tu loro para minimizar riesgos de enfermedad.</p><p>Mantén la jaula limpia, especialmente removiendo diariamente los alimentos frescos que no consume. Proporciona una dieta equilibrada con frutas, verduras y alimentos específicos para su especie. Asegúrate de que tu loro tenga acceso a agua fresca y limpia todo el tiempo.</p><p>El enriquecimiento ambiental es crucial: juguetes, perchas de diferentes texturas y tiempo fuera de la jaula mantienen a tu loro mentalmente estimulado y reducen el estrés, que es un factor importante en la enfermedad.</p><h2>¿Cuándo debo hacer revisiones veterinarias regulares?</h2><p>Los loros saludables deben visitar al veterinario especializado en aves al menos una vez al año. Si tu loro es joven (menor de 5 años) o senior (mayor de 20 años, dependiendo de la especie), aumenta las revisiones a dos veces anuales.</p><p>Durante estas revisiones, el veterinario examinará minuciosamente a tu loro, tomará muestras si es necesario y proporcionará recomendaciones personalizadas basadas en la edad y especie de tu mascota.</p><h2>Conclusión: tu loro merece la mejor salud</h2><p>Aprender cómo saber si un loro está sano te convierte en un propietario responsable y atento. Observa regularmente a tu ave, mantén registros de cambios en su comportamiento y peso, y nunca dudes en contactar a un veterinario especializado en aves. La salud de tu loro depende de tu dedicación y vigilancia constante. ¡Tu loro te lo agradecerá con años de compañía y alegría!</p>",
+            "url": "/articulos/loro-sano-senales-clave-salud-aves/"
+      },
+      {
+            "id": 14,
+            "slug": "huron-domestico-guia-completa-cuidados",
+            "title": "Hurón Doméstico: Guía Completa de Cuidados",
+            "excerpt": "Descubre todo sobre hurones domésticos: características, cuidados, comportamiento e inteligencia. Guía completa para tener un hurón como mascota.",
+            "category": "Exóticas",
+            "emoji": "🐇",
+            "date": "20 de marzo, 2026",
+            "readTime": "7",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1428394808097-a9c2da33c92c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MDEwODR8MHwxfHNlYXJjaHwyfHxleG90aWMlMjBwZXQlMjByYWJiaXQlMjBoYW1zdGVyJTIwaHVyJUMzJUIzbiUyMGRvbSVDMyVBOXN0aWNvJTIwdG9kb3xlbnwxfDB8fHwxNzc0MDMzMDQ5fDA&ixlib=rb-4.1.0&q=80&w=400",
+            "content": "<figure style=\"margin:0 0 28px 0;\"><img src=\"https://images.unsplash.com/photo-1428394808097-a9c2da33c92c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MDEwODR8MHwxfHNlYXJjaHwyfHxleG90aWMlMjBwZXQlMjByYWJiaXQlMjBoYW1zdGVyJTIwaHVyJUMzJUIzbiUyMGRvbSVDMyVBOXN0aWNvJTIwdG9kb3xlbnwxfDB8fHwxNzc0MDMzMDQ5fDA&ixlib=rb-4.1.0&q=80&w=1080\" alt=\"brown and black rabbit on brown dried leaves\" style=\"width:100%;border-radius:10px;max-height:420px;object-fit:cover;\" loading=\"lazy\"/><figcaption style=\"font-size:0.75rem;color:#888;margin-top:6px;\">Foto de <a href=\"https://unsplash.com/@milada_vigerova?utm_source=petsguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Milada Vigerova</a> en <a href=\"https://unsplash.com/?utm_source=petsguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Unsplash</a></figcaption></figure><h2>¿Qué es un Hurón Doméstico?</h2><p>El hurón doméstico es un pequeño mamífero carnívoro que ha sido domesticado desde hace miles de años. A diferencia de sus parientes salvajes, estos animales han sido criados en cautiverio durante generaciones, lo que los hace mucho más dóciles y adaptables a la vida en el hogar. Son animales fascinantes, juguerones e inteligentes que pueden convertirse en excelentes mascotas si se les proporciona el cuidado adecuado.</p><h2>Características Físicas</h2><p>Los hurones domésticos tienen un cuerpo alargado y flexible que les permite explorar espacios reducidos. Generalmente miden entre 33 y 40 centímetros de largo, sin contar la cola, y pesan entre 1 y 2 kilogramos. Su pelaje puede ser de diversos colores, incluyendo marrón oscuro, blanco, negro o una combinación de estos. Tienen ojos oscuros y brillantes, así como un sentido del olfato extremadamente desarrollado.</p><h2>Temperamento y Comportamiento</h2><p>Los hurones son animales muy sociales y cariñosos que disfrutan de la interacción humana. Son extremadamente curiosos y activos, especialmente durante las horas crepusculares. Estos pequeños compañeros pueden ser entrenados para usar la caja de arena, responder a su nombre e incluso caminar con arnés. Sin embargo, requieren supervisión constante ya que su naturaleza exploradora los puede llevar a meterse en espacios peligrosos.</p><h2>Alojamiento y Hábitat</h2><p>Un hurón necesita un espacio amplio para vivir cómodamente. Lo ideal es proporcionarle una jaula de al menos 2.5 metros cúbicos, aunque lo mejor es dejarlos en libertad supervisada la mayor parte del día.</p><ul><li>Jaula con múltiples niveles para explorar</li><li>Área de descanso cómoda y oscura</li><li>Cajas de arena o baños higiénicos</li><li>Juguetes variados para estimulación mental</li><li>Temperatura ambiente entre 15 y 25 grados Celsius</li><li>Ventilación adecuada pero sin corrientes de aire</li></ul><h2>Alimentación Adecuada</h2><p>Los hurones son carnívoros obligados, lo que significa que necesitan una dieta basada principalmente en carne. A diferencia de otros animales domésticos, no pueden digerir bien los carbohidratos ni las fibras vegetales.</p><ul><li>Alimento especializado para hurones de alta calidad</li><li>Carne fresca como pollo, pavo o conejo ocasionalmente</li><li>Evitar: chocolate, alimentos azucarados, alimentos para gatos o perros</li><li>Agua fresca disponible en todo momento</li><li>Alimentación dos o tres veces al día en porciones moderadas</li></ul><h2>Cuidados Médicos y Salud</h2><p>Es fundamental contar con un veterinario experimentado en animales exóticos para los cuidados de tu hurón. Estos animales requieren vacunaciones específicas y revisiones regulares para mantener su salud óptima. Es recomendable esterilizar o castrar a los hurones domésticos, tanto por razones de salud como de comportamiento. Algunos hurones pueden presentar problemas de glándulas suprarrenales, por lo que es importante estar atento a cambios en su pelaje o comportamiento.</p><h2>Socialización e Interacción</h2><p>Los hurones necesitan interacción diaria con sus dueños para mantenerse felices y equilibrados. Disfrutan del juego, la exploración supervisada fuera de su jaula y el contacto físico. Pueden jugar durante horas con juguetes, tubos y otras estructuras de exploración. Es importante establecer rutinas de juego y aprendizaje desde una edad temprana para fomentar un comportamiento adecuado.</p><h2>Consideraciones Legales</h2><p>Antes de adquirir un hurón, verifica la legislación local, ya que en algunos países o regiones requieren permisos especiales o están prohibidos. Asegúrate de que tu vivienda permite tener mascotas exóticas y consulta con las autoridades locales si es necesario.</p><h2>Conclusión</h2><p>Los hurones domésticos son mascotas fascinantes que pueden proporcionar años de compañía y entretenimiento. Sin embargo, requieren compromiso, dedicación y cuidados especializados. Si estás dispuesto a invertir tiempo y recursos en proporcionarles un hogar adecuado, un hurón puede ser un compañero excepcional y lleno de personalidad. Recuerda que antes de adquirir uno, debes estar completamente preparado para satisfacer todas sus necesidades físicas y emocionales.</p>",
+            "url": "/articulos/huron-domestico-guia-completa-cuidados/"
+      },
+      {
+            "id": 13,
+            "title": "Razas de Perros para Departamento: Guía Completa",
+            "excerpt": "Descubre las mejores razas de perros para vivir en departamento. Guía completa sobre características ideales y cuidados para apartamentos.",
+            "category": "Perros",
+            "emoji": "🐶",
+            "date": "20 de marzo, 2026",
+            "readTime": "5",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1586178759683-87401d05f7d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MDEwODR8MHwxfHNlYXJjaHw0fHxkb2clMjBwZXQlMjByYXphcyUyMGlkZWFsZXMlMjBwYXJhfGVufDF8MHx8fDE3NzQwMzIxMTR8MA&ixlib=rb-4.1.0&q=80&w=400",
+            "content": "<figure style=\"margin:0 0 28px 0;\"><img src=\"https://images.unsplash.com/photo-1586178759683-87401d05f7d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MDEwODR8MHwxfHNlYXJjaHw0fHxkb2clMjBwZXQlMjByYXphcyUyMGlkZWFsZXMlMjBwYXJhfGVufDF8MHx8fDE3NzQwMzIxMTR8MA&ixlib=rb-4.1.0&q=80&w=1080\" alt=\"white and brown short coated puppy\" style=\"width:100%;border-radius:10px;max-height:420px;object-fit:cover;\" loading=\"lazy\"/><figcaption style=\"font-size:0.75rem;color:#888;margin-top:6px;\">Foto de <a href=\"https://unsplash.com/@alecs?utm_source=petaguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Alecsander Alves</a> en <a href=\"https://unsplash.com/?utm_source=petaguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Unsplash</a></figcaption></figure><h2>Razas Ideales para Departamento</h2><p>Vivir en un departamento no significa renunciar a tener una mascota canina. Existen varias razas de perros que se adaptan perfectamente a espacios reducidos y pueden llevar una vida feliz y saludable en un apartamento. La clave está en elegir una raza que se ajuste a tu estilo de vida y al tamaño de tu hogar.</p><h2>Características Ideales para Departamentos</h2><p>Antes de elegir una raza, es importante considerar ciertos factores. Los perros ideales para departamentos suelen ser de tamaño pequeño a mediano, con niveles de energía moderados, temperamento tranquilo y buenos hábitos de higiene. También es fundamental que sean razas que no ladren excesivamente, ya que vivir en proximidad con vecinos requiere considerar el ruido.</p><h2>Mejores Razas para Espacios Pequeños</h2><ul><li><strong>Bulldog Francés:</strong> Estos perros compactos son perfectos para departamentos. Son cariñosos, juguetones y requieren poco ejercicio. Su tamaño pequeño y su naturaleza tranquila los hacen ideales para espacios limitados.</li><li><strong>Pug:</strong> Con su tamaño diminuto y su personalidad encantadora, los Pugs son compañeros perfectos para apartamentos. Son amables, sociables y necesitan poco espacio para mantenerse activos.</li><li><strong>Bichón Maltés:</strong> Esta raza pequeña es inteligente y fácil de entrenar. Requiere aseo regular pero poco ejercicio intenso, lo que la hace perfecta para departamentos.</li><li><strong>Corgi:</strong> Aunque tienen patas cortas, los Corgis son perros alegres y activos que se adaptan bien a espacios reducidos. Son leales y excelentes compañeros de familia.</li><li><strong>Schnauzer Miniatura:</strong> Estos perros inteligentes y alertas son perfectos para apartamentos. Son de tamaño pequeño pero con gran personalidad y son excelentes perros guardianes.</li><li><strong>Boston Terrier:</strong> Combinando el tamaño pequeño con una personalidad vibrante, los Boston Terriers son afectuosos y se adaptan bien a la vida en departamento.</li><li><strong>Cavalier King Charles Spaniel:</strong> Estos perros suaves y gentiles son ideales para apartamentos. Son tranquilos, cariñosos y no requieren ejercicio extremo.</li><li><strong>Shih Tzu:</strong> Pequeño y elegante, el Shih Tzu es perfecto para departamentos. Son perros independientes pero cariñosos que disfrutan pasar tiempo con sus dueños.</li></ul><h2>Consideraciones Importantes</h2><p>Independientemente de la raza que elijas, es fundamental que proporciones a tu perro suficiente ejercicio diario, socialización y estimulación mental. Aunque vivas en un departamento, los paseos diarios son esenciales para mantener a tu mascota saludable y feliz.</p><p>También debes considerar factores como el nivel de ruido de la raza. Algunos perros tienden a ladrar más que otros, lo que puede ser problemático en un edificio de departamentos. Investigar el temperamento de la raza antes de adoptarla es crucial.</p><h2>Entrenamiento y Comportamiento</h2><p>El entrenamiento es especialmente importante cuando vives en un departamento. Un perro bien entrenado es un perro feliz y un vecino considerado. Dedica tiempo a enseñar buenos modales, control de ladridos y comportamiento apropiado en espacios compartidos.</p><p>La socialización temprana también es vital para que tu perro se acostumbre a vivir en proximidad con otras personas y mascotas. Esto ayudará a prevenir problemas de comportamiento relacionados con la ansiedad o la agresión.</p><h2>Cuidados de Salud</h2><p>Algunos perros de razas pequeñas pueden tener problemas de salud específicos. Es importante investigar cualquier predisposición genética de la raza que elijas y mantener un cuidado veterinario regular. Los chequeos periódicos, vacunas al día y una buena higiene dental son fundamentales.</p><h2>Conclusión</h2><p>Vivir en un departamento y tener un perro es completamente posible si eliges la raza adecuada. Las razas pequeñas y de temperamento tranquilo mencionadas anteriormente son excelentes opciones. Recuerda que cada perro tiene su propia personalidad, así que antes de adoptar, asegúrate de conocer bien las características específicas de la raza y estar preparado para proporcionar el cuidado, la atención y el amor que tu nuevo compañero merece.</p>",
+            "slug": "razas-perros-departamento-guia-completa",
+            "url": "/articulos/razas-perros-departamento-guia-completa/"
+      },
+      {
+            "id": 12,
+            "title": "Periquitos Australianos: Guía de Cuidados",
+            "excerpt": "Descubre cómo cuidar periquitos australianos. Hábitat, alimentación, comportamiento y todo lo que necesitas saber sobre estas aves populares.",
+            "category": "Aves",
+            "emoji": "🦜",
+            "date": "20 de marzo, 2026",
+            "readTime": "8",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1604382679276-44976ef6d5f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MDEwODR8MHwxfHNlYXJjaHwzfHxwZXQlMjBiaXJkJTIwcGFycm90JTIwcGVyaXF1aXRvcyUyMGF1c3RyYWxpYW5vcyUyMGd1JUMzJUFEYXxlbnwxfDB8fHwxNzc0MDE4NjkxfDA&ixlib=rb-4.1.0&q=80&w=400",
+            "content": "<figure style=\"margin:0 0 28px 0;\"><img src=\"https://images.unsplash.com/photo-1604382679276-44976ef6d5f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MDEwODR8MHwxfHNlYXJjaHwzfHxwZXQlMjBiaXJkJTIwcGFycm90JTIwcGVyaXF1aXRvcyUyMGF1c3RyYWxpYW5vcyUyMGd1JUMzJUFEYXxlbnwxfDB8fHwxNzc0MDE4NjkxfDA&ixlib=rb-4.1.0&q=80&w=1080\" alt=\"blue yellow and green bird on tree branch during daytime\" style=\"width:100%;border-radius:10px;max-height:420px;object-fit:cover;\" loading=\"lazy\"/><figcaption style=\"font-size:0.75rem;color:#888;margin-top:6px;\">Foto de <a href=\"https://unsplash.com/@mzgfsz?utm_source=petsguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Mark Hofman</a> en <a href=\"https://unsplash.com/?utm_source=petsguia&utm_medium=referral\" target=\"_blank\" rel=\"noopener\">Unsplash</a></figcaption></figure><h2>Introducción a los Periquitos Australianos</h2><p>Los periquitos australianos, también conocidos como budgies, son pequeñas aves originarias de Australia que se han convertido en mascotas populares en todo el mundo. Estas aves vibrantes y sociales pueden vivir entre 8 y 15 años en cautiverio cuando reciben los cuidados adecuados. Son conocidas por su capacidad para aprender palabras y trucos, lo que las hace especialmente atractivas como compañeros.</p><h2>Hábitat y Jaula Apropiada</h2><p>El primer paso para cuidar correctamente a un periquito australiano es proporcionarle un hábitat adecuado. La jaula debe ser lo suficientemente grande para permitir que el ave vuele libremente y realice ejercicio diario.</p><ul><li>Tamaño mínimo de jaula: 60 cm de largo para un solo periquito</li><li>Para dos periquitos: 90 cm de largo</li><li>Los barrotes deben estar espaciados a no más de 1.5 cm</li><li>Coloca la jaula en un lugar tranquilo pero no aislado</li><li>Evita la luz solar directa prolongada</li><li>Mantén la temperatura entre 18 y 24 grados Celsius</li></ul><p>La jaula debe incluir perchas de diferentes diámetros, juguetes para enriquecimiento mental y un área para baño. Los periquitos disfrutan de actividades como columpiarse, roer madera y explorar nuevos objetos.</p><h2>Alimentación Balanceada</h2><p>Una dieta adecuada es fundamental para la salud de tu periquito. Estos pequeños pájaros necesitan una combinación variada de alimentos para obtener todos los nutrientes necesarios.</p><ul><li>Semillas de alta calidad como base (mijo, alpiste, girasol en moderation)</li><li>Pellets comerciales específicos para periquitos</li><li>Verduras frescas diariamente: lechuga, brócoli, zanahoria, espinaca</li><li>Frutas ocasionales: manzana, pera, plátano (sin semillas)</li><li>Proteínas: huevo cocido una o dos veces por semana</li><li>Agua fresca y limpia diariamente</li></ul><p>Evita alimentos tóxicos como aguacate, chocolate, sal, cafeína y alimentos procesados. Las semillas no deben ser la única fuente de alimento, ya que carecen de nutrientes esenciales.</p><h2>Socialización y Comportamiento</h2><p>Los periquitos australianos son aves altamente sociales que requieren interacción diaria con sus cuidadores. Sin socialización adecuada, pueden desarrollar comportamientos destructivos y problemas de salud mental.</p><ul><li>Dedica al menos una hora diaria de interacción</li><li>Habla con tu periquito regularmente para estimular el aprendizaje</li><li>Permite que vuele libremente en habitaciones seguras</li><li>Mantén rutinas consistentes</li><li>Observa su lenguaje corporal para entender su estado emocional</li></ul><p>Estas aves pueden aprender a decir palabras y frases simples. La paciencia y la repetición constante son clave para el entrenamiento efectivo.</p><h2>Salud y Visitas Veterinarias</h2><p>Mantener a tu periquito saludable requiere vigilancia constante y cuidado preventivo. Es importante reconocer los signos de enfermedad y acudir a un veterinario especializado en aves.</p><ul><li>Realiza revisiones veterinarias anuales</li><li>Observa cambios en el comportamiento o apariencia</li><li>Signos de enfermedad: plumaje erizado, cambio en la voz, falta de apetito</li><li>Mantén la jaula limpia para prevenir infecciones</li><li>Proporciona luz natural o lámparas UVB para síntesis de vitamina D</li></ul><h2>Higiene y Limpieza</h2><p>La higiene es crucial para prevenir enfermedades en los periquitos. Una jaula sucia puede albergar bacterias y hongos que pueden afectar la salud de tu ave.</p><ul><li>Limpia la jaula diariamente removiendo comida vieja y excrementos</li><li>Realiza una limpieza profunda semanal con agua y vinagre</li><li>Proporciona un baño o área para mojarse regularmente</li><li>Reemplaza los juguetes dañados o sucios</li><li>Asegúrate de que todas las superficies sean seguras y no tóxicas</li></ul><h2>Reproducción y Crianza</h2><p>Si consideras criar periquitos australianos, debes estar completamente preparado. La reproducción requiere conocimiento, dedicación y recursos significativos. Solo debes intentar criar si tienes experiencia previa y un propósito claro.</p><p>Consulta con avicultores experimentados y veterinarios especializados antes de considerar la reproducción. El bienestar de las aves debe ser siempre tu prioridad principal.</p><h2>Conclusión</h2><p>Cuidar adecuadamente de un periquito australiano es una responsabilidad gratificante que puede proporcionarte años de companía y alegría. Con una jaula apropiada, alimentación balanceada, socialización regular y atención veterinaria, tu periquito puede vivir una vida larga y saludable. Recuerda que estas pequeñas aves dependen completamente de ti para su bienestar.</p>",
+            "slug": "periquitos-australianos-guia-cuidados",
+            "url": "/articulos/periquitos-australianos-guia-cuidados/"
+      },
+      {
+            "id": 11,
+            "title": "Tamaño de Jaula para Aves: Guía por Especie",
+            "excerpt": "Descubre el tamaño de jaula adecuado para cada especie de ave. Garantiza el bienestar y la salud de tu mascota alada con nuestras recomendaciones.",
+            "category": "Aves",
+            "emoji": "🦜",
+            "date": "20 de marzo, 2026",
+            "readTime": "6",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1726557232558-49884700b46d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "content": "<h2>Importancia del Tamaño de Jaula para las Aves</h2><p>El tamaño de la jaula es uno de los factores más importantes para garantizar el bienestar de nuestras mascotas aladas. Una jaula demasiado pequeña puede causar estrés, problemas de comportamiento y enfermedades en las aves. Cada especie tiene necesidades específicas de espacio que debemos respetar para que puedan volar, ejercitarse y desarrollarse correctamente.</p><p>El confinamiento en espacios reducidos afecta negativamente la salud física y mental de las aves, limitando su capacidad de vuelo natural y generando frustración. Por eso es fundamental conocer las dimensiones mínimas recomendadas para cada tipo de ave.</p><h2>Aves Pequeñas: Canarios y Periquitos Australianos</h2><p>Los canarios son aves pequeñas que requieren jaulas más compactas pero funcionales. Para un solo canario, se recomienda una jaula con dimensiones mínimas de 60 cm de largo por 40 cm de ancho y 50 cm de alto. Si tienes dos canarios, es preferible aumentar el largo a 80 cm para permitir que vuelen entre perchas.</p><p>Los periquitos australianos necesitan un poco más de espacio. Una jaula de 80 cm de largo por 50 cm de ancho y 60 cm de alto es adecuada para una pareja. Estas aves son activas y necesitan espacio suficiente para desplazarse sin dificultad.</p><ul><li>Canarios: mínimo 60x40x50 cm para uno</li><li>Periquitos australianos: mínimo 80x50x60 cm para pareja</li><li>Diamantes de Gould: 80x60x60 cm mínimo</li></ul><h2>Aves Medianas: Ninfas y Loritos</h2><p>Las ninfas son aves medianas que requieren considerablemente más espacio que los canarios. Para una sola ninfa, la jaula debe tener mínimo 100 cm de largo por 60 cm de ancho y 80 cm de alto. Si tienes una pareja, aumenta el largo a 120 cm.</p><p>Los loritos, como los inseparables, también necesitan jaulas de tamaño mediano. Una pareja de inseparables requiere una jaula de aproximadamente 90 cm de largo por 60 cm de ancho y 70 cm de alto. Estas aves son muy activas y les encanta jugar.</p><ul><li>Ninfas: 100x60x80 cm para una; 120 cm de largo para pareja</li><li>Inseparables: 90x60x70 cm para pareja</li><li>Loris: 120x80x100 cm mínimo</li></ul><h2>Aves Grandes: Guacamayos y Amazonas</h2><p>Los guacamayos son aves grandes y poderosas que necesitan jaulas muy espaciosas. Para un guacamayo, la jaula debe tener mínimo 150 cm de largo por 100 cm de ancho y 150 cm de alto. Estos pájaros son inteligentes y activos, por lo que requieren mucho espacio para ejercitarse.</p><p>Los loros amazonas también necesitan jaulas de gran tamaño. Una jaula apropiada debe medir al menos 120 cm de largo por 80 cm de ancho y 120 cm de alto. Estas aves tienen una envergadura considerable y necesitan espacio para extender sus alas completamente.</p><ul><li>Guacamayos: 150x100x150 cm mínimo</li><li>Amazonas: 120x80x120 cm mínimo</li><li>Cacatúas: 140x100x140 cm mínimo</li></ul><h2>Consideraciones Adicionales Importantes</h2><p>Más allá de las dimensiones mínimas, existen otros aspectos cruciales a considerar. La forma de la jaula es importante: se recomiendan jaulas rectangulares antes que redondas, ya que estas últimas desorientan a las aves. Las jaulas deben tener barras horizontales para que las aves puedan trepar.</p><p>El material de la jaula también es fundamental. Debe ser seguro, no tóxico y resistente. El acero inoxidable y el hierro galvanizado son opciones seguras. Evita jaulas con pinturas tóxicas o materiales que las aves puedan destruir fácilmente.</p><p>La ventilación es esencial en cualquier jaula. Asegúrate de que haya una buena circulación de aire sin corrientes directas que causen enfermedades. También es importante proporcionar suficientes perchas de diferentes diámetros y materiales naturales para ejercitar los pies.</p><h2>El Espacio Exterior: Zona de Vuelo</h2><p>Además de la jaula, es recomendable proporcionar a tus aves acceso a un espacio exterior seguro donde puedan volar libremente. Una sala destinada a las aves o un aviario exterior son opciones ideales. El vuelo libre es fundamental para mantener la musculatura de las aves en buen estado y reducir el estrés.</p><p>Si tienes un aviario exterior, asegúrate de que esté completamente cerrado y seguro, protegido de depredadores y condiciones climáticas extremas. Las aves que pueden volar regularmente tienen mejor salud física y mental que las confinadas únicamente a jaulas.</p><h2>Conclusión</h2><p>Proporcionar una jaula del tamaño adecuado es una inversión fundamental en la salud y felicidad de tu ave. Aunque las jaulas grandes representan un gasto inicial mayor, los beneficios para tu mascota son inmensurables. Recuerda que cada ave merece el espacio suficiente para expresar su comportamiento natural. Si tienes dudas sobre el tamaño específico para tu ave, consulta con un veterinario especializado en aves.</p>",
+            "slug": "tamano-jaula-aves-guia-especie",
+            "url": "/articulos/tamano-jaula-aves-guia-especie/"
+      },
+      {
+            "id": 10,
+            "title": "Señales de Enfermedad en Aves de Compañía",
+            "excerpt": "Aprende a reconocer las señales tempranas de enfermedad en aves de compañía. Guía completa sobre cambios de comportamiento y síntomas que requieren atención veterinaria.",
+            "category": "Aves",
+            "emoji": "🦜",
+            "date": "20 de marzo, 2026",
+            "readTime": "6",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1522858547137-f1dcec554f55?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "content": "<h2>Introducción a la Salud de las Aves</h2><p>Las aves de compañía, como loros, canarios y periquitos, requieren cuidados especiales para mantener su salud óptima. A diferencia de otros animales domésticos, las aves tienden a ocultar sus enfermedades hasta que alcanzan estados avanzados. Por esta razón, es fundamental que como dueño aprendas a reconocer las señales tempranas de enfermedad para intervenir a tiempo.</p><h2>Cambios en el Comportamiento</h2><p>El comportamiento es uno de los indicadores más importantes de la salud de tu ave. Un ave enferma generalmente mostrará cambios drásticos en sus patrones normales de actividad.</p><ul><li>Letargo excesivo y falta de interés en actividades habituales</li><li>Perdida de apetito o cambios en los hábitos alimenticios</li><li>Irritabilidad o agresividad inusual</li><li>Reducción en la vocalización o cambios en los sonidos que emite</li><li>Aislamiento del resto de las aves o de los miembros de la familia</li><li>Movimientos descoordinados o pérdida de equilibrio</li></ul><h2>Síntomas Físicos Visibles</h2><p>Existen varios síntomas físicos que puedes observar directamente en tu ave para detectar enfermedades. Realiza inspecciones regulares de tu mascota para estar atento a estos cambios.</p><ul><li>Plumaje desaliñado, opaco o con pérdida de plumas anormal</li><li>Ojos cerrados o legañas y secreciones oculares</li><li>Secreciones nasales o estornudos frecuentes</li><li>Dificultad para respirar o respiración ruidosa</li><li>Cambios en la consistencia o color de las heces</li><li>Hinchazón en la cara, ojos o cuerpo</li><li>Pérdida de peso notable o cambios en el tamaño corporal</li></ul><h2>Problemas Respiratorios</h2><p>Los problemas respiratorios son señales críticas de enfermedad en aves. Estos pueden indicar infecciones, ácaros o enfermedades más graves que requieren atención veterinaria inmediata.</p><p>Observa si tu ave respira con la boca abierta, emite sonidos raros al respirar o tiene dificultades para realizar actividades normales como volar o trepar. Las infecciones respiratorias son comunes en aves mantenidas en ambientes con mala ventilación o exposición a humos, vapores de cocina o productos químicos.</p><h2>Cambios en la Alimentación y Bebida</h2><p>Un cambio en los hábitos alimenticios es una señal clara de que algo no está bien. Las aves enfermas pierden interés en sus alimentos favoritos o dejan de comer completamente.</p><ul><li>Rechazo de alimentos que normalmente disfruta</li><li>Reducción significativa en la ingesta de agua</li><li>Dificultad para comer o masticar</li><li>Vómito o regurgitación frecuente</li><li>Pérdida de peso progresiva</li></ul><h2>Problemas Digestivos</h2><p>Las heces de tu ave pueden revelarte mucho sobre su salud digestiva. Las heces normales deben tener tres componentes: materia fecal oscura, uratos blancos y orina clara.</p><p>Si observas cambios en la consistencia, color o frecuencia de las defecaciones, esto puede indicar problemas digestivos. Las diarreas, el estreñimiento o las heces con sangre son signos de alerta que requieren evaluación veterinaria.</p><h2>Síntomas Neurológicos</h2><p>Algunos signos neurológicos pueden indicar enfermedades graves como infecciones, toxinas o traumas neurológicos. Estos incluyen convulsiones, temblores, falta de coordinación, giro de cabeza anormal o comportamientos repetitivos compulsivos.</p><h2>Cuándo Buscar Atención Veterinaria</h2><p>Ciertos síntomas requieren atención veterinaria inmediata. No esperes a que la enfermedad progrese. Busca un veterinario especializado en aves si tu mascota muestra signos de dificultad respiratoria severa, pérdida de consciencia, sangrado, lesiones o si no come por más de unas pocas horas.</p><h2>Prevención y Cuidados Básicos</h2><p>La prevención es siempre mejor que la cura. Mantén a tu ave en un ambiente limpio con temperatura estable, proporciona una dieta equilibrada y variada, asegura una buena ventilación sin corrientes de aire y realiza chequeos veterinarios regulares. Las revisiones preventivas anuales pueden detectar problemas antes de que se conviertan en emergencias.</p><h2>Conclusión</h2><p>Estar atento a la salud de tu ave de compañía es responsabilidad del dueño. Aprender a reconocer las señales de enfermedad te permitirá actuar rápidamente y proporcionar la atención necesaria. Mantén una relación cercana con un veterinario especializado en aves y no dudes en consultar ante cualquier cambio en el comportamiento o la apariencia de tu mascota alada.</p>",
+            "slug": "senales-enfermedad-aves-compania",
+            "url": "/articulos/senales-enfermedad-aves-compania/"
+      },
+      {
+            "id": 9,
+            "title": "Señales de Estrés en Gatos: Identifica los Síntomas",
+            "excerpt": "Descubre cómo identificar el estrés en gatos y qué lo causa. Guía completa sobre síntomas de ansiedad felina y soluciones prácticas para tu mascota.",
+            "category": "Gatos",
+            "emoji": "🐱",
+            "date": "20 de marzo, 2026",
+            "readTime": "5",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1583505873090-48e2d7840b2e?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "content": "<h2>¿Por qué los gatos se estresan?</h2><p>El estrés en los gatos es una respuesta natural a cambios en su entorno o rutina. A diferencia de los humanos, los gatos son animales muy sensibles a los cambios y pueden experimentar ansiedad ante situaciones nuevas. Entender las causas del estrés es fundamental para ayudar a tu mascota a sentirse más segura y cómoda en el hogar.</p><p>Algunos factores comunes que generan estrés incluyen cambios de domicilio, la llegada de nuevas mascotas, ruidos fuertes, cambios en la alimentación o incluso alteraciones en la rutina diaria. Reconocer estos desencadenantes te ayudará a prevenir comportamientos problemáticos.</p><h2>Cambios en el comportamiento</h2><p>Uno de los primeros indicadores de estrés es la alteración del comportamiento habitual de tu gato. Si notas que tu felino actúa diferente a lo normal, es posible que esté experimentando ansiedad o malestar emocional.</p><ul><li>Apatía y falta de interés en actividades que antes disfrutaba</li><li>Comportamiento hiperactivo o nerviosismo excesivo</li><li>Agresividad sin razón aparente</li><li>Búsqueda excesiva de atención o, al contrario, evitar el contacto humano</li><li>Cambios en los patrones de sueño</li></ul><h2>Señales físicas del estrés</h2><p>El estrés también se manifiesta a través de cambios físicos visibles en el cuerpo de tu gato. Estos signos son tan importantes como los comportamentales y no deben ignorarse, ya que pueden afectar la salud general de tu mascota.</p><ul><li>Dilatación excesiva de las pupilas</li><li>Orejas hacia atrás o aplastadas contra la cabeza</li><li>Postura corporal tensa y encogida</li><li>Pelaje erizado o aspecto desaliñado</li><li>Temblores involuntarios</li><li>Salivación excesiva</li></ul><h2>Problemas de salud relacionados</h2><p>Cuando el estrés persiste durante tiempo prolongado, puede derivar en problemas de salud más graves. Los gatos estresados tienen mayor predisposición a desarrollar enfermedades y complicaciones médicas que requieren atención veterinaria.</p><p>Es común que gatos estresados presenten pérdida de apetito, problemas digestivos, infecciones urinarias e incluso enfermedades autoinmunes. Por esta razón, si observas signos de estrés sostenido, es recomendable consultar con un veterinario para descartar problemas de salud subyacentes.</p><h2>Cambios en hábitos de higiene</h2><p>Los gatos son animales muy limpios y mantienen rigurosos hábitos de aseo personal. Cuando están estresados, estos comportamientos cambian notablemente, constituyendo una señal clara de que algo no va bien.</p><ul><li>Sobre-acicalamiento que causa pérdida de pelaje</li><li>Falta de higiene y pelaje sucio o descuidado</li><li>Micción fuera de la caja de arena</li><li>Defecación inapropiada en lugares inusuales</li></ul><h2>Vocalizaciones anormales</h2><p>El maullido es la forma principal que tienen los gatos para comunicarse con los humanos. Cambios en la frecuencia, intensidad o tipo de vocalizaciones pueden indicar estrés o ansiedad en tu mascota. Un gato estresado puede maullar excesivamente o, en algunos casos, volverse completamente silencioso.</p><h2>¿Cómo ayudar a tu gato estresado?</h2><p>Una vez identificadas las señales de estrés, es importante tomar medidas para ayudar a tu gato a recuperar la calma. Existen varias estrategias efectivas que pueden reducir la ansiedad y mejorar el bienestar emocional de tu felino.</p><ul><li>Crear espacios seguros y tranquilos donde pueda refugiarse</li><li>Mantener una rutina consistente y predecible</li><li>Proporcionar enriquecimiento ambiental adecuado</li><li>Usar feromonas sintéticas como Feliway</li><li>Aumentar el tiempo de juego y ejercicio</li><li>Mantener la caja de arena limpia y accesible</li><li>Consultar con un veterinario sobre opciones de tratamiento</li></ul><h2>Conclusión</h2><p>Reconocer las señales de estrés en tu gato es fundamental para garantizar su salud y felicidad. Observa atentamente los cambios en su comportamiento, apariencia física y hábitos diarios. Si notas signos persistentes de estrés, no dudes en contactar a tu veterinario para obtener orientación profesional. Con paciencia y los cuidados adecuados, tu gato podrá superar la ansiedad y disfrutar de una vida plena y tranquila.</p>",
+            "slug": "senales-estres-gatos-identifica-sintomas",
+            "url": "/articulos/senales-estres-gatos-identifica-sintomas/"
+      },
+      {
+            "id": 8,
+            "title": "Enriquecimiento para gatos: guía completa",
+            "excerpt": "Descubre cómo enriquecer el ambiente de tu gato de interior. Estrategias efectivas para estimular su mente, reducir estrés y evitar comportamientos destructivos.",
+            "category": "Gatos",
+            "emoji": "🐱",
+            "date": "20 de marzo, 2026",
+            "readTime": "6",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1677936181651-6e356c749fb0?q=80&w=836&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "content": "<h2>¿Por qué es importante enriquecer el ambiente de un gato de interior?</h2><p>Los gatos de interior pasan la mayor parte de su vida dentro del hogar, por lo que es fundamental proporcionarles un ambiente enriquecido que estimule sus sentidos y comportamientos naturales. Un espacio monótono puede llevar al aburrimiento, estrés, ansiedad y comportamientos destructivos. El enriquecimiento ambiental es clave para mantener a tu gato físicamente activo, mentalmente estimulado y emocionalmente equilibrado.</p><h2>Verticales y espacios elevados</h2><p>Los gatos tienen una necesidad natural de trepar y observar su territorio desde las alturas. Instala estructuras verticales como árboles para gatos, estantes y plataformas elevadas en diferentes áreas de la casa. Esto no solo les proporciona ejercicio, sino que también les permite supervisar su entorno, lo cual los hace sentir seguros y en control. Coloca estas estructuras cerca de ventanas para que puedan observar el exterior mientras descansan.</p><h2>Juguetes interactivos y de enriquecimiento</h2><p>Los juguetes son esenciales para mantener a tu gato entretenido y activo. Varía los tipos de juguetes disponibles para evitar el aburrimiento:</p><ul><li>Juguetes que se mueven: varitas con plumas, juguetes con cuerda y punteros láser</li><li>Juguetes de puzzle: comederos interactivos que estimulan su inteligencia</li><li>Juguetes con catnip: hierbas que estimulan comportamientos naturales</li><li>Pelotas y juguetes pequeños que pueden perseguir</li><li>Juguetes con sonido: campanas y juguetes que emiten ruidos</li></ul><p>Rota los juguetes regularmente para mantener el interés fresco. Dedica tiempo cada día para jugar interactivamente con tu gato, lo que fortalece vuestro vínculo mientras lo ejercitas.</p><h2>Acceso a ventanas y estimulación visual</h2><p>Las ventanas son entretenimiento natural para los gatos de interior. Coloca perchas o camas junto a las ventanas para que tu gato pueda observar pájaros, insectos y actividades exteriores. Considera instalar comederos para pájaros fuera de la ventana para aumentar la estimulación visual. Algunos gatos disfrutan viendo videos especialmente diseñados para ellos que muestran pájaros y pequeños animales.</p><h2>Espacios para esconderse y refugiarse</h2><p>A pesar de que observan desde las alturas, los gatos también necesitan espacios seguros donde esconderse. Proporciona cajas de cartón, camas cerradas, tiendas de campaña para gatos o muebles con compartimentos. Estos espacios les ayudan a sentirse seguros, especialmente cuando están estresados o necesitan descanso. Los gatos aprecian tener opciones múltiples para retirarse.</p><h2>Estimulación olfativa</h2><p>El sentido del olfato es muy importante para los gatos. Enriquece su ambiente con diferentes aromas seguros:</p><ul><li>Catnip fresco colocado en juguetes o esparcido en el piso</li><li>Hierba gatera (valerian) como alternativa al catnip</li><li>Plantas seguras como la hierba felina para gatos</li><li>Feromonas sintéticas que crean un ambiente tranquilo</li></ul><p>Evita productos químicos fuertes o aromas tóxicos que puedan dañar la salud de tu mascota.</p><h2>Agua en movimiento</h2><p>Muchos gatos prefieren beber agua en movimiento. Una fuente para gatos no solo proporciona agua fresca y segura, sino que también estimula su instinto natural. El sonido y el movimiento del agua puede ser muy atractivo para ellos y los anima a hidratarse adecuadamente.</p><h2>Plantas seguras para gatos</h2><p>Incluye plantas seguras para gatos en tu hogar, como la palmera abanico, la planta araña o el bambú. Las plantas no solo mejoran la estética del espacio, sino que también proporcionan enriquecimiento ambiental y estimulación olfativa. Asegúrate de que todas las plantas sean completamente seguras, evitando plantas tóxicas como los lirios, azaleas y dieffenbachia.</p><h2>Rascadores y superficies para arañar</h2><p>Los gatos necesitan arañar para mantener sus garras sanas, marcar territorio y estirarse. Proporciona múltiples rascadores en diferentes texturas: sisal, cartón corrugado y tela. Colócalos en áreas estratégicas donde tu gato pasa tiempo. Un buen rascador puede ser la diferencia entre tener muebles dañados o un gato satisfecho.</p><h2>Rutina y consistencia</h2><p>Aunque la variedad es importante, los gatos también aprecian la rutina. Mantén horarios consistentes para jugar, alimentar y interactuar con tu gato. La combinación de rutina predecible con enriquecimiento ambiental variado es la clave para un gato feliz y saludable.</p><h2>Conclusión</h2><p>Enriquecer el ambiente de tu gato de interior es una inversión en su salud física y mental. Al proporcionar estimulación visual, táctil, olfativa y mental, ayudas a tu gato a vivir una vida más plena y satisfactoria dentro de casa. Implementa gradualmente estas sugerencias y observa cómo tu gato se vuelve más activo, juguetón y contento. Recuerda que cada gato es único, así que experimenta para descubrir qué enriquecimiento le gusta más a tu felino compañero.</p>",
+            "slug": "enriquecimiento-gatos-guia-completa",
+            "url": "/articulos/enriquecimiento-gatos-guia-completa/"
+      },
+      {
+            "id": 0,
+            "title": "Ansiedad por separación en perros: guía completa",
+            "excerpt": "Aprende qué es la ansiedad por separación canina, cómo identificarla y técnicas efectivas para que tu perro se sienta seguro cuando está solo en casa.",
+            "category": "Perros",
+            "emoji": "🐶",
+            "date": "18 de marzo, 2026",
+            "readTime": "6",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1504968430878-8b4dc34be661?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "content": "<p>La ansiedad por separación es uno de los problemas de comportamiento más comunes en perros domésticos. Afecta aproximadamente al 20% de los perros y puede manifestarse como ladridos excesivos, destrucción de objetos o incluso problemas digestivos.</p><h2>Qué es la ansiedad por separación</h2><p>Se trata de un estado de estrés que experimenta el perro cuando queda solo. A diferencia de lo que muchos creen, no es desobediencia sino una respuesta emocional genuina ante la ausencia del dueño.</p><h2>Señales de que tu perro la padece</h2><ul><li>Ladridos o aullidos continuos después de que te vas</li><li>Destrucción de muebles, ropa u objetos</li><li>Orina o defecación dentro de casa aunque esté entrenado</li><li>Comportamiento excesivamente pegajoso cuando estás presente</li></ul><h2>Técnicas para reducir la ansiedad</h2><p>La desensibilización gradual es el método más efectivo: empezá saliendo por solo 30 segundos y aumentá el tiempo semana a semana. Los juguetes de enriquecimiento como el Kong relleno con comida congelada también ayudan mucho.</p><h2>Cuándo consultar a un veterinario</h2><p>Si los síntomas son severos o no mejoran, un veterinario puede derivarte a un etólogo o entrenador certificado. La paciencia es fundamental: el proceso lleva semanas pero los resultados son duraderos.</p>",
+            "slug": "ansiedad-separacion-perros-guia-completa",
+            "url": "/articulos/ansiedad-separacion-perros-guia-completa/"
+      },
+      {
+            "id": 1,
+            "title": "Alimentos para gatos senior: guía nutricional",
+            "excerpt": "Descubre qué alimentos necesitan los gatos mayores de 7 años. Proteína, hidratación y nutrientes clave para su salud renal y articular.",
+            "category": "Gatos",
+            "emoji": "🐱",
+            "date": "17 de marzo, 2026",
+            "readTime": "5",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1669891732707-4beb1437679a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "content": "<p>Los gatos mayores de 7 años necesitan una dieta ajustada a sus cambios metabólicos. Sus riñones, articulaciones y sistema digestivo requieren atención especial.</p><h2>Cambios nutricionales en gatos mayores</h2><p>A partir de los 7 años los gatos senior necesitan menos calorías pero más proteína de alta calidad, fósforo controlado para proteger los riñones y mayor hidratación.</p><h2>Qué buscar en la etiqueta</h2><p>Priorizá alimentos con proteína animal como primer ingrediente, bajo en carbohidratos y con omega-3 para las articulaciones. Los alimentos húmedos son ideales por su aporte de agua.</p><h2>Señales de que la dieta no es adecuada</h2><ul><li>Pérdida de peso progresiva</li><li>Pelaje opaco o con caída excesiva</li><li>Cambios en el apetito o la sed</li><li>Problemas digestivos frecuentes</li></ul><h2>Consulta veterinaria anual</h2><p>Los gatos senior deben tener chequeos dos veces al año. Un análisis de sangre permite ajustar la dieta según la función renal y hepática.</p>",
+            "slug": "alimentos-gatos-senior-guia-nutricional",
+            "url": "/articulos/alimentos-gatos-senior-guia-nutricional/"
+      },
+      {
+            "id": 2,
+            "title": "Cuidar conejo doméstico: guía completa de necesidades",
+            "excerpt": "Aprende cómo cuidar un conejo doméstico correctamente. Descubre sus necesidades de hábitat, alimentación y bienestar para una mascota saludable y feliz.",
+            "category": "Exóticas",
+            "emoji": "🐇",
+            "date": "16 de marzo, 2026",
+            "readTime": "7",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1671774078336-c117f916e1bd?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "content": "<p>Los conejos son una de las mascotas más adoptadas pero también más abandonadas. Conocer sus necesidades reales es indispensable antes de adoptarlos.</p><h2>Hábitat y espacio</h2><p>Un conejo necesita un espacio mínimo de 2x1 metro para moverse libremente. Las jaulas pequeñas causan estrés y problemas de columna. Lo ideal es que tenga acceso a una habitación segura varias horas al día.</p><h2>Alimentación correcta</h2><p>El 80% de su dieta debe ser heno fresco ilimitado. El resto se complementa con verduras de hoja verde y una pequeña cantidad de pellets. Las frutas son golosinas ocasionales por su alto contenido de azúcar.</p><h2>Salud y veterinario</h2><ul><li>Necesitan vacunarse contra mixomatosis y fiebre hemorrágica viral</li><li>La castración es recomendable para ambos sexos</li><li>Sus dientes crecen continuamente y pueden causar problemas si no los desgastan</li></ul><h2>Son animales sociales</h2><p>Los conejos sufren la soledad. Si solo vas a tener uno, necesitará mucha interacción humana diaria. Idealmente se tienen en parejas esterilizadas.</p>",
+            "slug": "cuidar-conejo-domestico-guia-completa",
+            "url": "/articulos/cuidar-conejo-domestico-guia-completa/"
+      },
+      {
+            "id": 3,
+            "title": "Problemas articulares en perros: señales de alerta",
+            "excerpt": "Detecta a tiempo los problemas articulares en tu perro. Conoce las señales de alerta, razas predispuestas y opciones de tratamiento veterinario.",
+            "category": "Salud",
+            "emoji": "💊",
+            "date": "15 de marzo, 2026",
+            "readTime": "4",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1652126456409-e183cd6068f2?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "content": "<p>Las enfermedades articulares en perros son progresivas pero manejables si se detectan a tiempo. Razas como el Labrador, Pastor Alemán y Golden Retriever tienen predisposición genética.</p><h2>Señales de alerta</h2><ul><li>Dificultad para levantarse después de descansar</li><li>Cojera que empeora con el frío o la humedad</li><li>Resistencia a subir escaleras o saltar</li><li>Cambios en la marcha o postura</li><li>Lamer o morder una articulación específica</li></ul><h2>Diagnóstico veterinario</h2><p>Una radiografía es suficiente para diagnosticar displasia o artritis. Cuanto antes se detecta, más opciones de manejo hay disponibles.</p><h2>Tratamiento y manejo</h2><p>El tratamiento combina antiinflamatorios, suplementos de condroitina y glucosamina, fisioterapia y control del peso. La natación es el ejercicio ideal porque no genera impacto en las articulaciones.</p><h2>Prevención</h2><p>En razas predispuestas, evitá el sobrepeso desde cachorro y limitá los saltos y superficies resbaladizas durante el crecimiento.</p>",
+            "slug": "problemas-articulares-perros-senales-alerta",
+            "url": "/articulos/problemas-articulares-perros-senales-alerta/"
+      },
+      {
+            "id": 4,
+            "title": "Alimentación de loros: dieta correcta para 50 años",
+            "excerpt": "Descubre cómo alimentar correctamente a loros y cotorras. Una dieta variada puede triplicar su vida útil. Guía completa con alimentos recomendados.",
+            "category": "Aves",
+            "emoji": "🦜",
+            "date": "14 de marzo, 2026",
+            "readTime": "5",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1722098176369-4d95c1d2460f?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "content": "<p>Los loros y cotorras alimentados solo con semillas tienen una vida mucho más corta y con más enfermedades. Una dieta variada puede significar la diferencia entre 15 y 50 años de vida.</p><h2>Por qué las semillas no son suficientes</h2><p>Las semillas son altas en grasa y bajas en vitaminas esenciales. Una dieta exclusiva de semillas lleva a obesidad, deficiencia de vitamina A y problemas hepáticos.</p><h2>Qué deben comer</h2><ul><li>Pellets de calidad: deben representar el 60-70% de la dieta</li><li>Verduras frescas: zanahoria, brócoli, espinaca, pimiento rojo</li><li>Frutas ocasionales: manzana, pera, papaya sin semillas</li><li>Semillas: solo como golosina o premio de entrenamiento</li></ul><h2>Alimentos prohibidos</h2><p>Nunca ofrecer aguacate, chocolate, cebolla, ajo, cafeína, alcohol ni semillas de frutas. Son tóxicos para las aves.</p><h2>Agua fresca siempre</h2><p>Cambiá el agua dos veces al día. Las aves son muy sensibles a las bacterias que se acumulan en los bebederos.</p>",
+            "slug": "alimentacion-loros-dieta-correcta-50-anos",
+            "url": "/articulos/alimentacion-loros-dieta-correcta-50-anos/"
+      },
+      {
+            "id": 5,
+            "title": "Serpientes para principiantes: guía completa",
+            "excerpt": "Descubre qué serpientes son ideales para principiantes. Aprende sobre especies dóciles, terrarios y cuidados básicos para tener una mascota reptil segura.",
+            "category": "Reptiles",
+            "emoji": "🐍",
+            "date": "13 de marzo, 2026",
+            "readTime": "6",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1610398482379-6e285c7b8da7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "content": "<p>Las serpientes son mascotas fascinantes y de bajo mantenimiento cuando se las conoce bien. Muchos mitos las rodean, pero son animales tranquilos y limpios.</p><h2>Especies recomendadas para principiantes</h2><ul><li>Serpiente del maíz: dócil, pequeña y muy resistente</li><li>Ball Python: temperamento tranquilo, vive hasta 30 años</li><li>Rey californiana: activa y fácil de manejar</li></ul><h2>El terrario ideal</h2><p>Una serpiente adulta necesita un terrario de al menos el doble de su longitud. Necesita un punto cálido entre 30-32°C y una zona fresca de 24-26°C, más un escondite en cada zona.</p><h2>Alimentación</h2><p>Se alimentan de ratones congelados descongelados a temperatura ambiente. La frecuencia depende de la edad: cada 5-7 días para juveniles, cada 10-14 días para adultos.</p><h2>Manejo y socialización</h2><p>Esperá 48 horas después de cada comida antes de manipularlas. Con manejo regular desde jóvenes se vuelven muy tranquilas y tolerantes.</p>",
+            "slug": "serpientes-principiantes-guia-completa",
+            "url": "/articulos/serpientes-principiantes-guia-completa/"
+      },
+      {
+            "id": 6,
+            "title": "Cómo presentar un gato nuevo a perros paso a paso",
+            "excerpt": "Descubre cómo introducir un gato nuevo en un hogar con perros de forma segura y gradual. Métodos probados para que convivan en armonía.",
+            "category": "Gatos",
+            "emoji": "🐱",
+            "date": "12 de marzo, 2026",
+            "readTime": "5",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1572152666560-5e7746e843eb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "content": "<p>Con paciencia y el método correcto, perros y gatos pueden vivir en perfecta armonía. La clave está en una introducción gradual que respete los tiempos de cada animal.</p><h2>Antes de la llegada</h2><p>Preparar un cuarto exclusivo para el gato con su comida, agua, caja de arena y refugio. Esto será su zona segura durante las primeras semanas.</p><h2>Intercambio de olores</h2><p>Antes del encuentro visual, intercambiá mantas con el olor de cada animal. Esto les permite familiarizarse sin el estrés del contacto directo.</p><h2>Primer encuentro con barrera</h2><p>Usá una puerta mosquitera o baby gate para que se vean sin poder tocarse. Premiá la calma de ambos con golosinas. Repetí varias veces al día durante una semana.</p><h2>Encuentro libre supervisado</h2><ul><li>El perro debe estar con correa al principio</li><li>El gato siempre debe poder escapar a zonas altas</li><li>Nunca forzar el contacto</li><li>Terminar antes de que haya tensión</li></ul><h2>Paciencia ante todo</h2><p>El proceso puede llevar desde 2 semanas hasta 3 meses. Cada dupla es diferente. Lo importante es que ninguno se sienta amenazado.</p>",
+            "slug": "presentar-gato-nuevo-perros-paso-paso",
+            "url": "/articulos/presentar-gato-nuevo-perros-paso-paso/"
+      },
+      {
+            "id": 7,
+            "title": "Dieta BARF para perros: ventajas y riesgos",
+            "excerpt": "Descubre qué es la dieta BARF para perros, sus beneficios reales y riesgos documentados. Guía completa para tomar la mejor decisión alimenticia.",
+            "category": "Alimentación",
+            "emoji": "🍖",
+            "date": "11 de marzo, 2026",
+            "readTime": "7",
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1745252798506-29500efc5b39?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "content": "<p>La dieta BARF tiene defensores apasionados y detractores serios. Analizar la evidencia disponible ayuda a tomar una decisión informada para tu perro.</p><h2>Qué es la dieta BARF</h2><p>BARF significa Biologically Appropriate Raw Food. Consiste en carne cruda, huesos carnosos, vísceras, verduras y frutas. Busca imitar la dieta ancestral del lobo.</p><h2>Posibles ventajas</h2><ul><li>Mayor palatabilidad para perros exigentes</li><li>Control total de los ingredientes</li><li>Algunos reportes de mejora en pelaje y digestión</li></ul><h2>Riesgos reales documentados</h2><ul><li>Contaminación bacteriana por Salmonella y Listeria, riesgo para el perro y los humanos del hogar</li><li>Desequilibrio nutricional si no está correctamente formulada</li><li>Riesgo de astillamiento con huesos cocidos</li><li>Costo y tiempo de preparación elevados</li></ul><h2>Qué dice la ciencia</h2><p>Las asociaciones veterinarias como la WSAVA no recomiendan la dieta raw por los riesgos de contaminación. Sin embargo, existen fórmulas comerciales raw pasteurizadas que reducen el riesgo biológico.</p><h2>Conclusión</h2><p>Si querés probarla, hacelo con asesoramiento de un veterinario nutricionista y con proveedores de confianza. No es una dieta para improvisar.</p>",
+            "slug": "dieta-barf-perros-ventajas-riesgos",
+            "url": "/articulos/dieta-barf-perros-ventajas-riesgos/"
       }
-    ];
+];
 
     let currentFilter = null;
 
@@ -800,7 +1025,7 @@
       grid.innerHTML = filtered.map(a => `
         <a href="${a.slug ? `articulos/${a.slug}/` : '#'}" class="article-card">
           <div class="article-thumb" style="${a.image ? '' : `background: linear-gradient(135deg, ${catColor(a.category)}22, ${catColor(a.category)}44)`}">
-            ${a.image ? `<img src="${a.image}" alt="${a.title}" width="400" height="300" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"/>` : ''}
+            ${a.image ? `<img src="${a.image}" alt="${a.title}" width="400" height="300" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"/>` : a.emoji}
           </div>
           <div class="article-body">
             <span class="tag ${tagClass(a.category)}">${a.category}</span>
@@ -808,8 +1033,8 @@
             <p class="article-excerpt">${a.excerpt}</p>
           </div>
           <div class="article-footer">
-            <span class="article-date">${SVG.calendar} ${a.date}</span>
-            <span class="article-date">${SVG.clock} ${a.readTime} min</span>
+            <span class="article-date">📅 ${a.date}</span>
+            <span class="article-date">⏱ ${a.readTime} min</span>
           </div>
         </a>
       `).join('');
@@ -832,19 +1057,16 @@
       document.getElementById('featured-link').removeAttribute('onclick');
       const featuredImg = document.getElementById('featured-emoji');
       if (a.image) {
-        featuredImg.innerHTML = `<img src="${a.image}" alt="${a.title}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="eager" fetchpriority="high"/>`;
-        featuredImg.style.fontSize = '0';
+          featuredImg.innerHTML = `<img src="${a.image}" alt="${a.title}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="eager" fetchpriority="high"/>`;
+          featuredImg.style.fontSize = '0';
       } else {
-        featuredImg.innerHTML = '';
+        featuredImg.innerHTML = a.emoji;
         featuredImg.style.fontSize = '5rem';
       }
       document.getElementById('featured-tag').textContent = a.category;
       document.getElementById('featured-title').textContent = a.title;
       document.getElementById('featured-excerpt').textContent = a.excerpt;
-      document.getElementById('featured-meta').innerHTML = `
-        <span>${SVG.calendar} ${a.date}</span>
-        <span>${SVG.clock} ${a.readTime} min de lectura</span>
-      `;
+      document.getElementById('featured-meta').innerHTML = `📅 ${a.date} · ⏱ ${a.readTime} min de lectura`;
     }
 
     function renderPopular() {
@@ -868,7 +1090,7 @@
       return '';
     }
 
-    // ── NAVIGATION ──
+        // ── NAVIGATION ──
     function openArticle(id) {
       const a = articles.find(x => x.id === id);
       if (!a) return;
@@ -877,10 +1099,11 @@
       ap.classList.add('active');
       document.getElementById('art-tag').textContent = a.category;
       document.getElementById('art-title').textContent = a.title;
-      document.getElementById('art-date').innerHTML = `${SVG.calendar} ${a.date}`;
-      document.getElementById('art-read').innerHTML = `${SVG.clock} ${a.readTime} min de lectura`;
-      document.getElementById('art-cat').innerHTML = `${SVG.tag} ${a.category}`;
-
+      document.getElementById('art-date').textContent = '📅 ' + a.date;
+      document.getElementById('art-read').textContent = '⏱ ' + a.readTime + ' min de lectura';
+      document.getElementById('art-cat').textContent = a.emoji + ' ' + a.category;
+    
+      // Agregar imagen al inicio si existe y el contenido no la tiene ya
       let contentHtml = a.content;
       if (a.image && !contentHtml.includes('<figure')) {
         contentHtml = `<figure style="margin:0 0 28px 0;"><img src="${a.image}" alt="${a.title}" style="width:100%;border-radius:10px;max-height:420px;object-fit:cover;" loading="lazy"/></figure>` + contentHtml;
