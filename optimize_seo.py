@@ -21,7 +21,7 @@ import anthropic
 API_KEY      = os.environ.get("ANTHROPIC_API_KEY")
 HTML_FILE    = "index.html"
 ARTICLES_DIR = "articulos"
-SITE_URL     = "https://diegonatylab-alt.github.io"
+SITE_URL     = "https://petsguia.com"
 SITE_NAME    = "PetsGuía"
 
 
