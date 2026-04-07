@@ -322,8 +322,8 @@ def generate_article_html(article):
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23c8541a'/><text x='50' y='68' font-size='48' text-anchor='middle' fill='white' font-family='system-ui,sans-serif' font-weight='700'>PG</text></svg>">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23c8541a'/><text x='50' y='68' font-size='48' text-anchor='middle' fill='white' font-family='system-ui,sans-serif' font-weight='700'>PG</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.svg">
   <script>if(location.protocol!=='https:')location.replace('https://'+location.hostname+location.pathname+location.search);</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{title} – {SITE_NAME}</title>
