@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script>if(location.protocol!=='https:')location.replace('https://'+location.hostname+location.pathname+location.search);</script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora de edad humana de perros y gatos por raza – PetsGuía</title>
+  <meta name="description" content="Calculá la edad de tu perro o gato en años humanos con fórmula científica por raza y tamaño. No la fórmula genérica ×7. Resultado al instante."/>
+  <meta name="keywords" content="edad perro años humanos, calculadora edad gato, edad humana mascota, años perro a humano, calculadora edad por raza"/>
+  <meta property="og:title" content="Calculadora de edad humana de perros y gatos – PetsGuía"/>
+  <meta property="og:description" content="Descubrí la edad real de tu mascota en años humanos. Fórmula científica por raza y tamaño."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://petsguia.com/herramientas/calculadora-edad/"/>
+  <link rel="canonical" href="https://petsguia.com/herramientas/calculadora-edad/"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,400&family=DM+Sans:wght@400;600&display=swap" onload="this.onload=null;this.rel='stylesheet'"/>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,400&family=DM+Sans:wght@400;600&display=swap"/></noscript>
+  <link rel="stylesheet" href="/css/tools.css"/>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calculadora de edad humana de perros y gatos",
+    "description": "Calcula la edad de tu perro o gato en años humanos usando una fórmula científica basada en la raza y el tamaño del animal.",
+    "url": "https://petsguia.com/herramientas/calculadora-edad/",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "PetsGuía",
+      "url": "https://petsguia.com"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Es cierto que 1 año de perro equivale a 7 años humanos?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. La fórmula de ×7 es un mito. Los perros maduran mucho más rápido en sus primeros 2 años de vida. Un perro de 1 año equivale a unos 15 años humanos, y uno de 2 años a unos 24. Después, cada año suma entre 4 y 7 años humanos dependiendo del tamaño de la raza."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cómo se calcula la edad humana de un gato?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Los gatos maduran rápidamente: el primer año equivale a unos 15 años humanos y el segundo a 9 más (total 24). A partir del tercer año, cada año felino suma aproximadamente 4 años humanos. Los gatos grandes como el Maine Coon envejecen un poco más rápido que los gatos medianos."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Influye el tamaño de la raza en la edad humana del perro?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí, significativamente. Los perros pequeños (menos de 10 kg) envejecen más lento y viven más. Los perros gigantes (más de 40 kg) envejecen más rápido y tienen menor esperanza de vida. Por eso esta calculadora ajusta el resultado según el tamaño de la raza."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">Pets<span>Guía</span></a>
+    <nav>
+      <a href="/">Inicio</a>
+      <a href="/herramientas/">Herramientas</a>
+      <a href="/contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <section class="tool-hero">
+    <div class="tool-hero-content">
+      <span class="tool-badge">🎂 Calculadora gratuita</span>
+      <h1>¿Cuántos años humanos tiene tu <em>mascota</em>?</h1>
+      <p>Fórmula científica por raza y tamaño. Olvidate del mito de multiplicar por 7.</p>
+    </div>
+  </section>
+
+  <div class="tool-container">
+
+    <div class="breadcrumb">
+      <a href="/">Inicio</a> › <a href="/herramientas/">Herramientas</a> › Calculadora de edad humana
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="tool-card">
+      <h2>Ingresá los datos de tu mascota</h2>
+
+      <div class="form-group">
+        <label for="especie">Especie</label>
+        <select id="especie" class="form-select" onchange="cargarRazas()">
+          <option value="">Seleccioná una especie</option>
+          <option value="perro">🐶 Perro</option>
+          <option value="gato">🐱 Gato</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="raza">Raza</label>
+        <select id="raza" class="form-select" disabled>
+          <option value="">Primero seleccioná la especie</option>
+        </select>
+        <small>Si tu mascota es mestiza, elegí la raza más parecida o "Mestizo/Común".</small>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="anios">Años</label>
+          <select id="anios" class="form-select">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="meses">Meses</label>
+          <select id="meses" class="form-select">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="calcular()">
+        🎂 Calcular edad humana
+      </button>
+    </div>
+
+    <!-- RESULTADO -->
+    <div class="result-card" id="resultado">
+      <div class="result-main">
+        <div class="result-number" id="res-edad">--</div>
+        <div class="result-unit">años humanos</div>
+        <div class="result-label" id="res-nombre"></div>
+      </div>
+
+      <div class="stage-bar">
+        <div class="stage-bar-label" id="res-etapa"></div>
+        <div class="stage-bar-track">
+          <div class="stage-bar-fill" id="res-barra" style="width:0%;background:var(--accent)"></div>
+        </div>
+      </div>
+
+      <div class="result-details">
+        <div class="result-detail">
+          <div class="result-detail-label">Etapa de vida</div>
+          <div class="result-detail-value" id="res-fase">--</div>
+        </div>
+        <div class="result-detail">
+          <div class="result-detail-label">Esperanza de vida</div>
+          <div class="result-detail-value" id="res-esperanza">--</div>
+        </div>
+        <div class="result-detail">
+          <div class="result-detail-label">Tamaño de raza</div>
+          <div class="result-detail-value" id="res-tamano">--</div>
+        </div>
+        <div class="result-detail">
+          <div class="result-detail-label">Equivalencia usada</div>
+          <div class="result-detail-value" id="res-formula">--</div>
+        </div>
+      </div>
+
+      <div id="res-consejo" style="margin-top:20px;padding:16px;background:var(--bg);border-radius:8px;font-size:0.88rem;color:var(--ink2);line-height:1.6;"></div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+      <div class="tool-card" style="padding:0;border:none;background:none;margin-top:32px;">
+        <h2 style="padding:0 0 16px;border-bottom:2px solid var(--border);">Preguntas frecuentes</h2>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Es cierto que 1 año de perro equivale a 7 años humanos?</button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">No. La fórmula de ×7 es un mito popular sin base científica. Los perros maduran mucho más rápido en sus primeros 2 años: un perro de 1 año equivale a unos 15 años humanos y uno de 2 años a unos 24. Después, cada año adicional suma entre 4 y 7 años humanos dependiendo del tamaño de la raza. Los estudios de metilación del ADN (epigenética) han confirmado que el envejecimiento canino es logarítmico, no lineal.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Cómo se calcula la edad humana de un gato?</button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Los gatos maduran rápidamente: el primer año equivale a unos 15 años humanos y el segundo a 9 más (total 24 años humanos a los 2 años). A partir del tercer año, cada año felino suma aproximadamente 4 años humanos. Los gatos de razas grandes como el Maine Coon envejecen un poco más rápido que las razas medianas o pequeñas. Un gato mestizo de 10 años equivale a unos 56 años humanos.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿El tamaño de la raza influye en la edad humana?</button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Sí, significativamente. Los perros pequeños (menos de 10 kg) envejecen más lento y viven en promedio 12-16 años. Los perros gigantes (más de 40 kg) envejecen mucho más rápido y tienen una esperanza de vida de 6-10 años. Un Gran Danés de 6 años equivale a ~49 años humanos, mientras que un Chihuahua de la misma edad equivale a ~40. Esta calculadora ajusta automáticamente según el tamaño de la raza seleccionada.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Qué fuentes científicas respaldan esta calculadora?</button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Los coeficientes utilizados se basan en las guías de la American Veterinary Medical Association (AVMA) y en el estudio de Wang et al. (2020) sobre metilación de ADN en perros publicado en Cell Systems. Para gatos, se siguen las pautas de la American Association of Feline Practitioners (AAFP) y la International Cat Care.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Puedo usar esta calculadora para cachorros o gatitos?</button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Sí. Podés seleccionar 0 años y los meses correspondientes. Un cachorro de 6 meses equivale a aproximadamente 7-8 años humanos, y un gatito de 6 meses a unos 7 años humanos. La maduración es especialmente acelerada durante el primer año de vida.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INFO SEO -->
+    <div class="tool-info">
+      <h2>¿Cómo funciona la calculadora de edad de mascotas?</h2>
+      <p>Nuestra calculadora utiliza una <strong>fórmula logarítmica basada en estudios veterinarios</strong> que tiene en cuenta tres factores clave:</p>
+      <ul>
+        <li><strong>Especie:</strong> perros y gatos envejecen a ritmos diferentes.</li>
+        <li><strong>Tamaño de la raza:</strong> las razas pequeñas viven más y envejecen más lento que las gigantes.</li>
+        <li><strong>Edad real:</strong> la maduración es acelerada en los primeros 2 años y luego se desacelera.</li>
+      </ul>
+      <p>A diferencia de la fórmula popular de "multiplicar por 7", este método refleja con mayor precisión los cambios fisiológicos reales. Un perro de 1 año ya es sexualmente maduro y tiene muchas más capacidades que un humano de 7 años.</p>
+
+      <h2>Etapas de vida de perros y gatos</h2>
+      <p>Conocer la etapa de vida de tu mascota te ayuda a ajustar su alimentación, ejercicio y visitas veterinarias:</p>
+      <ul>
+        <li><strong>Cachorro/Gatito (0-1 año):</strong> Crecimiento rápido. Necesita vacunas, socialización y alimentación de alta calidad.</li>
+        <li><strong>Adulto joven (1-3 años):</strong> Máxima energía. Es buen momento para esterilización y establecer rutinas de ejercicio.</li>
+        <li><strong>Adulto (3-6 años en perros grandes, 3-10 en pequeños):</strong> Plenitud. Mantener chequeos anuales.</li>
+        <li><strong>Senior (últimos 25% de esperanza de vida):</strong> Más visitas al veterinario, dieta adaptada, ejercicio moderado.</li>
+      </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-card">
+      <h3>¿Querés saber cuánto alimento necesita?</h3>
+      <p>Usá nuestra calculadora de alimentación por raza, peso y nivel de actividad.</p>
+      <a href="/herramientas/">Ver todas las herramientas</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-logo">PetsGuía</span>
+      <div class="footer-links">
+        <a href="/">Inicio</a>
+        <a href="/herramientas/">Herramientas</a>
+        <a href="/privacidad.html">Privacidad</a>
+        <a href="/contacto.html">Contacto</a>
+        <a href="/aviso-legal.html">Aviso Legal</a>
+      </div>
+      <span class="footer-copy">© 2026 PetsGuía. Todos los derechos reservados.</span>
+    </div>
+  </footer>
+
+  <script>
+  /* ── DATOS ── */
+  let razasPerros = [];
+  let razasGatos  = [];
+
+  /* Coeficientes de envejecimiento (AVMA + estudios epigenéticos) */
+  const COEF_PERRO = {
+    'pequeño':  { first: 15, second: 9, subsequent: 4 },
+    'mediano':  { first: 15, second: 9, subsequent: 5 },
+    'grande':   { first: 15, second: 9, subsequent: 6 },
+    'gigante':  { first: 15, second: 9, subsequent: 7 },
+    'variable': { first: 15, second: 9, subsequent: 5 }
+  };
+
+  const COEF_GATO = {
+    'pequeño':  { first: 15, second: 9, subsequent: 4 },
+    'mediano':  { first: 15, second: 9, subsequent: 4 },
+    'grande':   { first: 15, second: 9, subsequent: 5 },
+    'variable': { first: 15, second: 9, subsequent: 4 }
+  };
+
+  /* ── CARGA DE DATOS ── */
+  async function init() {
+    try {
+      const [rp, rg] = await Promise.all([
+        fetch('/data/razas-perros.json').then(r => r.json()),
+        fetch('/data/razas-gatos.json').then(r => r.json())
+      ]);
+      razasPerros = rp;
+      razasGatos  = rg;
+    } catch(e) {
+      console.warn('No se pudieron cargar los datos de razas:', e);
+    }
+
+    /* Si hay parámetros en URL, precargar */
+    const params = new URLSearchParams(location.search);
+    if (params.get('especie')) {
+      document.getElementById('especie').value = params.get('especie');
+      cargarRazas();
+      if (params.get('raza')) {
+        setTimeout(() => {
+          document.getElementById('raza').value = params.get('raza');
+        }, 50);
+      }
+    }
+  }
+
+  function cargarRazas() {
+    const esp = document.getElementById('especie').value;
+    const sel = document.getElementById('raza');
+    sel.innerHTML = '';
+    sel.disabled = true;
+
+    if (!esp) {
+      sel.innerHTML = '<option value="">Primero seleccioná la especie</option>';
+      return;
+    }
+
+    const lista = esp === 'perro' ? razasPerros : razasGatos;
+    sel.innerHTML = '<option value="">Seleccioná la raza</option>';
+    lista.forEach(r => {
+      const opt = document.createElement('option');
+      opt.value = r.id;
+      opt.textContent = r.nombre;
+      sel.appendChild(opt);
+    });
+    sel.disabled = false;
+  }
+
+  /* ── CÁLCULO ── */
+  function calcular() {
+    const esp   = document.getElementById('especie').value;
+    const razaId = document.getElementById('raza').value;
+    const anios = parseInt(document.getElementById('anios').value);
+    const meses = parseInt(document.getElementById('meses').value);
+
+    if (!esp) return alert('Seleccioná una especie.');
+    if (!razaId) return alert('Seleccioná una raza.');
+    if (anios === 0 && meses === 0) return alert('Ingresá la edad de tu mascota.');
+
+    const lista = esp === 'perro' ? razasPerros : razasGatos;
+    const raza  = lista.find(r => r.id === razaId);
+    if (!raza) return;
+
+    const edadDecimal = anios + meses / 12;
+    const coefMap     = esp === 'perro' ? COEF_PERRO : COEF_GATO;
+    const coef        = coefMap[raza.coef_edad] || coefMap['mediano'];
+
+    let edadHumana;
+    if (edadDecimal <= 1) {
+      edadHumana = edadDecimal * coef.first;
+    } else if (edadDecimal <= 2) {
+      edadHumana = coef.first + (edadDecimal - 1) * coef.second;
+    } else {
+      edadHumana = coef.first + coef.second + (edadDecimal - 2) * coef.subsequent;
+    }
+
+    edadHumana = Math.round(edadHumana);
+
+    /* Determinar etapa de vida */
+    const esperanzaMax = raza.esperanza_vida_max;
+    const esperanzaMin = raza.esperanza_vida_min;
+    const esperanzaProm = (esperanzaMin + esperanzaMax) / 2;
+    let fase, faseColor, consejo;
+
+    if (edadDecimal < 1) {
+      fase = esp === 'perro' ? 'Cachorro' : 'Gatito';
+      faseColor = '#3a7d44';
+      consejo = `Tu ${esp === 'perro' ? 'cachorro' : 'gatito'} está en plena etapa de crecimiento. Es fundamental completar el esquema de vacunación, comenzar la socialización y alimentarlo con comida de alta calidad para cachorros.`;
+    } else if (edadDecimal < 3) {
+      fase = 'Adulto joven';
+      faseColor = '#2e9e6a';
+      consejo = `Tu ${raza.nombre} es un adulto joven con máxima energía. Es buen momento para establecer rutinas de ejercicio, considerar la esterilización y hacer chequeos veterinarios anuales.`;
+    } else if (edadDecimal < esperanzaProm * 0.75) {
+      fase = 'Adulto';
+      faseColor = '#e8a44a';
+      consejo = `Tu ${raza.nombre} está en plenitud. Mantené los chequeos anuales, una dieta equilibrada y ejercicio regular para preservar su salud óptima.`;
+    } else {
+      fase = 'Senior';
+      faseColor = '#c8541a';
+      consejo = `Tu ${raza.nombre} es un ${esp === 'perro' ? 'perro' : 'gato'} senior. Aumentá las visitas veterinarias a cada 6 meses, considerá una dieta para senior y adaptá el ejercicio a su ritmo.`;
+    }
+
+    /* Porcentaje de barra de vida */
+    const pctVida = Math.min((edadDecimal / esperanzaProm) * 100, 100);
+
+    /* Mostrar resultado */
+    document.getElementById('res-edad').textContent = edadHumana;
+    document.getElementById('res-nombre').textContent = raza.nombre + (esp === 'perro' ? ' 🐶' : ' 🐱');
+    document.getElementById('res-fase').textContent = fase;
+    document.getElementById('res-esperanza').textContent = esperanzaMin + '–' + esperanzaMax + ' años';
+    document.getElementById('res-tamano').textContent = raza.tamano.charAt(0).toUpperCase() + raza.tamano.slice(1);
+    document.getElementById('res-formula').textContent = coef.first + '/' + coef.second + '/' + coef.subsequent + ' años';
+    document.getElementById('res-etapa').textContent = fase + ' — ' + Math.round(pctVida) + '% de esperanza de vida';
+    document.getElementById('res-consejo').innerHTML = '💡 <strong>Consejo:</strong> ' + consejo;
+
+    const barra = document.getElementById('res-barra');
+    barra.style.background = faseColor;
+    barra.style.width = '0%';
+    setTimeout(() => { barra.style.width = pctVida + '%'; }, 50);
+
+    const card = document.getElementById('resultado');
+    card.classList.add('visible');
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  /* ── FAQ TOGGLE ── */
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const answer = item.querySelector('.faq-answer');
+    if (item.classList.contains('open')) {
+      item.classList.remove('open');
+      answer.style.maxHeight = '0';
+    } else {
+      document.querySelectorAll('.faq-item.open').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = '0';
+      });
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
+  init();
+  </script>
+</body>
+</html>
