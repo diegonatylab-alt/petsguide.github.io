@@ -407,25 +407,7 @@
       color: var(--ink2);
     }
 
-    /* Popular posts */
-    .popular-list { display: flex; flex-direction: column; gap: 14px; }
-    .popular-item { display: flex; gap: 12px; align-items: flex-start; }
-    .popular-num {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--border);
-      line-height: 1;
-      flex-shrink: 0;
-      width: 28px;
-    }
-    .popular-title {
-      font-size: 0.85rem;
-      font-weight: 500;
-      line-height: 1.4;
-      color: var(--ink);
-    }
-    .popular-item:hover .popular-title { color: var(--accent); }
+
 
     /* Newsletter widget */
     .newsletter-widget {
@@ -626,6 +608,53 @@
       </div>
     </div>
 
+    <!-- HERRAMIENTAS SECTION -->
+    <section id="tools-section" style="background:var(--ink);padding:48px 24px;">
+      <div style="max-width:1200px;margin:0 auto;text-align:center;">
+        <span style="display:inline-block;background:var(--accent);color:white;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:4px 14px;border-radius:100px;margin-bottom:16px;">🛠️ Herramientas interactivas</span>
+        <h2 style="font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:var(--bg);margin-bottom:8px;">Calculadoras y herramientas para tu mascota</h2>
+        <p style="color:rgba(255,255,255,0.65);max-width:520px;margin:0 auto 32px;font-size:0.95rem;">Resultados personalizados al instante. Gratis, sin registro.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;text-align:left;">
+          <a href="/herramientas/calculadora-edad/" style="background:var(--surface);border-radius:var(--radius);padding:20px;transition:transform 0.2s,box-shadow 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+            <div style="font-size:1.6rem;margin-bottom:8px;">🎂</div>
+            <h3 style="font-family:var(--font-display);font-size:0.92rem;font-weight:700;margin-bottom:4px;color:var(--ink);">Edad humana</h3>
+            <p style="font-size:0.78rem;color:var(--ink2);line-height:1.4;">Edad real por raza y tamaño</p>
+            <span style="display:inline-flex;align-items:center;gap:4px;font-size:0.78rem;font-weight:600;color:var(--accent);margin-top:8px;">Calcular →</span>
+          </a>
+          <a href="/herramientas/calculadora-alimentacion/" style="background:var(--surface);border-radius:var(--radius);padding:20px;transition:transform 0.2s,box-shadow 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+            <div style="font-size:1.6rem;margin-bottom:8px;">🍖</div>
+            <h3 style="font-family:var(--font-display);font-size:0.92rem;font-weight:700;margin-bottom:4px;color:var(--ink);">Alimentación</h3>
+            <p style="font-size:0.78rem;color:var(--ink2);line-height:1.4;">Gramos diarios por marca</p>
+            <span style="display:inline-flex;align-items:center;gap:4px;font-size:0.78rem;font-weight:600;color:var(--accent);margin-top:8px;">Calcular →</span>
+          </a>
+          <a href="/herramientas/identificador-raza/" style="background:var(--surface);border-radius:var(--radius);padding:20px;transition:transform 0.2s,box-shadow 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+            <div style="font-size:1.6rem;margin-bottom:8px;">🔍</div>
+            <h3 style="font-family:var(--font-display);font-size:0.92rem;font-weight:700;margin-bottom:4px;color:var(--ink);">Identificar raza</h3>
+            <p style="font-size:0.78rem;color:var(--ink2);line-height:1.4;">Quiz por características</p>
+            <span style="display:inline-flex;align-items:center;gap:4px;font-size:0.78rem;font-weight:600;color:var(--accent);margin-top:8px;">Hacer quiz →</span>
+          </a>
+          <a href="/herramientas/calculadora-costo-mascota/" style="background:var(--surface);border-radius:var(--radius);padding:20px;transition:transform 0.2s,box-shadow 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+            <div style="font-size:1.6rem;margin-bottom:8px;">💰</div>
+            <h3 style="font-family:var(--font-display);font-size:0.92rem;font-weight:700;margin-bottom:4px;color:var(--ink);">Costo mensual</h3>
+            <p style="font-size:0.78rem;color:var(--ink2);line-height:1.4;">Por especie, tamaño y país</p>
+            <span style="display:inline-flex;align-items:center;gap:4px;font-size:0.78rem;font-weight:600;color:var(--accent);margin-top:8px;">Calcular →</span>
+          </a>
+          <a href="/herramientas/comparador-razas/" style="background:var(--surface);border-radius:var(--radius);padding:20px;transition:transform 0.2s,box-shadow 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+            <div style="font-size:1.6rem;margin-bottom:8px;">⚖️</div>
+            <h3 style="font-family:var(--font-display);font-size:0.92rem;font-weight:700;margin-bottom:4px;color:var(--ink);">Comparar razas</h3>
+            <p style="font-size:0.78rem;color:var(--ink2);line-height:1.4;">Lado a lado con radar</p>
+            <span style="display:inline-flex;align-items:center;gap:4px;font-size:0.78rem;font-weight:600;color:var(--accent);margin-top:8px;">Comparar →</span>
+          </a>
+          <a href="/herramientas/calculadora-dosis/" style="background:var(--surface);border-radius:var(--radius);padding:20px;transition:transform 0.2s,box-shadow 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+            <div style="font-size:1.6rem;margin-bottom:8px;">💊</div>
+            <h3 style="font-family:var(--font-display);font-size:0.92rem;font-weight:700;margin-bottom:4px;color:var(--ink);">Dosis veterinarias</h3>
+            <p style="font-size:0.78rem;color:var(--ink2);line-height:1.4;">Estimativa por peso y especie</p>
+            <span style="display:inline-flex;align-items:center;gap:4px;font-size:0.78rem;font-weight:600;color:var(--accent);margin-top:8px;">Calcular →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- MAIN CONTENT -->
     <div class="container">
       <div class="main-grid">
@@ -679,12 +708,6 @@
             </ul>
           </div>
 
-          <!-- Popular -->
-          <div class="widget">
-            <h3 class="widget-title">Más leídos</h3>
-            <div class="popular-list" id="popular-list"></div>
-          </div>
-
         </aside>
       </div>
     </div>
@@ -709,53 +732,6 @@
     <!-- In-article ad 2 (oculto hasta activar AdSense) -->
     <div class="in-article-ad" style="display:none; margin-top:32px;">Google AdSense — In-article 300×250</div>
   </div>
-
-  <!-- HERRAMIENTAS SECTION -->
-  <section id="tools-section" style="background:var(--ink);padding:48px 24px;margin-top:32px;">
-    <div style="max-width:1200px;margin:0 auto;text-align:center;">
-      <span style="display:inline-block;background:var(--accent);color:white;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:4px 14px;border-radius:100px;margin-bottom:16px;">🛠️ Nuevo</span>
-      <h2 style="font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:var(--bg);margin-bottom:8px;">Herramientas interactivas para tu mascota</h2>
-      <p style="color:rgba(255,255,255,0.65);max-width:500px;margin:0 auto 32px;font-size:0.95rem;">Calculadoras personalizadas que Google no puede replicar. Resultados al instante.</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;text-align:left;">
-        <a href="/herramientas/calculadora-edad/" style="background:var(--surface);border-radius:var(--radius);padding:24px;transition:transform 0.2s,box-shadow 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-          <div style="font-size:2rem;margin-bottom:12px;">🎂</div>
-          <h3 style="font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:6px;color:var(--ink);">Calculadora de edad humana</h3>
-          <p style="font-size:0.82rem;color:var(--ink2);line-height:1.5;">Edad real de tu perro o gato en años humanos. Fórmula por raza.</p>
-          <span style="display:inline-flex;align-items:center;gap:4px;font-size:0.82rem;font-weight:600;color:var(--accent);margin-top:12px;">Usar herramienta →</span>
-        </a>
-        <a href="/herramientas/calculadora-alimentacion/" style="background:var(--surface);border-radius:var(--radius);padding:24px;transition:transform 0.2s,box-shadow 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-          <div style="font-size:2rem;margin-bottom:12px;">🍖</div>
-          <h3 style="font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:6px;color:var(--ink);">Calculadora de alimentación</h3>
-          <p style="font-size:0.82rem;color:var(--ink2);line-height:1.5;">Gramos diarios por marca según peso, edad y actividad.</p>
-          <span style="display:inline-flex;align-items:center;gap:4px;font-size:0.82rem;font-weight:600;color:var(--accent);margin-top:12px;">Usar herramienta →</span>
-        </a>
-        <a href="/herramientas/identificador-raza/" style="background:var(--surface);border-radius:var(--radius);padding:24px;transition:transform 0.2s,box-shadow 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-          <div style="font-size:2rem;margin-bottom:12px;">🔍</div>
-          <h3 style="font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:6px;color:var(--ink);">Identificador de raza</h3>
-          <p style="font-size:0.82rem;color:var(--ink2);line-height:1.5;">Quiz interactivo: descubrí qué raza es tu mascota.</p>
-          <span style="display:inline-flex;align-items:center;gap:4px;font-size:0.82rem;font-weight:600;color:var(--accent);margin-top:12px;">Hacer el quiz →</span>
-        </a>
-        <a href="/herramientas/calculadora-costo-mascota/" style="background:var(--surface);border-radius:var(--radius);padding:24px;transition:transform 0.2s,box-shadow 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-          <div style="font-size:2rem;margin-bottom:12px;">💰</div>
-          <h3 style="font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:6px;color:var(--ink);">Calculadora de costo mensual</h3>
-          <p style="font-size:0.82rem;color:var(--ink2);line-height:1.5;">Estimá cuánto cuesta mantener tu mascota por mes.</p>
-          <span style="display:inline-flex;align-items:center;gap:4px;font-size:0.82rem;font-weight:600;color:var(--accent);margin-top:12px;">Calcular costo →</span>
-        </a>
-        <a href="/herramientas/comparador-razas/" style="background:var(--surface);border-radius:var(--radius);padding:24px;transition:transform 0.2s,box-shadow 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-          <div style="font-size:2rem;margin-bottom:12px;">⚖️</div>
-          <h3 style="font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:6px;color:var(--ink);">Comparador de razas</h3>
-          <p style="font-size:0.82rem;color:var(--ink2);line-height:1.5;">Compará dos razas lado a lado con gráfico radar.</p>
-          <span style="display:inline-flex;align-items:center;gap:4px;font-size:0.82rem;font-weight:600;color:var(--accent);margin-top:12px;">Comparar razas →</span>
-        </a>
-        <a href="/herramientas/calculadora-dosis/" style="background:var(--surface);border-radius:var(--radius);padding:24px;transition:transform 0.2s,box-shadow 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-          <div style="font-size:2rem;margin-bottom:12px;">💊</div>
-          <h3 style="font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:6px;color:var(--ink);">Calculadora de dosis</h3>
-          <p style="font-size:0.82rem;color:var(--ink2);line-height:1.5;">Dosis estimativa de medicamentos por peso y especie.</p>
-          <span style="display:inline-flex;align-items:center;gap:4px;font-size:0.82rem;font-weight:600;color:var(--accent);margin-top:12px;">Calcular dosis →</span>
-        </a>
-      </div>
-    </div>
-  </section>
 
   <footer>
     <div class="footer-inner">
@@ -1138,16 +1114,6 @@
       document.getElementById('featured-meta').innerHTML = `<svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>${a.date} · <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${a.readTime} min de lectura`;
     }
 
-    function renderPopular() {
-      const list = document.getElementById('popular-list');
-      list.innerHTML = articles.slice(0,5).map((a,i) => `
-        <a href="${a.slug ? `articulos/${a.slug}/` : '#'}" class="popular-item" style="cursor:pointer;text-decoration:none;">
-          <span class="popular-num">0${i+1}</span>
-          <span class="popular-title">${a.title}</span>
-        </a>
-      `).join('');
-    }
-
     function catColor(cat) {
       const map = { Perros:'#c8541a', Gatos:'#6b5fb5', Aves:'#2e9e6a', Reptiles:'#4a8a3c', Exóticas:'#c49b2e', Salud:'#d04040', Alimentación:'#b06a20' };
       return map[cat] || '#888';
@@ -1197,7 +1163,7 @@
     renderFeatured();
     renderGrid();
     renderCounts();
-    renderPopular();
+
   </script>
 </body>
 </html>
