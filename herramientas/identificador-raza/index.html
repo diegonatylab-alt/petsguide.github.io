@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script>if(location.protocol!=='https:')location.replace('https://'+location.hostname+location.pathname+location.search);</script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Identificador de raza de perro o gato – Quiz interactivo | PetsGuía</title>
+  <meta name="description" content="Descubrí qué raza es tu perro o gato respondiendo 6 preguntas sobre sus características físicas. Quiz interactivo con resultado al instante."/>
+  <meta name="keywords" content="identificar raza perro, qué raza es mi perro, test raza gato, identificador raza mascota, quiz raza perro"/>
+  <meta property="og:title" content="Identificador de raza de perro o gato – Quiz interactivo | PetsGuía"/>
+  <meta property="og:description" content="Descubrí qué raza es tu mascota respondiendo preguntas sobre sus características físicas."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://petsguia.com/herramientas/identificador-raza/"/>
+  <link rel="canonical" href="https://petsguia.com/herramientas/identificador-raza/"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,400&family=DM+Sans:wght@400;600&display=swap" onload="this.onload=null;this.rel='stylesheet'"/>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,400&family=DM+Sans:wght@400;600&display=swap"/></noscript>
+  <link rel="stylesheet" href="/css/tools.css"/>
+  <style>
+    /* Quiz specific */
+    .quiz-progress { display:flex; gap:4px; margin-bottom:24px; }
+    .quiz-dot { flex:1; height:6px; border-radius:3px; background:var(--border); transition:background 0.3s; }
+    .quiz-dot.active { background:var(--accent2); }
+    .quiz-dot.done { background:var(--accent); }
+
+    .quiz-question { display:none; }
+    .quiz-question.active { display:block; }
+    .quiz-question h3 { font-family:var(--font-display); font-size:1.15rem; margin-bottom:6px; }
+    .quiz-question p { font-size:0.85rem; color:var(--ink2); margin-bottom:20px; }
+
+    .quiz-options { display:grid; gap:10px; }
+    .quiz-opt {
+      display:flex; align-items:center; gap:14px;
+      padding:16px 20px; background:var(--bg); border:2px solid var(--border);
+      border-radius:10px; cursor:pointer; transition:all 0.2s;
+      font-family:var(--font-body); font-size:0.92rem; font-weight:500;
+    }
+    .quiz-opt:hover { border-color:var(--accent2); background:var(--surface); }
+    .quiz-opt.selected { border-color:var(--accent); background:rgba(200,84,26,0.06); }
+    .quiz-opt-emoji { font-size:1.4rem; flex-shrink:0; }
+
+    .quiz-nav { display:flex; justify-content:space-between; margin-top:24px; gap:12px; }
+    .quiz-btn {
+      padding:12px 28px; border-radius:8px; border:none;
+      font-family:var(--font-body); font-size:0.9rem; font-weight:600;
+      cursor:pointer; transition:all 0.2s;
+    }
+    .quiz-btn-back { background:var(--surface2); color:var(--ink2); }
+    .quiz-btn-back:hover { background:var(--border); }
+    .quiz-btn-next { background:var(--accent); color:white; margin-left:auto; }
+    .quiz-btn-next:hover { background:#b84515; }
+    .quiz-btn-next:disabled { opacity:0.4; cursor:not-allowed; }
+
+    /* Results */
+    .match-card {
+      background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+      padding:24px; margin-bottom:14px; display:flex; gap:20px; align-items:flex-start;
+      transition:transform 0.2s, box-shadow 0.2s;
+    }
+    .match-card:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.06); }
+    .match-rank {
+      flex-shrink:0; width:48px; height:48px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--font-display); font-weight:700; font-size:1.1rem;
+    }
+    .rank-1 { background:var(--accent); color:white; }
+    .rank-2 { background:var(--accent2); color:var(--ink); }
+    .rank-3 { background:var(--surface2); color:var(--ink2); }
+    .match-info { flex:1; }
+    .match-name { font-family:var(--font-display); font-size:1.15rem; font-weight:700; margin-bottom:4px; }
+    .match-pct { font-size:0.85rem; color:var(--accent); font-weight:600; }
+    .match-desc { font-size:0.85rem; color:var(--ink2); line-height:1.5; margin-top:6px; }
+    .match-emoji { font-size:2.5rem; flex-shrink:0; }
+    .match-bar { height:8px; border-radius:4px; background:var(--surface2); margin-top:8px; overflow:hidden; }
+    .match-bar-fill { height:100%; border-radius:4px; transition:width 0.8s ease; }
+    .match-links { display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; }
+    .match-link {
+      font-size:0.8rem; font-weight:600; color:var(--accent);
+      display:inline-flex; align-items:center; gap:4px;
+    }
+
+    .restart-btn {
+      display:block; width:100%; padding:14px; background:var(--ink); color:var(--bg);
+      border:none; border-radius:8px; font-family:var(--font-body); font-size:0.95rem;
+      font-weight:600; cursor:pointer; margin-top:20px; transition:background 0.2s;
+    }
+    .restart-btn:hover { background:#2a2218; }
+
+    @media(max-width:600px) {
+      .match-card { flex-direction:column; text-align:center; align-items:center; }
+      .match-links { justify-content:center; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Identificador de raza de perro o gato",
+    "description":"Quiz interactivo que identifica la raza de tu perro o gato según sus características físicas.",
+    "url":"https://petsguia.com/herramientas/identificador-raza/",
+    "applicationCategory":"UtilityApplication",
+    "operatingSystem":"Web",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher":{"@type":"Organization","name":"PetsGuía","url":"https://petsguia.com"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"¿Cómo puedo saber qué raza es mi perro?","acceptedAnswer":{"@type":"Answer","text":"Podés usar nuestro quiz interactivo que analiza el tamaño, tipo de pelaje, forma del hocico, orejas y nivel de energía de tu perro para sugerir las razas más probables. Para una identificación definitiva, un test de ADN canino es la opción más precisa."}},
+      {"@type":"Question","name":"¿Este quiz reemplaza un test de ADN?","acceptedAnswer":{"@type":"Answer","text":"No. Este quiz ofrece una estimación basada en características visibles. Muchos perros mestizos tienen mezcla de razas que no son evidentes a simple vista. Un test de ADN como Embark o Wisdom Panel puede identificar la composición genética exacta."}},
+      {"@type":"Question","name":"¿Funciona para perros mestizos?","acceptedAnswer":{"@type":"Answer","text":"Sí. El quiz te mostrará las razas que más coinciden con las características de tu perro. En mestizos, los resultados indican las razas predominantes en su mezcla, no una raza pura exacta."}}
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">Pets<span>Guía</span></a>
+    <nav>
+      <a href="/">Inicio</a>
+      <a href="/herramientas/">Herramientas</a>
+      <a href="/contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <section class="tool-hero">
+    <div class="tool-hero-content">
+      <span class="tool-badge">🔍 Quiz interactivo</span>
+      <h1>¿Qué raza es tu <em>mascota</em>?</h1>
+      <p>Respondé 6 preguntas sobre sus características y te decimos las razas más probables.</p>
+    </div>
+  </section>
+
+  <div class="tool-container">
+
+    <div class="breadcrumb">
+      <a href="/">Inicio</a> › <a href="/herramientas/">Herramientas</a> › Identificador de raza
+    </div>
+
+    <!-- PASO 0: Elegir especie -->
+    <div class="tool-card" id="step-especie">
+      <h2>¿Qué tipo de mascota tenés?</h2>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="iniciarQuiz('perro')">
+          <span class="quiz-opt-emoji">🐶</span>
+          <span>Perro</span>
+        </div>
+        <div class="quiz-opt" onclick="iniciarQuiz('gato')">
+          <span class="quiz-opt-emoji">🐱</span>
+          <span>Gato</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="tool-card" id="quiz-card" style="display:none;">
+      <div class="quiz-progress" id="quiz-progress"></div>
+      <div id="quiz-container"></div>
+      <div class="quiz-nav">
+        <button class="quiz-btn quiz-btn-back" id="btn-back" onclick="irAnterior()" style="display:none;">← Anterior</button>
+        <button class="quiz-btn quiz-btn-next" id="btn-next" onclick="irSiguiente()" disabled>Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- RESULTADO -->
+    <div id="resultado" style="display:none;">
+      <div class="tool-card" style="text-align:center; border-color:var(--accent);">
+        <div style="font-size:2.5rem;margin-bottom:8px;">🎉</div>
+        <h2 style="border:none;padding:0;margin-bottom:8px;">¡Resultados del quiz!</h2>
+        <p style="color:var(--ink2);font-size:0.9rem;" id="res-especie-label"></p>
+      </div>
+
+      <div id="res-matches" style="margin-top:16px;"></div>
+
+      <div class="disclaimer" style="margin-top:16px;">
+        <strong>📝 Nota:</strong> Este quiz ofrece una estimación basada en características visibles. Para una identificación genética precisa, consultá un test de ADN canino o felino. En mestizos, los resultados indican las razas predominantes en la mezcla.
+      </div>
+
+      <button class="restart-btn" onclick="reiniciar()">🔄 Hacer el quiz otra vez</button>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+      <div style="margin-top:32px;">
+        <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;padding-bottom:16px;border-bottom:2px solid var(--border);">Preguntas frecuentes</h2>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Cómo puedo saber qué raza es mi perro?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">La forma más accesible es observar sus características físicas: tamaño, tipo de pelaje, forma del hocico, orejas y temperamento. Nuestro quiz analiza estos rasgos para sugerir las razas más probables. Para una identificación definitiva, un <strong>test de ADN canino</strong> (como Embark o Wisdom Panel) analiza la composición genética real, que puede revelar razas no evidentes a simple vista.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Este quiz reemplaza un test de ADN?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">No. Este quiz es una <strong>herramienta orientativa</strong> basada en fenotipo (apariencia). Muchos perros mestizos llevan genes de razas que no se manifiestan en su aspecto. Un test de ADN es la única forma de conocer la composición genética exacta. Nuestro quiz es un excelente punto de partida para tener una idea general.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Funciona para perros y gatos mestizos?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Sí. El quiz te mostrará las <strong>razas que más coinciden</strong> con las características de tu mascota. En mestizos, los resultados indican las razas predominantes en su mezcla genética visible. Es normal que un mestizo tenga coincidencias parciales con varias razas.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Cuántas razas analiza el quiz?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">El quiz compara las características de tu mascota contra <strong>40 razas de perros y 21 razas de gatos</strong> de las más populares en Latinoamérica y España. Incluye tanto razas puras como la opción de mestizo/criollo, que es la "raza" más común y querida en la región.</div></div>
+      </div>
+    </div>
+
+    <!-- INFO SEO -->
+    <div class="tool-info">
+      <h2>¿Cómo funciona el identificador de razas?</h2>
+      <p>Nuestro quiz utiliza un <strong>algoritmo de puntuación ponderada</strong> que compara tus respuestas contra una base de datos de características por raza. Cada pregunta tiene un peso diferente:</p>
+      <ul>
+        <li><strong>Tamaño y pelaje:</strong> Son los rasgos más discriminantes y tienen mayor peso en el puntaje.</li>
+        <li><strong>Forma del hocico/cara y orejas:</strong> Permiten diferenciar entre razas del mismo tamaño.</li>
+        <li><strong>Energía/personalidad:</strong> Ayuda a refinar el resultado entre razas físicamente similares.</li>
+      </ul>
+      <p>El resultado muestra las <strong>3 razas con mayor porcentaje de coincidencia</strong>, con una breve descripción y links para conocer más sobre cada una.</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-card">
+      <h3>¿Ya sabés la raza? Calculá su edad real</h3>
+      <p>Usá nuestra calculadora de edad humana con fórmula específica por raza.</p>
+      <a href="/herramientas/calculadora-edad/">Calcular edad humana</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-logo">PetsGuía</span>
+      <div class="footer-links">
+        <a href="/">Inicio</a>
+        <a href="/herramientas/">Herramientas</a>
+        <a href="/privacidad.html">Privacidad</a>
+        <a href="/contacto.html">Contacto</a>
+        <a href="/aviso-legal.html">Aviso Legal</a>
+      </div>
+      <span class="footer-copy">© 2026 PetsGuía. Todos los derechos reservados.</span>
+    </div>
+  </footer>
+
+  <script>
+  let quizData = null;
+  let especie = '';
+  let preguntas = [];
+  let respuestas = {};
+  let pasoActual = 0;
+
+  async function init() {
+    try {
+      quizData = await fetch('/data/quiz-razas.json').then(r => r.json());
+    } catch(e) {
+      console.warn('No se pudo cargar quiz-razas.json:', e);
+    }
+  }
+
+  function iniciarQuiz(esp) {
+    especie = esp;
+    const d = quizData[esp];
+    preguntas = d.preguntas;
+    respuestas = {};
+    pasoActual = 0;
+
+    document.getElementById('step-especie').style.display = 'none';
+    document.getElementById('quiz-card').style.display = 'block';
+
+    renderProgress();
+    renderPregunta();
+  }
+
+  function renderProgress() {
+    const cont = document.getElementById('quiz-progress');
+    cont.innerHTML = '';
+    for (let i = 0; i < preguntas.length; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'quiz-dot';
+      if (i < pasoActual) dot.classList.add('done');
+      if (i === pasoActual) dot.classList.add('active');
+      cont.appendChild(dot);
+    }
+  }
+
+  function renderPregunta() {
+    const p = preguntas[pasoActual];
+    const cont = document.getElementById('quiz-container');
+
+    let html = `<div class="quiz-question active">
+      <h3>${p.emoji} ${p.texto}</h3>
+      <p>Pregunta ${pasoActual + 1} de ${preguntas.length}</p>
+      <div class="quiz-options">`;
+
+    p.opciones.forEach(opt => {
+      const selected = respuestas[p.id] === opt.valor ? ' selected' : '';
+      html += `<div class="quiz-opt${selected}" onclick="seleccionar('${p.id}','${opt.valor}', this)">
+        <span class="quiz-opt-emoji">${opt.emoji}</span>
+        <span>${opt.texto}</span>
+      </div>`;
+    });
+
+    html += '</div></div>';
+    cont.innerHTML = html;
+
+    // Nav buttons
+    document.getElementById('btn-back').style.display = pasoActual > 0 ? 'block' : 'none';
+    const btnNext = document.getElementById('btn-next');
+    if (pasoActual === preguntas.length - 1) {
+      btnNext.textContent = '🔍 Ver resultados';
+    } else {
+      btnNext.textContent = 'Siguiente →';
+    }
+    btnNext.disabled = !respuestas[p.id];
+
+    renderProgress();
+  }
+
+  function seleccionar(preguntaId, valor, elem) {
+    respuestas[preguntaId] = valor;
+    document.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+    elem.classList.add('selected');
+    document.getElementById('btn-next').disabled = false;
+  }
+
+  function irSiguiente() {
+    if (pasoActual < preguntas.length - 1) {
+      pasoActual++;
+      renderPregunta();
+    } else {
+      mostrarResultados();
+    }
+  }
+
+  function irAnterior() {
+    if (pasoActual > 0) {
+      pasoActual--;
+      renderPregunta();
+    }
+  }
+
+  /* ── ALGORITMO DE MATCHING ── */
+  function mostrarResultados() {
+    const d = quizData[especie];
+    const razas = d.razas;
+
+    /* Pesos: tamaño y pelaje pesan más */
+    const pesos = {};
+    preguntas.forEach(p => {
+      if (p.id === 'tamano' || p.id === 'pelaje_largo') pesos[p.id] = 3;
+      else if (p.id === 'hocico' || p.id === 'cara' || p.id === 'orejas') pesos[p.id] = 2;
+      else pesos[p.id] = 1;
+    });
+
+    const maxScore = Object.values(pesos).reduce((a, b) => a + b, 0);
+
+    const scores = razas.map(raza => {
+      let score = 0;
+      for (const [pid, resp] of Object.entries(respuestas)) {
+        if (pid === 'contexto') continue; // no-scoring question
+        const rasgoRaza = raza[pid];
+        if (rasgoRaza && rasgoRaza.includes(resp)) {
+          score += pesos[pid] || 1;
+        }
+      }
+      return { raza, score, pct: Math.round((score / maxScore) * 100) };
+    });
+
+    scores.sort((a, b) => b.score - a.score);
+    const top3 = scores.slice(0, 3);
+
+    /* Normalizar: el top1 es 100% si tiene score perfecto, sino escalar */
+    const maxReal = top3[0].score;
+    if (maxReal > 0) {
+      top3.forEach(s => {
+        s.pct = Math.round((s.score / maxScore) * 100);
+      });
+    }
+
+    /* Render */
+    document.getElementById('quiz-card').style.display = 'none';
+    document.getElementById('resultado').style.display = 'block';
+    document.getElementById('res-especie-label').textContent =
+      `Basado en tus respuestas para tu ${especie === 'perro' ? '🐶 perro' : '🐱 gato'}`;
+
+    const cont = document.getElementById('res-matches');
+    cont.innerHTML = '';
+
+    top3.forEach((item, i) => {
+      const r = item.raza;
+      const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : 'rank-3';
+      const barColor = i === 0 ? 'var(--accent)' : i === 1 ? 'var(--accent2)' : 'var(--border)';
+
+      cont.innerHTML += `
+      <div class="match-card">
+        <div class="match-rank ${rankClass}">#${i + 1}</div>
+        <div class="match-info">
+          <div class="match-name">${r.nombre}</div>
+          <div class="match-pct">${item.pct}% de coincidencia</div>
+          <div class="match-bar"><div class="match-bar-fill" style="width:0%;background:${barColor}" data-w="${item.pct}%"></div></div>
+          <div class="match-desc">${r.desc}</div>
+          <div class="match-links">
+            <a href="/herramientas/calculadora-edad/?especie=${especie}&raza=${r.id}" class="match-link">🎂 Calcular su edad</a>
+            <a href="/herramientas/calculadora-alimentacion/?especie=${especie}" class="match-link">🍖 Calcular alimentación</a>
+          </div>
+        </div>
+        <div class="match-emoji">${r.foto}</div>
+      </div>`;
+    });
+
+    document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    /* Animar barras */
+    setTimeout(() => {
+      document.querySelectorAll('.match-bar-fill').forEach(bar => {
+        bar.style.width = bar.getAttribute('data-w');
+      });
+    }, 100);
+  }
+
+  function reiniciar() {
+    especie = '';
+    preguntas = [];
+    respuestas = {};
+    pasoActual = 0;
+    document.getElementById('resultado').style.display = 'none';
+    document.getElementById('quiz-card').style.display = 'none';
+    document.getElementById('step-especie').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const answer = item.querySelector('.faq-answer');
+    if (item.classList.contains('open')) {
+      item.classList.remove('open');
+      answer.style.maxHeight = '0';
+    } else {
+      document.querySelectorAll('.faq-item.open').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = '0';
+      });
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
+  init();
+  </script>
+</body>
+</html>
