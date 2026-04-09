@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script>if(location.protocol!=='https:')location.replace('https://'+location.hostname+location.pathname+location.search);</script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comparador de razas de perros y gatos lado a lado – PetsGuía</title>
+  <meta name="description" content="Compará dos razas de perros o gatos lado a lado: energía, cariño, inteligencia, ejercicio, compatibilidad con niños, departamento y más. Gráfico radar incluido."/>
+  <meta name="keywords" content="comparar razas perros, comparador de razas gatos, diferencias entre razas, qué raza elegir perro, comparativa razas mascotas"/>
+  <meta property="og:title" content="Comparador de razas de perros y gatos – PetsGuía"/>
+  <meta property="og:description" content="Compará dos razas lado a lado con gráfico radar: energía, cariño, ejercicio, niños y más."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://petsguia.com/herramientas/comparador-razas/"/>
+  <link rel="canonical" href="https://petsguia.com/herramientas/comparador-razas/"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,400&family=DM+Sans:wght@400;600&display=swap" onload="this.onload=null;this.rel='stylesheet'"/>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,400&family=DM+Sans:wght@400;600&display=swap"/></noscript>
+  <link rel="stylesheet" href="/css/tools.css"/>
+  <style>
+    .cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .cmp-vs{display:flex;align-items:center;justify-content:center;padding:12px 0;font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--ink2)}
+    .radar-wrap{position:relative;width:100%;max-width:440px;margin:0 auto 24px}
+    .radar-wrap canvas{width:100%!important;height:auto!important}
+    .radar-legend{display:flex;justify-content:center;gap:24px;margin-top:12px;font-size:.82rem}
+    .radar-legend span{display:inline-flex;align-items:center;gap:6px}
+    .radar-legend .dot{width:12px;height:12px;border-radius:50%;display:inline-block}
+    .attr-row{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+    .attr-row:last-child{border-bottom:none}
+    .attr-bar{height:8px;border-radius:4px;transition:width .5s ease}
+    .attr-a{text-align:right}
+    .attr-b{text-align:left}
+    .attr-mid{text-align:center;min-width:140px;padding:0 12px}
+    .attr-mid .attr-label{font-size:.82rem;font-weight:600;color:var(--ink)}
+    .attr-mid .attr-icon{font-size:.9rem}
+    .attr-val{font-family:var(--font-display);font-weight:700;font-size:.95rem;margin-bottom:4px}
+    .attr-track{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden}
+    .attr-track-a{display:flex;justify-content:flex-end}
+    .attr-track-a .attr-bar,.attr-track-b .attr-bar{min-width:4px}
+    .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+    .info-box{background:var(--bg);border-radius:8px;padding:16px}
+    .info-box h4{font-family:var(--font-display);font-size:.95rem;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+    .info-row{display:flex;justify-content:space-between;font-size:.85rem;padding:4px 0;border-bottom:1px solid var(--border)}
+    .info-row:last-child{border-bottom:none}
+    .info-row .lbl{color:var(--ink2)}
+    .info-row .val{font-weight:600}
+    .winner-tag{display:inline-block;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:.05em}
+    .winner-a{background:#c8541a22;color:#c8541a}
+    .winner-b{background:#3a7d4422;color:#3a7d44}
+    .winner-tie{background:#e8a44a22;color:#b87a10}
+    .disclaimer{font-size:.8rem;color:var(--ink2);background:var(--surface2);padding:14px 18px;border-radius:8px;margin-top:16px;line-height:1.5}
+    .disclaimer strong{color:var(--ink)}
+    @media(max-width:768px){.cmp-grid{grid-template-columns:1fr}.info-grid{grid-template-columns:1fr}.attr-mid{min-width:100px;padding:0 6px}}
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Comparador de razas de perros y gatos",
+    "description": "Compara dos razas de perros o gatos lado a lado con gráfico radar y atributos detallados.",
+    "url": "https://petsguia.com/herramientas/comparador-razas/",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "publisher": {"@type": "Organization", "name": "PetsGuía", "url": "https://petsguia.com"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Cuál es la mejor raza de perro para departamento?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Las mejores razas para departamento son las de baja energía y tamaño pequeño a mediano: Bulldog Francés, Cavalier King Charles, Shih Tzu, Boston Terrier y Pug. Lo más importante es que tengan baja necesidad de ejercicio y poca tendencia a ladrar."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué raza de perro es mejor con niños?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Las razas más recomendadas con niños son: Labrador Retriever, Golden Retriever, Beagle, Cavalier King Charles, Boxer y Terranova. Estas razas combinan paciencia, cariño y tolerancia. Siempre se debe supervisar la interacción entre mascotas y niños pequeños."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cómo elegir entre dos razas de gato?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Compará atributos clave: nivel de energía (un Bengalí necesita mucho más juego que un Persa), vocalización (Siamés es muy vocal vs British Shorthair casi silencioso), cuidado del pelaje (un Persa necesita cepillado diario), y tolerancia a la soledad si trabajás fuera de casa."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">Pets<span>Guía</span></a>
+    <nav>
+      <a href="/">Inicio</a>
+      <a href="/herramientas/">Herramientas</a>
+      <a href="/contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <section class="tool-hero">
+    <div class="tool-hero-content">
+      <span class="tool-badge">⚖️ Comparador gratuito</span>
+      <h1>Compará dos <em>razas</em> lado a lado</h1>
+      <p>Gráfico radar + 14 atributos detallados. Ideal para decidir qué raza se adapta mejor a tu estilo de vida.</p>
+    </div>
+  </section>
+
+  <div class="tool-container">
+
+    <div class="breadcrumb">
+      <a href="/">Inicio</a> › <a href="/herramientas/">Herramientas</a> › Comparador de razas
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="tool-card">
+      <h2>Elegí las dos razas a comparar</h2>
+
+      <div class="form-group">
+        <label for="especie">Especie</label>
+        <select id="especie" class="form-select" onchange="onEspecieChange()">
+          <option value="">Seleccioná una especie</option>
+          <option value="perro">🐶 Perros</option>
+          <option value="gato">🐱 Gatos</option>
+        </select>
+      </div>
+
+      <div class="cmp-grid">
+        <div class="form-group">
+          <label for="raza-a">Raza A</label>
+          <select id="raza-a" class="form-select" disabled>
+            <option value="">Primero seleccioná especie</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="raza-b">Raza B</label>
+          <select id="raza-b" class="form-select" disabled>
+            <option value="">Primero seleccioná especie</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="comparar()">
+        ⚖️ Comparar razas
+      </button>
+    </div>
+
+    <!-- RESULTADO -->
+    <div class="result-card" id="resultado">
+      <div class="cmp-vs">
+        <span id="res-nombre-a">—</span>&nbsp; vs &nbsp;<span id="res-nombre-b">—</span>
+      </div>
+
+      <!-- Radar chart -->
+      <div class="radar-wrap">
+        <canvas id="radarCanvas" width="440" height="440"></canvas>
+        <div class="radar-legend">
+          <span><span class="dot" style="background:#c8541a"></span> <span id="legend-a"></span></span>
+          <span><span class="dot" style="background:#3a7d44"></span> <span id="legend-b"></span></span>
+        </div>
+      </div>
+
+      <!-- Basic info cards -->
+      <div class="info-grid" id="res-info"></div>
+
+      <!-- Attribute bars -->
+      <h3 style="font-family:var(--font-display);font-size:1.1rem;margin-bottom:4px;">Comparación detallada por atributo</h3>
+      <p style="font-size:.82rem;color:var(--ink2);margin-bottom:12px;">Escala de 1 (mínimo) a 5 (máximo). El color indica cuál raza destaca en cada atributo.</p>
+      <div id="res-atributos"></div>
+
+      <div class="disclaimer">
+        <strong>⚠️ Importante:</strong> Los valores son promedios basados en estándares de raza. Cada animal es un individuo — la socialización, crianza y genética particular influyen significativamente en el temperamento. Usá esta comparación como punto de partida, no como veredicto definitivo.
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+      <div style="margin-top:32px;">
+        <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;padding-bottom:16px;border-bottom:2px solid var(--border);">Preguntas frecuentes</h2>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Cuál es la mejor raza de perro para departamento?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Las mejores razas para departamento combinan <strong>baja energía</strong> y <strong>poco ladrido</strong>: Bulldog Francés, Cavalier King Charles, Shih Tzu, Boston Terrier y Pug son excelentes opciones. Si preferís un perro mediano, el Bulldog Inglés o el Shar Pei también se adaptan bien. Lo clave es que no necesiten ejercicio intenso diario.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Qué raza de perro es mejor con niños?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Las razas más recomendadas con niños son <strong>Labrador Retriever, Golden Retriever, Beagle, Cavalier King Charles, Boxer y Terranova</strong>. Estas razas combinan paciencia, cariño y tolerancia. Usá el comparador para verificar atributos como "Apto para niños" y "Sociabilidad". Siempre supervisá la interacción entre niños pequeños y mascotas.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Cómo elijo entre dos razas de gato?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Compará los atributos clave para tu estilo de vida: <strong>energía</strong> (un Bengalí necesita mucho más juego que un Persa), <strong>vocalización</strong> (el Siamés es muy vocal vs el British Shorthair casi silencioso), <strong>cuidado del pelaje</strong> (un Persa necesita cepillado diario), y <strong>tolerancia a la soledad</strong> si trabajás fuera de casa muchas horas.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Los valores son exactos para cada raza?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Los valores representan <strong>promedios del estándar de raza</strong>, basados en guías de kennel clubs y veterinarios. Cada perro o gato es un individuo cuyo comportamiento varía según genética, socialización temprana, educación y entorno. Usá estos datos como referencia general para orientar tu decisión, no como predicción absoluta.</div></div>
+      </div>
+    </div>
+
+    <!-- INFO SEO -->
+    <div class="tool-info">
+      <h2>¿Cómo funciona el comparador de razas?</h2>
+      <p>Nuestro comparador evalúa <strong>14 atributos</strong> en una escala de 1 a 5, organizados en tres grupos:</p>
+      <ul>
+        <li><strong>Comportamiento:</strong> Energía, cariño, inteligencia, vocalización/ladrido, sociabilidad, facilidad de entrenamiento e instinto guardián.</li>
+        <li><strong>Cuidados:</strong> Necesidad de ejercicio, cuidado del pelaje y muda de pelo.</li>
+        <li><strong>Compatibilidad:</strong> Apto para niños, convivencia con otras mascotas, tolerancia a la soledad y aptitud para departamento.</li>
+      </ul>
+      <p>El <strong>gráfico radar</strong> muestra los 8 atributos más relevantes de forma visual, permitiéndote ver de un vistazo cuál raza destaca en qué áreas. Los datos provienen de estándares de raza, guías veterinarias y kennel clubs internacionales.</p>
+
+      <h2>Consejos para elegir la raza ideal</h2>
+      <ul>
+        <li><strong>Estilo de vida activo:</strong> Priorizá razas con alta energía y necesidad de ejercicio (Border Collie, Vizsla, Bengalí).</li>
+        <li><strong>Vivís en departamento:</strong> Buscá razas con alta puntuación en "departamento" y baja energía.</li>
+        <li><strong>Tenés niños:</strong> Elegí razas con alta puntuación en "niños" y "sociabilidad" (Labrador, Golden, Maine Coon).</li>
+        <li><strong>Primera mascota:</strong> Buscá razas con alta facilidad de entrenamiento y carácter equilibrado.</li>
+      </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-card">
+      <h3>¿No sabés qué raza tenés?</h3>
+      <p>Usá nuestro quiz interactivo para identificar la raza de tu mascota por sus características físicas.</p>
+      <a href="/herramientas/identificador-raza/">Identificar mi raza</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-logo">PetsGuía</span>
+      <div class="footer-links">
+        <a href="/">Inicio</a>
+        <a href="/herramientas/">Herramientas</a>
+        <a href="/privacidad.html">Privacidad</a>
+        <a href="/contacto.html">Contacto</a>
+        <a href="/aviso-legal.html">Aviso Legal</a>
+      </div>
+      <span class="footer-copy">© 2026 PetsGuía. Todos los derechos reservados.</span>
+    </div>
+  </footer>
+
+  <script>
+  var datos = null;
+  var razasBase = { perro: [], gato: [] };
+  var COLOR_A = '#c8541a';
+  var COLOR_B = '#3a7d44';
+
+  async function init() {
+    try {
+      var res = await Promise.all([
+        fetch('/data/comparador-razas.json').then(function(r){ return r.json(); }),
+        fetch('/data/razas-perros.json').then(function(r){ return r.json(); }),
+        fetch('/data/razas-gatos.json').then(function(r){ return r.json(); })
+      ]);
+      datos = res[0];
+      razasBase.perro = res[1];
+      razasBase.gato = res[2];
+    } catch(e) {
+      console.warn('Error cargando datos:', e);
+    }
+  }
+
+  function onEspecieChange() {
+    var esp = document.getElementById('especie').value;
+    var selA = document.getElementById('raza-a');
+    var selB = document.getElementById('raza-b');
+    if (!esp || !datos) {
+      selA.innerHTML = '<option value="">Primero seleccioná especie</option>';
+      selB.innerHTML = '<option value="">Primero seleccioná especie</option>';
+      selA.disabled = true;
+      selB.disabled = true;
+      return;
+    }
+    var opciones = '<option value="">Seleccioná una raza</option>';
+    razasBase[esp].forEach(function(r) {
+      if (datos[esp][r.id]) {
+        opciones += '<option value="' + r.id + '">' + r.nombre + '</option>';
+      }
+    });
+    selA.innerHTML = opciones;
+    selB.innerHTML = opciones;
+    selA.disabled = false;
+    selB.disabled = false;
+  }
+
+  function getRazaBase(esp, id) {
+    return razasBase[esp].find(function(r){ return r.id === id; });
+  }
+
+  function comparar() {
+    var esp = document.getElementById('especie').value;
+    var idA = document.getElementById('raza-a').value;
+    var idB = document.getElementById('raza-b').value;
+
+    if (!esp) return alert('Seleccioná una especie.');
+    if (!idA) return alert('Seleccioná la Raza A.');
+    if (!idB) return alert('Seleccioná la Raza B.');
+    if (idA === idB) return alert('Seleccioná dos razas diferentes.');
+
+    var tA = datos[esp][idA];
+    var tB = datos[esp][idB];
+    var bA = getRazaBase(esp, idA);
+    var bB = getRazaBase(esp, idB);
+
+    if (!tA || !tB || !bA || !bB) return alert('Datos no encontrados para las razas seleccionadas.');
+
+    document.getElementById('res-nombre-a').textContent = bA.nombre;
+    document.getElementById('res-nombre-b').textContent = bB.nombre;
+    document.getElementById('legend-a').textContent = bA.nombre;
+    document.getElementById('legend-b').textContent = bB.nombre;
+
+    // Info cards
+    var infoEl = document.getElementById('res-info');
+    infoEl.innerHTML = buildInfoBox(bA, COLOR_A) + buildInfoBox(bB, COLOR_B);
+
+    // Radar chart
+    drawRadar(tA, tB, bA.nombre, bB.nombre);
+
+    // Attribute bars
+    var attrsEl = document.getElementById('res-atributos');
+    attrsEl.innerHTML = '';
+    datos.atributos.forEach(function(attr) {
+      var vA = tA[attr.id];
+      var vB = tB[attr.id];
+      var winClass = vA > vB ? 'winner-a' : (vB > vA ? 'winner-b' : 'winner-tie');
+      var winLabel = vA > vB ? bA.nombre : (vB > vA ? bB.nombre : 'Empate');
+
+      attrsEl.innerHTML += '<div class="attr-row">' +
+        '<div class="attr-a">' +
+          '<div class="attr-val" style="color:' + COLOR_A + '">' + vA + '/5</div>' +
+          '<div class="attr-track attr-track-a"><div class="attr-bar" style="width:0%;background:' + COLOR_A + ';" data-width="' + (vA * 20) + '%"></div></div>' +
+        '</div>' +
+        '<div class="attr-mid">' +
+          '<div class="attr-icon">' + attr.icon + '</div>' +
+          '<div class="attr-label">' + attr.label + '</div>' +
+          '<span class="winner-tag ' + winClass + '">' + winLabel + '</span>' +
+        '</div>' +
+        '<div class="attr-b">' +
+          '<div class="attr-val" style="color:' + COLOR_B + '">' + vB + '/5</div>' +
+          '<div class="attr-track"><div class="attr-bar" style="width:0%;background:' + COLOR_B + ';" data-width="' + (vB * 20) + '%"></div></div>' +
+        '</div>' +
+      '</div>';
+    });
+
+    // Animate bars
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        attrsEl.querySelectorAll('.attr-bar').forEach(function(bar) {
+          bar.style.width = bar.dataset.width;
+        });
+      });
+    });
+
+    var card = document.getElementById('resultado');
+    card.classList.add('visible');
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function buildInfoBox(b, color) {
+    var tamLabel = { pequeño:'Pequeño', mediano:'Mediano', grande:'Grande', gigante:'Gigante', variable:'Variable' };
+    return '<div class="info-box">' +
+      '<h4><span style="color:' + color + '">●</span> ' + b.nombre + '</h4>' +
+      '<div class="info-row"><span class="lbl">Tamaño</span><span class="val">' + (tamLabel[b.tamano] || b.tamano) + '</span></div>' +
+      '<div class="info-row"><span class="lbl">Peso</span><span class="val">' + b.peso_min + '–' + b.peso_max + ' kg</span></div>' +
+      '<div class="info-row"><span class="lbl">Esperanza de vida</span><span class="val">' + b.esperanza_vida_min + '–' + b.esperanza_vida_max + ' años</span></div>' +
+      (b.grupo ? '<div class="info-row"><span class="lbl">Grupo</span><span class="val">' + b.grupo + '</span></div>' : '') +
+    '</div>';
+  }
+
+  /* ── Radar Chart (pure Canvas, no library) ── */
+  function drawRadar(tA, tB) {
+    var canvas = document.getElementById('radarCanvas');
+    var ctx = canvas.getContext('2d');
+
+    // Use 8 key attributes for radar
+    var radarAttrs = ['energia','carino','inteligencia','entrenamiento','ejercicio','ninos','departamento','sociabilidad'];
+    var radarLabels = ['Energía','Cariño','Inteligencia','Entrenamiento','Ejercicio','Niños','Depto.','Sociabilidad'];
+    var n = radarAttrs.length;
+
+    // High DPI
+    var dpr = window.devicePixelRatio || 1;
+    var size = 440;
+    canvas.width = size * dpr;
+    canvas.height = size * dpr;
+    canvas.style.width = size + 'px';
+    canvas.style.height = size + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    var cx = size / 2;
+    var cy = size / 2;
+    var maxR = 160;
+
+    ctx.clearRect(0, 0, size, size);
+
+    // Draw grid rings
+    ctx.strokeStyle = '#e0d8cc';
+    ctx.lineWidth = 1;
+    for (var ring = 1; ring <= 5; ring++) {
+      var r = (ring / 5) * maxR;
+      ctx.beginPath();
+      for (var i = 0; i <= n; i++) {
+        var angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+        var x = cx + r * Math.cos(angle);
+        var y = cy + r * Math.sin(angle);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.stroke();
+    }
+
+    // Draw axis lines
+    ctx.strokeStyle = '#e0d8cc';
+    for (var i = 0; i < n; i++) {
+      var angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + maxR * Math.cos(angle), cy + maxR * Math.sin(angle));
+      ctx.stroke();
+    }
+
+    // Draw data polygons
+    function drawPoly(traits, color, alpha) {
+      ctx.beginPath();
+      for (var i = 0; i <= n; i++) {
+        var idx = i % n;
+        var val = traits[radarAttrs[idx]] || 0;
+        var r = (val / 5) * maxR;
+        var angle = (Math.PI * 2 * idx / n) - Math.PI / 2;
+        var x = cx + r * Math.cos(angle);
+        var y = cy + r * Math.sin(angle);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.fillStyle = color.replace(')', ',' + alpha + ')').replace('rgb', 'rgba');
+      ctx.fill();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    drawPoly(tA, 'rgb(200,84,26)', 0.2);
+    drawPoly(tB, 'rgb(58,125,68)', 0.2);
+
+    // Draw dots
+    function drawDots(traits, color) {
+      for (var i = 0; i < n; i++) {
+        var val = traits[radarAttrs[i]] || 0;
+        var r = (val / 5) * maxR;
+        var angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+        ctx.beginPath();
+        ctx.arc(cx + r * Math.cos(angle), cy + r * Math.sin(angle), 4, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+    }
+    drawDots(tA, COLOR_A);
+    drawDots(tB, COLOR_B);
+
+    // Draw labels
+    ctx.fillStyle = '#1a1510';
+    ctx.font = '600 12px "DM Sans", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    for (var i = 0; i < n; i++) {
+      var angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+      var lx = cx + (maxR + 28) * Math.cos(angle);
+      var ly = cy + (maxR + 28) * Math.sin(angle);
+      ctx.fillText(radarLabels[i], lx, ly);
+    }
+  }
+
+  function toggleFaq(btn) {
+    var item = btn.parentElement;
+    var answer = item.querySelector('.faq-answer');
+    if (item.classList.contains('open')) {
+      item.classList.remove('open');
+      answer.style.maxHeight = '0';
+    } else {
+      document.querySelectorAll('.faq-item.open').forEach(function(i) {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = '0';
+      });
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
+  init();
+  </script>
+</body>
+</html>
