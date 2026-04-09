@@ -1,0 +1,210 @@
+{
+  "perro": {
+    "preguntas": [
+      {
+        "id": "tamano",
+        "texto": "¿Qué tamaño tiene tu perro?",
+        "emoji": "📏",
+        "opciones": [
+          {"valor": "muy_pequeño", "texto": "Muy pequeño (menos de 5 kg)", "emoji": "🐭"},
+          {"valor": "pequeño", "texto": "Pequeño (5–10 kg)", "emoji": "🐕"},
+          {"valor": "mediano", "texto": "Mediano (10–25 kg)", "emoji": "🐕‍🦺"},
+          {"valor": "grande", "texto": "Grande (25–40 kg)", "emoji": "🦮"},
+          {"valor": "gigante", "texto": "Gigante (más de 40 kg)", "emoji": "🐻"}
+        ]
+      },
+      {
+        "id": "pelaje_largo",
+        "texto": "¿Cómo es su pelaje?",
+        "emoji": "🧶",
+        "opciones": [
+          {"valor": "sin_pelo", "texto": "Sin pelo o muy corto", "emoji": "✨"},
+          {"valor": "corto", "texto": "Corto y liso", "emoji": "🪒"},
+          {"valor": "medio", "texto": "Medio", "emoji": "〰️"},
+          {"valor": "largo", "texto": "Largo o abundante", "emoji": "🌊"},
+          {"valor": "rizado", "texto": "Rizado o lanoso", "emoji": "🐑"}
+        ]
+      },
+      {
+        "id": "hocico",
+        "texto": "¿Cómo es su hocico?",
+        "emoji": "👃",
+        "opciones": [
+          {"valor": "chato", "texto": "Chato / achatado", "emoji": "😤"},
+          {"valor": "corto", "texto": "Corto", "emoji": "🔵"},
+          {"valor": "medio", "texto": "Medio / proporcional", "emoji": "🟢"},
+          {"valor": "largo", "texto": "Largo y afilado", "emoji": "🔺"}
+        ]
+      },
+      {
+        "id": "orejas",
+        "texto": "¿Cómo son sus orejas?",
+        "emoji": "👂",
+        "opciones": [
+          {"valor": "erectas", "texto": "Erectas / paradas", "emoji": "🔼"},
+          {"valor": "semi", "texto": "Semi-caídas", "emoji": "↗️"},
+          {"valor": "caidas", "texto": "Caídas / largas", "emoji": "🔽"}
+        ]
+      },
+      {
+        "id": "energia",
+        "texto": "¿Cuánta energía tiene?",
+        "emoji": "⚡",
+        "opciones": [
+          {"valor": "baja", "texto": "Tranquilo / perezoso", "emoji": "😴"},
+          {"valor": "media", "texto": "Moderada", "emoji": "🙂"},
+          {"valor": "alta", "texto": "Muy activo / inquieto", "emoji": "🏃"},
+          {"valor": "extrema", "texto": "Incansable / hiperactivo", "emoji": "🚀"}
+        ]
+      },
+      {
+        "id": "contexto",
+        "texto": "¿Dónde lo encontraste o vive?",
+        "emoji": "🏠",
+        "opciones": [
+          {"valor": "casa", "texto": "Comprado / adoptado de criador", "emoji": "🏡"},
+          {"valor": "calle", "texto": "Rescatado de la calle", "emoji": "🛤️"},
+          {"valor": "refugio", "texto": "Adoptado de refugio", "emoji": "🏥"},
+          {"valor": "regalo", "texto": "Me lo regalaron / no sé su origen", "emoji": "🎁"}
+        ]
+      }
+    ],
+    "razas": [
+      {"id":"labrador-retriever","nombre":"Labrador Retriever","tamano":["grande"],"pelaje_largo":["corto"],"hocico":["medio"],"orejas":["caidas"],"energia":["alta","extrema"],"foto":"🦮","desc":"Amigable, inteligente, excelente compañero familiar."},
+      {"id":"pastor-aleman","nombre":"Pastor Alemán","tamano":["grande"],"pelaje_largo":["medio"],"hocico":["largo"],"orejas":["erectas"],"energia":["alta","extrema"],"foto":"🐕‍🦺","desc":"Leal, inteligente, versátil para trabajo y compañía."},
+      {"id":"golden-retriever","nombre":"Golden Retriever","tamano":["grande"],"pelaje_largo":["largo"],"hocico":["medio"],"orejas":["caidas"],"energia":["alta"],"foto":"🦮","desc":"Dulce, paciente, ideal para familias con niños."},
+      {"id":"bulldog-frances","nombre":"Bulldog Francés","tamano":["pequeño"],"pelaje_largo":["corto"],"hocico":["chato"],"orejas":["erectas"],"energia":["baja","media"],"foto":"🐶","desc":"Compacto, cariñoso, perfecto para departamentos."},
+      {"id":"bulldog-ingles","nombre":"Bulldog Inglés","tamano":["mediano"],"pelaje_largo":["corto"],"hocico":["chato"],"orejas":["semi"],"energia":["baja"],"foto":"🐶","desc":"Tranquilo, robusto, excelente compañero de sofá."},
+      {"id":"beagle","nombre":"Beagle","tamano":["mediano","pequeño"],"pelaje_largo":["corto"],"hocico":["medio"],"orejas":["caidas"],"energia":["alta"],"foto":"🐕","desc":"Curioso, alegre, excelente olfato y temperamento social."},
+      {"id":"caniche","nombre":"Caniche (Poodle)","tamano":["muy_pequeño","pequeño","mediano","grande"],"pelaje_largo":["rizado"],"hocico":["largo","medio"],"orejas":["caidas"],"energia":["media","alta"],"foto":"🐩","desc":"Inteligentísimo, hipoalergénico, elegante."},
+      {"id":"rottweiler","nombre":"Rottweiler","tamano":["grande","gigante"],"pelaje_largo":["corto"],"hocico":["medio","corto"],"orejas":["semi","caidas"],"energia":["media","alta"],"foto":"🐕‍🦺","desc":"Poderoso, leal, excelente guardián."},
+      {"id":"dachshund","nombre":"Dachshund (Teckel)","tamano":["muy_pequeño","pequeño"],"pelaje_largo":["corto","largo"],"hocico":["largo"],"orejas":["caidas"],"energia":["media","alta"],"foto":"🌭","desc":"Cuerpo alargado, valiente, personalidad única."},
+      {"id":"yorkshire-terrier","nombre":"Yorkshire Terrier","tamano":["muy_pequeño"],"pelaje_largo":["largo"],"hocico":["medio","corto"],"orejas":["erectas"],"energia":["media","alta"],"foto":"🐕","desc":"Diminuto pero valiente, pelaje sedoso y largo."},
+      {"id":"boxer","nombre":"Boxer","tamano":["grande"],"pelaje_largo":["corto"],"hocico":["chato","corto"],"orejas":["semi","caidas"],"energia":["alta","extrema"],"foto":"🐕‍🦺","desc":"Musculoso, juguetón, genial con niños."},
+      {"id":"husky-siberiano","nombre":"Husky Siberiano","tamano":["mediano","grande"],"pelaje_largo":["medio","largo"],"hocico":["medio"],"orejas":["erectas"],"energia":["extrema"],"foto":"🐺","desc":"Ojos claros, pelaje denso, extremadamente activo."},
+      {"id":"chihuahua","nombre":"Chihuahua","tamano":["muy_pequeño"],"pelaje_largo":["corto","largo"],"hocico":["corto"],"orejas":["erectas"],"energia":["media","alta"],"foto":"🐶","desc":"El más pequeño del mundo, gran personalidad."},
+      {"id":"pug","nombre":"Pug","tamano":["muy_pequeño","pequeño"],"pelaje_largo":["corto"],"hocico":["chato"],"orejas":["semi","caidas"],"energia":["baja","media"],"foto":"🐶","desc":"Cara arrugada, cariñoso, gran compañero de sofá."},
+      {"id":"border-collie","nombre":"Border Collie","tamano":["mediano"],"pelaje_largo":["medio","largo"],"hocico":["largo","medio"],"orejas":["semi"],"energia":["extrema"],"foto":"🐕","desc":"El perro más inteligente, necesita mucho ejercicio mental."},
+      {"id":"shih-tzu","nombre":"Shih Tzu","tamano":["muy_pequeño","pequeño"],"pelaje_largo":["largo"],"hocico":["chato","corto"],"orejas":["caidas"],"energia":["baja","media"],"foto":"🐶","desc":"Pelaje lujoso, cariñoso, ideal para interiores."},
+      {"id":"doberman","nombre":"Dóberman","tamano":["grande"],"pelaje_largo":["corto"],"hocico":["largo"],"orejas":["erectas","semi"],"energia":["alta","extrema"],"foto":"🐕‍🦺","desc":"Atlético, elegante, guardián nato."},
+      {"id":"gran-danes","nombre":"Gran Danés","tamano":["gigante"],"pelaje_largo":["corto"],"hocico":["medio","largo"],"orejas":["semi","caidas"],"energia":["media"],"foto":"🐕‍🦺","desc":"El 'gentil gigante', sorprendentemente tranquilo."},
+      {"id":"schnauzer-miniatura","nombre":"Schnauzer Miniatura","tamano":["pequeño"],"pelaje_largo":["medio","rizado"],"hocico":["medio"],"orejas":["semi"],"energia":["alta"],"foto":"🐕","desc":"Barba característica, alerta, excelente compañero."},
+      {"id":"pomerania","nombre":"Pomerania","tamano":["muy_pequeño"],"pelaje_largo":["largo"],"hocico":["corto","medio"],"orejas":["erectas"],"energia":["alta"],"foto":"🐶","desc":"Bola de pelo, activo, carácter audaz."},
+      {"id":"pastor-australiano","nombre":"Pastor Australiano","tamano":["mediano","grande"],"pelaje_largo":["medio","largo"],"hocico":["medio"],"orejas":["semi"],"energia":["extrema"],"foto":"🐕","desc":"Ojos bicolores frecuentes, atlético, muy inteligente."},
+      {"id":"cocker-spaniel","nombre":"Cocker Spaniel","tamano":["mediano"],"pelaje_largo":["largo","medio"],"hocico":["medio"],"orejas":["caidas"],"energia":["media","alta"],"foto":"🐕","desc":"Orejas largas, alegre, excelente perro familiar."},
+      {"id":"pitbull","nombre":"American Pit Bull Terrier","tamano":["mediano","grande"],"pelaje_largo":["corto"],"hocico":["medio","corto"],"orejas":["semi","erectas"],"energia":["alta","extrema"],"foto":"🐕‍🦺","desc":"Musculoso, leal, requiere socialización temprana."},
+      {"id":"jack-russell-terrier","nombre":"Jack Russell Terrier","tamano":["pequeño"],"pelaje_largo":["corto"],"hocico":["medio"],"orejas":["semi"],"energia":["extrema"],"foto":"🐕","desc":"Pequeño pero incansable, muy inteligente."},
+      {"id":"samoyedo","nombre":"Samoyedo","tamano":["mediano","grande"],"pelaje_largo":["largo"],"hocico":["medio"],"orejas":["erectas"],"energia":["alta"],"foto":"🐺","desc":"Pelaje blanco esponjoso, sonrisa permanente."},
+      {"id":"shiba-inu","nombre":"Shiba Inu","tamano":["mediano","pequeño"],"pelaje_largo":["medio","corto"],"hocico":["medio"],"orejas":["erectas"],"energia":["media","alta"],"foto":"🐕","desc":"Aspecto de zorro, independiente, muy limpio."},
+      {"id":"dalmata","nombre":"Dálmata","tamano":["grande"],"pelaje_largo":["corto"],"hocico":["largo","medio"],"orejas":["caidas"],"energia":["extrema"],"foto":"🐕","desc":"Manchas inconfundibles, atlético, necesita mucho ejercicio."},
+      {"id":"san-bernardo","nombre":"San Bernardo","tamano":["gigante"],"pelaje_largo":["largo","medio"],"hocico":["medio","corto"],"orejas":["caidas"],"energia":["baja","media"],"foto":"🐻","desc":"Gigante bondadoso, ideal para climas fríos."},
+      {"id":"maltes","nombre":"Maltés","tamano":["muy_pequeño"],"pelaje_largo":["largo"],"hocico":["corto","medio"],"orejas":["caidas"],"energia":["media"],"foto":"🐶","desc":"Pelaje blanco sedoso, cariñoso, aristócrata."},
+      {"id":"akita","nombre":"Akita","tamano":["grande","gigante"],"pelaje_largo":["medio"],"hocico":["medio","corto"],"orejas":["erectas"],"energia":["media","alta"],"foto":"🐕‍🦺","desc":"Imponente, fiel (como Hachiko), reservado."},
+      {"id":"weimaraner","nombre":"Weimaraner","tamano":["grande"],"pelaje_largo":["corto"],"hocico":["largo"],"orejas":["caidas"],"energia":["extrema"],"foto":"🐕","desc":"Gris plateado, atlético, 'fantasma gris'."},
+      {"id":"boston-terrier","nombre":"Boston Terrier","tamano":["pequeño"],"pelaje_largo":["corto"],"hocico":["chato","corto"],"orejas":["erectas"],"energia":["media"],"foto":"🐶","desc":"Aspecto de esmoquin, compacto, alegre."},
+      {"id":"cavalier-king-charles","nombre":"Cavalier King Charles Spaniel","tamano":["pequeño"],"pelaje_largo":["largo","medio"],"hocico":["corto"],"orejas":["caidas"],"energia":["media","baja"],"foto":"🐶","desc":"Ojos grandes y dulces, compañero de regazo."},
+      {"id":"west-highland-terrier","nombre":"West Highland White Terrier","tamano":["pequeño"],"pelaje_largo":["medio"],"hocico":["medio"],"orejas":["erectas"],"energia":["alta"],"foto":"🐕","desc":"Blanco puro, audaz, gran personalidad en cuerpo pequeño."},
+      {"id":"bull-terrier","nombre":"Bull Terrier","tamano":["mediano"],"pelaje_largo":["corto"],"hocico":["largo"],"orejas":["erectas"],"energia":["alta","extrema"],"foto":"🐕","desc":"Cabeza ovalada única, payaso, muy activo."},
+      {"id":"chow-chow","nombre":"Chow Chow","tamano":["mediano","grande"],"pelaje_largo":["largo"],"hocico":["corto"],"orejas":["erectas"],"energia":["baja","media"],"foto":"🐻","desc":"Aspecto de león/oso, lengua azul, independiente."},
+      {"id":"shar-pei","nombre":"Shar Pei","tamano":["mediano"],"pelaje_largo":["corto"],"hocico":["medio","corto"],"orejas":["semi","caidas"],"energia":["baja","media"],"foto":"🐶","desc":"Arrugas características, leal, reservado."},
+      {"id":"terranova","nombre":"Terranova","tamano":["gigante"],"pelaje_largo":["largo"],"hocico":["medio"],"orejas":["caidas"],"energia":["media"],"foto":"🐻","desc":"Gigante amable, excelente nadador, pelaje denso."},
+      {"id":"bichon-frise","nombre":"Bichón Frisé","tamano":["pequeño","muy_pequeño"],"pelaje_largo":["rizado"],"hocico":["corto","medio"],"orejas":["caidas"],"energia":["media","alta"],"foto":"🐩","desc":"Bola de algodón blanco, alegre, hipoalergénico."},
+      {"id":"mestizo","nombre":"Mestizo / Criollo","tamano":["muy_pequeño","pequeño","mediano","grande","gigante"],"pelaje_largo":["corto","medio","largo"],"hocico":["corto","medio","largo"],"orejas":["erectas","semi","caidas"],"energia":["baja","media","alta"],"foto":"🐕","desc":"Único e irrepetible, generalmente muy sano y adaptable."}
+    ]
+  },
+  "gato": {
+    "preguntas": [
+      {
+        "id": "tamano",
+        "texto": "¿Qué tamaño tiene tu gato?",
+        "emoji": "📏",
+        "opciones": [
+          {"valor": "pequeño", "texto": "Pequeño (menos de 3.5 kg)", "emoji": "🐭"},
+          {"valor": "mediano", "texto": "Mediano (3.5–6 kg)", "emoji": "🐱"},
+          {"valor": "grande", "texto": "Grande (más de 6 kg)", "emoji": "🦁"}
+        ]
+      },
+      {
+        "id": "pelaje_largo",
+        "texto": "¿Cómo es su pelaje?",
+        "emoji": "🧶",
+        "opciones": [
+          {"valor": "sin_pelo", "texto": "Sin pelo", "emoji": "✨"},
+          {"valor": "corto", "texto": "Corto y liso", "emoji": "🪒"},
+          {"valor": "medio", "texto": "Semi-largo", "emoji": "〰️"},
+          {"valor": "largo", "texto": "Largo y abundante", "emoji": "🌊"},
+          {"valor": "rizado", "texto": "Rizado / ondulado", "emoji": "🐑"}
+        ]
+      },
+      {
+        "id": "cara",
+        "texto": "¿Cómo es la forma de su cara?",
+        "emoji": "😺",
+        "opciones": [
+          {"valor": "chata", "texto": "Chata / achatada", "emoji": "😤"},
+          {"valor": "redonda", "texto": "Redonda", "emoji": "🔵"},
+          {"valor": "triangular", "texto": "Triangular / alargada", "emoji": "🔺"}
+        ]
+      },
+      {
+        "id": "orejas",
+        "texto": "¿Cómo son sus orejas?",
+        "emoji": "👂",
+        "opciones": [
+          {"valor": "grandes", "texto": "Grandes y puntiagudas", "emoji": "🔼"},
+          {"valor": "medianas", "texto": "Medianas / normales", "emoji": "▶️"},
+          {"valor": "dobladas", "texto": "Dobladas hacia adelante", "emoji": "↩️"},
+          {"valor": "pequenas", "texto": "Pequeñas / redondeadas", "emoji": "🔘"}
+        ]
+      },
+      {
+        "id": "patron_color",
+        "texto": "¿Cuál es su patrón de color?",
+        "emoji": "🎨",
+        "opciones": [
+          {"valor": "solido", "texto": "Un solo color sólido", "emoji": "⬛"},
+          {"valor": "bicolor", "texto": "Dos colores / con blanco", "emoji": "◻️◼️"},
+          {"valor": "tabby", "texto": "Atigrado / rayas", "emoji": "🐯"},
+          {"valor": "pointed", "texto": "Puntas oscuras (cara, orejas, patas)", "emoji": "🎭"},
+          {"valor": "manchas", "texto": "Manchas / rosetas", "emoji": "🐆"},
+          {"valor": "tricolor", "texto": "Tres colores (calicó)", "emoji": "🎨"}
+        ]
+      },
+      {
+        "id": "personalidad",
+        "texto": "¿Cómo describirías su personalidad?",
+        "emoji": "💭",
+        "opciones": [
+          {"valor": "muy_vocal", "texto": "Muy vocal / habla mucho", "emoji": "🗣️"},
+          {"valor": "cariñoso", "texto": "Cariñoso / busca regazo", "emoji": "🥰"},
+          {"valor": "independiente", "texto": "Independiente / distante", "emoji": "😎"},
+          {"valor": "jugueton", "texto": "Juguetón / hiperactivo", "emoji": "🏃"},
+          {"valor": "tranquilo", "texto": "Tranquilo / dormilón", "emoji": "😴"}
+        ]
+      }
+    ],
+    "razas": [
+      {"id":"siames","nombre":"Siamés","tamano":["mediano","pequeño"],"pelaje_largo":["corto"],"cara":["triangular"],"orejas":["grandes"],"patron_color":["pointed"],"personalidad":["muy_vocal","cariñoso","jugueton"],"foto":"🐱","desc":"Ojos azules, elegante, extremadamente vocal y sociable."},
+      {"id":"persa","nombre":"Persa","tamano":["mediano"],"pelaje_largo":["largo"],"cara":["chata"],"orejas":["pequenas"],"patron_color":["solido","bicolor"],"personalidad":["tranquilo","cariñoso"],"foto":"🐱","desc":"Pelaje lujoso, cara achatada, el gato más tranquilo."},
+      {"id":"maine-coon","nombre":"Maine Coon","tamano":["grande"],"pelaje_largo":["largo","medio"],"cara":["triangular"],"orejas":["grandes"],"patron_color":["tabby","bicolor","solido"],"personalidad":["cariñoso","jugueton"],"foto":"🦁","desc":"El gato más grande, gentil gigante, mechones en orejas."},
+      {"id":"bengali","nombre":"Bengalí","tamano":["mediano","grande"],"pelaje_largo":["corto"],"cara":["triangular"],"orejas":["medianas"],"patron_color":["manchas"],"personalidad":["jugueton","muy_vocal"],"foto":"🐆","desc":"Aspecto salvaje de leopardo, extremadamente activo."},
+      {"id":"ragdoll","nombre":"Ragdoll","tamano":["grande"],"pelaje_largo":["largo","medio"],"cara":["redonda","triangular"],"orejas":["medianas"],"patron_color":["pointed","bicolor"],"personalidad":["cariñoso","tranquilo"],"foto":"🐱","desc":"Se relaja como muñeco de trapo, ojos azules, muy dócil."},
+      {"id":"british-shorthair","nombre":"British Shorthair","tamano":["mediano","grande"],"pelaje_largo":["corto"],"cara":["redonda"],"orejas":["pequenas","medianas"],"patron_color":["solido","tabby","bicolor"],"personalidad":["tranquilo","independiente"],"foto":"🐱","desc":"Cara redonda, pelaje denso gris/azul, tranquilo."},
+      {"id":"sphynx","nombre":"Sphynx","tamano":["mediano"],"pelaje_largo":["sin_pelo"],"cara":["triangular"],"orejas":["grandes"],"patron_color":["solido","bicolor"],"personalidad":["cariñoso","jugueton","muy_vocal"],"foto":"✨","desc":"Sin pelo, piel arrugada, busca calor y contacto humano."},
+      {"id":"abisinio","nombre":"Abisinio","tamano":["mediano"],"pelaje_largo":["corto"],"cara":["triangular"],"orejas":["grandes"],"patron_color":["solido","tabby"],"personalidad":["jugueton","muy_vocal"],"foto":"🐱","desc":"Ágil, atlético, parece un pequeño puma."},
+      {"id":"scottish-fold","nombre":"Scottish Fold","tamano":["mediano"],"pelaje_largo":["corto","medio"],"cara":["redonda"],"orejas":["dobladas"],"patron_color":["solido","tabby","bicolor"],"personalidad":["tranquilo","cariñoso"],"foto":"🐱","desc":"Orejas dobladas únicas, expresión de búho, dulce."},
+      {"id":"ruso-azul","nombre":"Azul Ruso","tamano":["mediano"],"pelaje_largo":["corto"],"cara":["triangular"],"orejas":["grandes","medianas"],"patron_color":["solido"],"personalidad":["independiente","tranquilo","cariñoso"],"foto":"🐱","desc":"Pelaje gris azulado, ojos verdes, elegante y tímido."},
+      {"id":"noruego-bosque","nombre":"Noruego de Bosque","tamano":["grande"],"pelaje_largo":["largo"],"cara":["triangular"],"orejas":["grandes","medianas"],"patron_color":["tabby","bicolor","solido"],"personalidad":["independiente","jugueton"],"foto":"🦁","desc":"Pelaje abundante, aspecto majestuoso, excelente trepador."},
+      {"id":"birmano","nombre":"Birmano (Birman)","tamano":["mediano","grande"],"pelaje_largo":["medio","largo"],"cara":["redonda"],"orejas":["medianas"],"patron_color":["pointed"],"personalidad":["cariñoso","tranquilo"],"foto":"🐱","desc":"Ojos azules, guantes blancos, dulce y sociable."},
+      {"id":"devon-rex","nombre":"Devon Rex","tamano":["pequeño"],"pelaje_largo":["rizado","corto"],"cara":["triangular"],"orejas":["grandes"],"patron_color":["solido","tabby","bicolor"],"personalidad":["jugueton","cariñoso","muy_vocal"],"foto":"🐱","desc":"Orejas enormes, pelaje ondulado, payaso del mundo felino."},
+      {"id":"oriental","nombre":"Oriental","tamano":["mediano"],"pelaje_largo":["corto"],"cara":["triangular"],"orejas":["grandes"],"patron_color":["solido","tabby","bicolor"],"personalidad":["muy_vocal","jugueton"],"foto":"🐱","desc":"Pariente del Siamés, orejas enormes, extremadamente vocal."},
+      {"id":"exotico-pelo-corto","nombre":"Exótico de Pelo Corto","tamano":["mediano"],"pelaje_largo":["corto"],"cara":["chata"],"orejas":["pequenas"],"patron_color":["solido","bicolor","tabby"],"personalidad":["tranquilo","cariñoso"],"foto":"🐱","desc":"Persa de pelo corto, cara chata, muy cariñoso."},
+      {"id":"burmese","nombre":"Burmés","tamano":["mediano"],"pelaje_largo":["corto"],"cara":["redonda"],"orejas":["medianas"],"patron_color":["solido"],"personalidad":["cariñoso","muy_vocal","jugueton"],"foto":"🐱","desc":"Compacto, musculoso, extremadamente afectuoso."},
+      {"id":"savannah","nombre":"Savannah","tamano":["grande"],"pelaje_largo":["corto"],"cara":["triangular"],"orejas":["grandes"],"patron_color":["manchas"],"personalidad":["jugueton","independiente"],"foto":"🐆","desc":"Aspecto de serval salvaje, altísimo, muy activo."},
+      {"id":"angora-turco","nombre":"Angora Turco","tamano":["mediano"],"pelaje_largo":["largo","medio"],"cara":["triangular"],"orejas":["grandes"],"patron_color":["solido","bicolor"],"personalidad":["jugueton","cariñoso"],"foto":"🐱","desc":"Elegante, pelaje sedoso, frecuentemente blanco puro."},
+      {"id":"chartreux","nombre":"Chartreux","tamano":["mediano","grande"],"pelaje_largo":["corto"],"cara":["redonda"],"orejas":["medianas"],"patron_color":["solido"],"personalidad":["tranquilo","independiente"],"foto":"🐱","desc":"Gris azulado, sonrisa natural, silencioso y observador."},
+      {"id":"bombay","nombre":"Bombay","tamano":["mediano"],"pelaje_largo":["corto"],"cara":["redonda"],"orejas":["medianas"],"patron_color":["solido"],"personalidad":["cariñoso","jugueton"],"foto":"🐈‍⬛","desc":"Negro azabache puro, ojos dorados, pantera en miniatura."},
+      {"id":"europeo-comun","nombre":"Europeo Común / Mestizo","tamano":["pequeño","mediano","grande"],"pelaje_largo":["corto","medio","largo"],"cara":["redonda","triangular"],"orejas":["medianas","grandes"],"patron_color":["tabby","bicolor","tricolor","solido","manchas"],"personalidad":["independiente","cariñoso","jugueton","tranquilo"],"foto":"🐱","desc":"El gato más popular del mundo, cada uno es único."}
+    ]
+  }
+}
