@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script>if(location.protocol!=='https:')location.replace('https://'+location.hostname+location.pathname+location.search);</script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora de dosis veterinarias para perros y gatos – PetsGuía</title>
+  <meta name="description" content="Calculá la dosis estimativa de medicamentos veterinarios comunes para perros y gatos según peso corporal. Referencia informativa – siempre consultá a tu veterinario."/>
+  <meta name="keywords" content="dosis medicamentos perro, calculadora dosis veterinaria, dosis amoxicilina perro, dosis meloxicam gato, medicamentos mascotas"/>
+  <meta property="og:title" content="Calculadora de dosis veterinarias – PetsGuía"/>
+  <meta property="og:description" content="Dosis estimativa de medicamentos para perros y gatos según peso. Referencia informativa."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://petsguia.com/herramientas/calculadora-dosis/"/>
+  <link rel="canonical" href="https://petsguia.com/herramientas/calculadora-dosis/"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,400&family=DM+Sans:wght@400;600&display=swap" onload="this.onload=null;this.rel='stylesheet'"/>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,400&family=DM+Sans:wght@400;600&display=swap"/></noscript>
+  <link rel="stylesheet" href="/css/tools.css"/>
+  <style>
+    /* ── Disclaimer legal prominente ── */
+    .legal-banner{background:#b91c1c;color:#fff;padding:18px 24px;border-radius:12px;margin-bottom:24px;line-height:1.6}
+    .legal-banner strong{font-size:1rem}
+    .legal-banner p{font-size:.85rem;margin:8px 0 0;opacity:.95}
+    .legal-banner-icon{font-size:1.4rem;margin-right:8px;vertical-align:middle}
+
+    .dose-hero{text-align:center;padding:28px;background:var(--bg);border-radius:8px;margin-bottom:20px}
+    .dose-range{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,2.6rem);font-weight:700;color:var(--accent);line-height:1.1}
+    .dose-range small{font-size:.5em;font-weight:400;color:var(--ink2)}
+    .dose-label{font-size:.9rem;color:var(--ink2);margin-top:6px}
+    .dose-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+    .dose-grid-item{background:var(--bg);border-radius:8px;padding:14px;text-align:center}
+    .dose-grid-item .val{font-family:var(--font-display);font-size:1.1rem;font-weight:700}
+    .dose-grid-item .lbl{font-size:.75rem;color:var(--ink2);margin-top:2px}
+    .dose-info-table{width:100%;border-collapse:collapse;margin-top:12px}
+    .dose-info-table th{text-align:left;font-size:.78rem;color:var(--ink2);padding:10px 12px;border-bottom:2px solid var(--border);text-transform:uppercase;letter-spacing:.04em}
+    .dose-info-table td{padding:10px 12px;font-size:.88rem;border-bottom:1px solid var(--border);vertical-align:top}
+    .dose-info-table tr:last-child td{border-bottom:none}
+    .dose-note{background:#fef3c7;border:1px solid #f59e0b;border-radius:8px;padding:14px 18px;margin-top:16px;font-size:.85rem;line-height:1.6;color:#92400e}
+    .dose-note strong{color:#78350f}
+    .dose-warning{background:#fee2e2;border:1px solid #ef4444;border-radius:8px;padding:14px 18px;margin-top:16px;font-size:.85rem;line-height:1.6;color:#991b1b}
+    .dose-warning strong{color:#7f1d1d}
+    .disclaimer{font-size:.8rem;color:var(--ink2);background:var(--surface2);padding:14px 18px;border-radius:8px;margin-top:16px;line-height:1.5}
+    .disclaimer strong{color:var(--ink)}
+    .med-badge{display:inline-block;font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:4px;background:#c8541a22;color:var(--accent)}
+    @media(max-width:768px){.dose-grid{grid-template-columns:1fr}}
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calculadora de dosis veterinarias para perros y gatos",
+    "description": "Calcula la dosis estimativa de medicamentos veterinarios comunes para perros y gatos según peso corporal. Herramienta exclusivamente informativa.",
+    "url": "https://petsguia.com/herramientas/calculadora-dosis/",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "publisher": {"@type": "Organization", "name": "PetsGuía", "url": "https://petsguia.com"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Puedo darle medicamentos humanos a mi perro?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Algunos medicamentos humanos pueden usarse en perros SOLO bajo prescripción veterinaria y a dosis específicas para animales. Muchos fármacos comunes en humanos son tóxicos para mascotas, como el ibuprofeno, paracetamol (en gatos es letal), y pseudoefedrina. NUNCA automediques a tu mascota."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Es peligroso equivocarse en la dosis de un medicamento veterinario?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí, una sobredosis puede causar daño hepático, renal, neurológico o incluso la muerte del animal. Los gatos son especialmente sensibles a muchos fármacos. Siempre consulta al veterinario para la dosis exacta y nunca redondees hacia arriba."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué hago si mi mascota ingirió una sobredosis de medicamento?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Contacta INMEDIATAMENTE a tu veterinario o a una línea de emergencias toxicológicas veterinarias. No induzcas el vómito sin indicación profesional. Lleva el envase del medicamento para que el veterinario sepa exactamente qué sustancia y qué cantidad ingirió."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">Pets<span>Guía</span></a>
+    <nav>
+      <a href="/">Inicio</a>
+      <a href="/herramientas/">Herramientas</a>
+      <a href="/contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <section class="tool-hero">
+    <div class="tool-hero-content">
+      <span class="tool-badge">💊 Referencia informativa</span>
+      <h1>Calculadora de dosis <em>veterinarias</em></h1>
+      <p>Dosis estimativa de medicamentos comunes para perros y gatos según peso corporal.</p>
+    </div>
+  </section>
+
+  <div class="tool-container">
+
+    <div class="breadcrumb">
+      <a href="/">Inicio</a> › <a href="/herramientas/">Herramientas</a> › Calculadora de dosis
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!-- DISCLAIMER LEGAL PROMINENTE – ANTES DEL FORMULARIO    -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <div class="legal-banner" role="alert">
+      <span class="legal-banner-icon">⚠️</span><strong>Aviso legal importante</strong>
+      <p>Esta herramienta es <strong>exclusivamente informativa y estimativa</strong>. Los resultados NO constituyen una prescripción ni un diagnóstico veterinario. Las dosis orientativas aquí calculadas pueden variar según el estado de salud, edad, raza, función hepática/renal y otros factores individuales de cada animal.</p>
+      <p><strong>NUNCA administre medicamentos a su mascota sin la autorización y supervisión de un médico veterinario matriculado.</strong> Una dosis incorrecta puede causar daño grave o la muerte del animal. Ante cualquier duda, consulte a su veterinario.</p>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="tool-card">
+      <h2>Datos para el cálculo</h2>
+
+      <div class="form-group">
+        <label for="especie">Especie</label>
+        <select id="especie" class="form-select" onchange="onEspecieChange()">
+          <option value="">Seleccioná una especie</option>
+          <option value="perro">🐶 Perro</option>
+          <option value="gato">🐱 Gato</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="peso">Peso corporal (kg)</label>
+          <input type="number" id="peso" class="form-input" min="0.5" max="100" step="0.1" placeholder="Ej: 12.5"/>
+          <small>Peso actual exacto. Si hay duda, redondear hacia abajo.</small>
+        </div>
+        <div class="form-group">
+          <label for="medicamento">Medicamento</label>
+          <select id="medicamento" class="form-select" disabled>
+            <option value="">Primero seleccioná especie</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="calcular()">
+        💊 Calcular dosis estimativa
+      </button>
+    </div>
+
+    <!-- RESULTADO -->
+    <div class="result-card" id="resultado">
+
+      <!-- Disclaimer repetido dentro del resultado -->
+      <div class="dose-warning">
+        <strong>⚠️ RECORDATORIO:</strong> Los valores mostrados son orientativos. La dosis real debe ser indicada por un veterinario que conozca el historial clínico de tu mascota. No automediques.
+      </div>
+
+      <div class="dose-hero" style="margin-top:16px;">
+        <div id="res-med-nombre" style="font-size:.85rem;color:var(--ink2);margin-bottom:4px;"></div>
+        <div class="dose-range" id="res-dosis-rango">--</div>
+        <div class="dose-label" id="res-dosis-label">dosis por toma</div>
+      </div>
+
+      <div class="dose-grid">
+        <div class="dose-grid-item">
+          <div class="val" id="res-frecuencia">--</div>
+          <div class="lbl">Frecuencia</div>
+        </div>
+        <div class="dose-grid-item">
+          <div class="val" id="res-via">--</div>
+          <div class="lbl">Vía de administración</div>
+        </div>
+        <div class="dose-grid-item">
+          <div class="val" id="res-duracion">--</div>
+          <div class="lbl">Duración orientativa</div>
+        </div>
+      </div>
+
+      <h3 style="font-family:var(--font-display);font-size:1.1rem;margin-bottom:4px;">Detalle del medicamento</h3>
+      <div style="overflow-x:auto;">
+        <table class="dose-info-table">
+          <tbody id="res-detalle"></tbody>
+        </table>
+      </div>
+
+      <div id="res-notas"></div>
+
+      <!-- Disclaimer FINAL prominente -->
+      <div class="legal-banner" style="margin-top:24px;">
+        <span class="legal-banner-icon">🩺</span><strong>Consulte siempre a su veterinario</strong>
+        <p>Esta calculadora ofrece <strong>rangos orientativos basados en bibliografía veterinaria estándar</strong>. Su veterinario ajustará la dosis según el diagnóstico, la condición clínica y las particularidades de su mascota. No utilice esta herramienta como sustituto de una consulta profesional.</p>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+      <div style="margin-top:32px;">
+        <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;padding-bottom:16px;border-bottom:2px solid var(--border);">Preguntas frecuentes</h2>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Puedo darle medicamentos humanos a mi perro?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Algunos medicamentos humanos pueden usarse en mascotas <strong>SOLO bajo prescripción veterinaria</strong> y a dosis específicas para animales. Muchos fármacos comunes en humanos son tóxicos para mascotas. El <strong>ibuprofeno</strong> puede causar úlceras gástricas y fallo renal. El <strong>paracetamol es LETAL en gatos</strong> incluso en dosis pequeñas. NUNCA automediques a tu mascota.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Es peligroso equivocarse en la dosis?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Sí, extremadamente. Una <strong>sobredosis</strong> puede causar daño hepático, renal, neurológico o la muerte. Los gatos son especialmente sensibles a muchos fármacos (AINEs, paracetamol, permetrina). Incluso una <strong>subdosis</strong> es problemática: en antibióticos, una dosis insuficiente promueve la resistencia bacteriana. Siempre usa el peso exacto y consultá al veterinario.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Qué hago si mi mascota ingirió una sobredosis?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Contactá <strong>INMEDIATAMENTE</strong> a tu veterinario o a urgencias veterinarias. <strong>No induzcas el vómito</strong> sin indicación profesional (algunos tóxicos empeoran con el vómito). Llevá el envase del medicamento para que el veterinario identifique la sustancia y cantidad exacta. El tiempo es crítico — cada minuto cuenta.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Los gatos pueden tomar los mismos medicamentos que los perros?</button>
+        <div class="faq-answer"><div class="faq-answer-inner"><strong>No siempre.</strong> Los gatos tienen un metabolismo hepático diferente (menor capacidad de glucuronidación) que los hace extremadamente sensibles a muchos fármacos. Ejemplos: el <strong>paracetamol es mortal</strong> en gatos; los <strong>AINEs</strong> se usan a dosis mucho menores y por menos tiempo; la <strong>permetrina</strong> (antipulgas para perros) es tóxica en gatos. Nunca uses un producto de perro en un gato sin consultar al veterinario.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Esta calculadora reemplaza la consulta veterinaria?</button>
+        <div class="faq-answer"><div class="faq-answer-inner"><strong>Absolutamente NO.</strong> Esta herramienta es una referencia informativa basada en bibliografía veterinaria estándar. Los rangos de dosis mostrados son orientativos y pueden no ser apropiados para tu mascota en particular. Factores como enfermedad hepática, renal, edad avanzada, gestación o interacciones con otros fármacos pueden modificar significativamente la dosis segura. <strong>Siempre consultá a un veterinario matriculado antes de administrar cualquier medicamento.</strong></div></div>
+      </div>
+    </div>
+
+    <!-- INFO SEO -->
+    <div class="tool-info">
+      <h2>¿Cómo funciona esta calculadora de dosis?</h2>
+      <p>Nuestra calculadora utiliza <strong>rangos de dosis estándar de bibliografía veterinaria</strong> (Plumb's Veterinary Drug Handbook, BSAVA, Merck Veterinary Manual) para estimar la cantidad de medicamento según el peso corporal del animal. El cálculo es simple:</p>
+      <p style="background:var(--bg);padding:16px;border-radius:8px;font-family:monospace;text-align:center;font-size:1rem;margin:16px 0;">Dosis (mg) = Peso (kg) × Dosis estándar (mg/kg)</p>
+      <p>Se muestra un <strong>rango mínimo y máximo</strong> ya que la dosis exacta depende de la severidad de la condición, la respuesta individual del animal y el criterio del veterinario tratante.</p>
+
+      <h2>Medicamentos incluidos</h2>
+      <p>La calculadora incluye <strong>15 medicamentos veterinarios de uso frecuente</strong> en cinco categorías:</p>
+      <ul>
+        <li><strong>Analgésicos/antiinflamatorios:</strong> Meloxicam, Prednisolona, Dipirona, Tramadol</li>
+        <li><strong>Antibióticos:</strong> Amoxicilina, Amoxicilina-Clavulánico, Metronidazol, Cefalexina</li>
+        <li><strong>Protectores gástricos:</strong> Omeprazol, Ranitidina, Sucralfato</li>
+        <li><strong>Antiparasitarios:</strong> Ivermectina, Fenbendazol</li>
+        <li><strong>Otros:</strong> Difenhidramina (antihistamínico), Maropitant (antiemético)</li>
+      </ul>
+
+      <h2>Limitaciones importantes</h2>
+      <ul>
+        <li>Los rangos de dosis son orientativos y pueden no aplicar a animales con enfermedades hepáticas, renales o cardíacas.</li>
+        <li>No se consideran interacciones medicamentosas, que pueden ser peligrosas.</li>
+        <li>Esta herramienta <strong>NO reemplaza la consulta veterinaria</strong> bajo ninguna circunstancia.</li>
+        <li>No incluye medicamentos de uso controlado que requieren receta especial.</li>
+      </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-card">
+      <h3>¿Sabés cuánto debe comer tu mascota?</h3>
+      <p>Usá nuestra calculadora de alimentación para obtener los gramos exactos por marca y peso.</p>
+      <a href="/herramientas/calculadora-alimentacion/">Calcular ración diaria</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-logo">PetsGuía</span>
+      <div class="footer-links">
+        <a href="/">Inicio</a>
+        <a href="/herramientas/">Herramientas</a>
+        <a href="/privacidad.html">Privacidad</a>
+        <a href="/contacto.html">Contacto</a>
+        <a href="/aviso-legal.html">Aviso Legal</a>
+      </div>
+      <span class="footer-copy">© 2026 PetsGuía. Todos los derechos reservados.</span>
+    </div>
+  </footer>
+
+  <script>
+  var datos = null;
+
+  async function init() {
+    try {
+      datos = await fetch('/data/dosis-veterinarias.json').then(function(r){ return r.json(); });
+    } catch(e) {
+      console.warn('No se pudo cargar dosis-veterinarias.json:', e);
+    }
+  }
+
+  function onEspecieChange() {
+    var esp = document.getElementById('especie').value;
+    var medSel = document.getElementById('medicamento');
+    if (!esp || !datos) {
+      medSel.innerHTML = '<option value="">Primero seleccioná especie</option>';
+      medSel.disabled = true;
+      return;
+    }
+    medSel.innerHTML = '<option value="">Seleccioná un medicamento</option>';
+    datos.medicamentos.forEach(function(m) {
+      if (m[esp]) {
+        medSel.innerHTML += '<option value="' + m.id + '">' + m.nombre + ' — ' + m.categoria + '</option>';
+      }
+    });
+    medSel.disabled = false;
+  }
+
+  function getMed(id) {
+    return datos.medicamentos.find(function(m){ return m.id === id; });
+  }
+
+  function calcular() {
+    var esp = document.getElementById('especie').value;
+    var peso = parseFloat(document.getElementById('peso').value);
+    var medId = document.getElementById('medicamento').value;
+
+    if (!esp) return alert('Seleccioná una especie.');
+    if (!peso || peso <= 0) return alert('Ingresá el peso de tu mascota.');
+    if (peso > 100) return alert('El peso máximo soportado es 100 kg.');
+    if (!medId) return alert('Seleccioná un medicamento.');
+
+    var med = getMed(medId);
+    if (!med) return alert('Medicamento no encontrado.');
+    var info = med[esp];
+    if (!info) return alert('Este medicamento no tiene datos para ' + esp + '.');
+
+    // Calculate dose range
+    var dosisMin = +(peso * info.dosis_min).toFixed(2);
+    var dosisMax = +(peso * info.dosis_max).toFixed(2);
+
+    // Format dose display
+    var dosisTexto;
+    if (dosisMin === dosisMax) {
+      dosisTexto = dosisMin + ' mg';
+    } else {
+      dosisTexto = dosisMin + ' – ' + dosisMax + ' mg';
+    }
+    document.getElementById('res-dosis-rango').innerHTML = dosisTexto + ' <small>por toma</small>';
+    document.getElementById('res-med-nombre').innerHTML = '<span class="med-badge">' + med.categoria + '</span> ' + med.nombre;
+    document.getElementById('res-dosis-label').textContent = info.dosis_min + '–' + info.dosis_max + ' ' + info.unidad + ' × ' + peso + ' kg';
+
+    // Summary grid
+    document.getElementById('res-frecuencia').textContent = info.frecuencia;
+    document.getElementById('res-via').textContent = info.via;
+    document.getElementById('res-duracion').textContent = info.duracion;
+
+    // Detail table
+    var espLabel = esp === 'perro' ? 'Perro' : 'Gato';
+    var tbody = document.getElementById('res-detalle');
+    tbody.innerHTML =
+      '<tr><th colspan="2" style="font-size:.9rem;color:var(--ink);">Ficha del medicamento</th></tr>' +
+      '<tr><td><strong>Medicamento</strong></td><td>' + med.nombre + '</td></tr>' +
+      '<tr><td><strong>Categoría</strong></td><td>' + med.categoria + '</td></tr>' +
+      '<tr><td><strong>Uso indicado</strong></td><td>' + med.uso + '</td></tr>' +
+      '<tr><td><strong>Especie</strong></td><td>' + espLabel + ' — ' + peso + ' kg</td></tr>' +
+      '<tr><td><strong>Rango de dosis</strong></td><td>' + info.dosis_min + ' – ' + info.dosis_max + ' ' + info.unidad + '</td></tr>' +
+      '<tr><td><strong>Dosis calculada</strong></td><td><strong style="color:var(--accent)">' + dosisTexto + '</strong> por toma</td></tr>' +
+      '<tr><td><strong>Frecuencia</strong></td><td>' + info.frecuencia + '</td></tr>' +
+      '<tr><td><strong>Vía</strong></td><td>' + info.via + '</td></tr>' +
+      '<tr><td><strong>Duración orientativa</strong></td><td>' + info.duracion + '</td></tr>' +
+      '<tr><td><strong>Presentaciones</strong></td><td>' + med.presentaciones.join(', ') + '</td></tr>';
+
+    // Notes
+    var notasEl = document.getElementById('res-notas');
+    notasEl.innerHTML = '';
+    if (info.notas) {
+      var isWarning = info.notas.indexOf('⚠️') !== -1 ||
+                      info.notas.indexOf('CONTRAINDICADA') !== -1 ||
+                      info.notas.indexOf('MUY sensibles') !== -1 ||
+                      info.notas.indexOf('NUNCA') !== -1 ||
+                      info.notas.indexOf('LETAL') !== -1;
+      var cls = isWarning ? 'dose-warning' : 'dose-note';
+      notasEl.innerHTML = '<div class="' + cls + '"><strong>' + (isWarning ? '⚠️ Advertencia importante:' : '💡 Notas clínicas:') + '</strong> ' + info.notas + '</div>';
+    }
+
+    var card = document.getElementById('resultado');
+    card.classList.add('visible');
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function toggleFaq(btn) {
+    var item = btn.parentElement;
+    var answer = item.querySelector('.faq-answer');
+    if (item.classList.contains('open')) {
+      item.classList.remove('open');
+      answer.style.maxHeight = '0';
+    } else {
+      document.querySelectorAll('.faq-item.open').forEach(function(i) {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = '0';
+      });
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
+  init();
+  </script>
+</body>
+</html>
