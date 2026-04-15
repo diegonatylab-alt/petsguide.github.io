@@ -250,17 +250,36 @@
       <p>Los alimentos más peligrosos para gatos incluyen: cebolla, ajo y puerro (familia Allium), chocolate, cítricos, uvas y pasas, comida para perros a largo plazo (carece de taurina) y alcohol. Los gatos son <strong>más sensibles</strong> que los perros a muchas sustancias tóxicas debido a su menor tamaño y diferencias en el metabolismo hepático.</p>
     </div>
 
-    <div class="tool-info">
-      <h2>Preguntas frecuentes</h2>
+    <!-- FAQ -->
+    <div class="faq-section">
+      <div style="margin-top:32px;">
+        <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;padding-bottom:16px;border-bottom:2px solid var(--border);">Preguntas frecuentes</h2>
+      </div>
 
-      <h3 style="font-family:var(--font-display);font-size:1rem;margin:16px 0 8px">¿La información de esta herramienta reemplaza al veterinario?</h3>
-      <p>No. Esta herramienta es <strong>orientativa y educativa</strong>. Ante cualquier duda o si tu mascota ingirió algo potencialmente tóxico, consultá siempre a un veterinario matriculado. La gravedad depende de la cantidad ingerida, el peso del animal y su estado de salud.</p>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿La información de esta herramienta reemplaza al veterinario?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">No. Esta herramienta es <strong>orientativa y educativa</strong>. Ante cualquier duda o si tu mascota ingirió algo potencialmente tóxico, consultá siempre a un veterinario matriculado. La gravedad de una intoxicación depende de la cantidad ingerida, el peso del animal y su estado de salud general.</div></div>
+      </div>
 
-      <h3 style="font-family:var(--font-display);font-size:1rem;margin:16px 0 8px">¿Por qué un alimento puede ser seguro para perros pero no para gatos?</h3>
-      <p>Perros y gatos metabolizan los alimentos de manera diferente. Los gatos carecen de ciertas enzimas hepáticas (como la glucuronil transferasa) lo que los hace más vulnerables a sustancias que los perros toleran mejor. Además, los gatos son carnívoros obligados y no están adaptados a procesar muchos vegetales o frutas.</p>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Por qué un alimento puede ser seguro para perros pero no para gatos?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Perros y gatos metabolizan los alimentos de manera diferente. Los gatos carecen de ciertas enzimas hepáticas (como la glucuronil transferasa) lo que los hace más vulnerables a sustancias que los perros toleran mejor. Además, los gatos son <strong>carnívoros obligados</strong> y no están adaptados a procesar muchos vegetales o frutas.</div></div>
+      </div>
 
-      <h3 style="font-family:var(--font-display);font-size:1rem;margin:16px 0 8px">¿Qué significa el semáforo amarillo?</h3>
-      <p>El <strong>amarillo</strong> indica que el alimento no es tóxico per se, pero debe darse con precaución: en pequeñas cantidades, de forma ocasional, o tiene riesgos específicos (exceso de grasa, sal, azúcar o componentes irritantes). Leé siempre la nota detallada de cada alimento.</p>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Qué significa el semáforo amarillo?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">El <strong>amarillo</strong> indica que el alimento no es tóxico per se, pero debe darse con precaución: en pequeñas cantidades, de forma ocasional, o tiene riesgos específicos (exceso de grasa, sal, azúcar o componentes irritantes). Leé siempre la nota detallada de cada alimento.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Qué hago si mi mascota comió algo tóxico?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Actuá rápido: <strong>1)</strong> Identificá qué comió y cuánto. <strong>2)</strong> Llamá inmediatamente a tu veterinario o clínica de urgencias. <strong>3)</strong> No induzcas el vómito salvo que el profesional lo indique. <strong>4)</strong> Llevá el envase o una muestra del alimento a la consulta. El tiempo es crítico en cualquier intoxicación.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Los perros pueden comer frutas?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Muchas frutas son seguras para perros con moderación: <strong>manzana</strong> (sin semillas), <strong>banana</strong>, <strong>arándanos</strong>, <strong>sandía</strong> (sin semillas), <strong>fresas</strong> y <strong>mango</strong> (sin carozo). Sin embargo, <strong>uvas, pasas, cerezas y aguacate son tóxicos</strong>. Siempre retirar semillas, carozos y cáscaras antes de ofrecer cualquier fruta.</div></div>
+      </div>
     </div>
 
     <!-- CTA -->
@@ -286,6 +305,22 @@
   </footer>
 
 <script>
+function toggleFaq(btn) {
+    var item = btn.parentElement;
+    var answer = item.querySelector('.faq-answer');
+    if (item.classList.contains('open')) {
+      item.classList.remove('open');
+      answer.style.maxHeight = '0';
+    } else {
+      document.querySelectorAll('.faq-item.open').forEach(function(i) {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = '0';
+      });
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
 (function(){
   'use strict';
 
