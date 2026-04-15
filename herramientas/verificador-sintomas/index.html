@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script>if(location.protocol!=='https:')location.replace('https://'+location.hostname+location.pathname+location.search);</script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verificador de síntomas para perros y gatos – PetsGuía</title>
+  <meta name="description" content="Seleccioná los síntomas de tu perro o gato y recibí orientación sobre posibles condiciones y nivel de urgencia. Herramienta educativa – siempre consultá a tu veterinario."/>
+  <meta name="keywords" content="síntomas perro, mi perro vomita, mi gato no come, verificador síntomas mascota, enfermedades perros, enfermedades gatos, mi perro tiene diarrea, mi gato estornuda"/>
+  <meta property="og:title" content="Verificador de síntomas para mascotas – PetsGuía"/>
+  <meta property="og:description" content="Seleccioná los síntomas de tu mascota y recibí orientación sobre posibles condiciones y nivel de urgencia."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://petsguia.com/herramientas/verificador-sintomas/"/>
+  <link rel="canonical" href="https://petsguia.com/herramientas/verificador-sintomas/"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,400&family=DM+Sans:wght@400;600&display=swap" onload="this.onload=null;this.rel='stylesheet'"/>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,400&family=DM+Sans:wght@400;600&display=swap"/></noscript>
+  <link rel="stylesheet" href="/css/tools.css"/>
+  <style>
+    .legal-banner{background:#b91c1c;color:#fff;padding:18px 24px;border-radius:12px;margin-bottom:24px;line-height:1.6}
+    .legal-banner strong{font-size:1rem}
+    .legal-banner p{font-size:.85rem;margin:8px 0 0;opacity:.95}
+
+    /* ── Categorías de síntomas ── */
+    .cat-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+    .cat-tab{background:var(--surface);border:2px solid var(--border);border-radius:8px;padding:8px 14px;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
+    .cat-tab:hover{border-color:var(--accent2);background:var(--bg)}
+    .cat-tab.active{border-color:var(--accent);background:#c8541a11;color:var(--accent)}
+    .cat-tab .cat-count{background:var(--border);color:var(--ink2);font-size:.7rem;padding:1px 7px;border-radius:10px;min-width:18px;text-align:center}
+    .cat-tab.active .cat-count{background:var(--accent);color:#fff}
+
+    /* ── Chips de síntomas ── */
+    .symptom-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+    .symptom-chip{background:var(--surface);border:2px solid var(--border);border-radius:20px;padding:8px 16px;font-size:.84rem;cursor:pointer;transition:all .2s;user-select:none}
+    .symptom-chip:hover{border-color:var(--accent2);background:var(--bg)}
+    .symptom-chip.selected{border-color:var(--accent);background:#c8541a18;color:var(--accent);font-weight:600}
+    .symptom-chip.hidden{display:none}
+
+    /* ── Seleccionados ── */
+    .selected-bar{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:20px;display:none;align-items:center;gap:12px;flex-wrap:wrap}
+    .selected-bar.visible{display:flex}
+    .selected-tag{background:var(--accent);color:#fff;font-size:.78rem;font-weight:600;padding:4px 12px;border-radius:16px;display:inline-flex;align-items:center;gap:6px}
+    .selected-tag .remove{cursor:pointer;font-size:.9rem;opacity:.8}
+    .selected-tag .remove:hover{opacity:1}
+    .selected-count{font-size:.82rem;color:var(--ink2);font-weight:600}
+
+    /* ── Resultado condición ── */
+    .condition-card{background:var(--surface);border-radius:12px;padding:20px 24px;margin-bottom:16px;border-left:5px solid var(--border)}
+    .condition-card .cond-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+    .condition-card .cond-name{font-family:var(--font-display);font-size:1.1rem;font-weight:700}
+    .condition-card .cond-urgency{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:.04em}
+    .condition-card .cond-match{font-size:.78rem;color:var(--ink2);margin-bottom:12px}
+    .condition-card .cond-match strong{color:var(--ink)}
+    .condition-card .cond-desc{font-size:.88rem;line-height:1.6;margin-bottom:12px;color:var(--ink)}
+    .condition-card .cond-section{margin-top:14px}
+    .condition-card .cond-section h4{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink2);margin-bottom:6px}
+    .condition-card .cond-section p{font-size:.85rem;line-height:1.6;color:var(--ink)}
+
+    .urgency-banner{padding:18px 24px;border-radius:12px;margin-bottom:20px;line-height:1.6}
+    .urgency-banner strong{font-size:1rem}
+    .urgency-banner p{font-size:.85rem;margin:6px 0 0}
+
+    .no-results{text-align:center;padding:40px 20px;color:var(--ink2)}
+    .no-results .nr-icon{font-size:2.5rem;margin-bottom:12px}
+    .no-results p{font-size:.9rem;max-width:400px;margin:0 auto;line-height:1.6}
+
+    .matched-symptoms{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+    .matched-symptom{font-size:.75rem;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:2px 10px;color:var(--ink2)}
+    .matched-symptom.is-match{background:#c8541a11;border-color:var(--accent);color:var(--accent);font-weight:600}
+
+    @media(max-width:768px){
+      .cat-tabs{gap:6px}
+      .cat-tab{padding:6px 10px;font-size:.78rem}
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Verificador de síntomas para perros y gatos",
+    "description": "Seleccioná los síntomas de tu perro o gato y recibí orientación sobre posibles condiciones y nivel de urgencia. Herramienta orientativa y educativa.",
+    "url": "https://petsguia.com/herramientas/verificador-sintomas/",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Web",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "publisher": {"@type": "Organization", "name": "PetsGuía", "url": "https://petsguia.com"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Este verificador reemplaza la consulta veterinaria?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutamente NO. Este verificador es una herramienta orientativa y educativa. No realiza diagnósticos. Los síntomas pueden corresponder a muchas condiciones diferentes, y solo un veterinario puede examinar a tu mascota, realizar estudios complementarios y llegar a un diagnóstico correcto. Ante cualquier duda, siempre consultá a un profesional."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuándo debo llevar a mi mascota al veterinario de urgencia?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Señales de emergencia incluyen: dificultad para respirar, convulsiones, sangrado abundante, imposibilidad de orinar (especialmente gatos machos), abdomen hinchado y duro, pérdida de conciencia, vómitos o diarrea con sangre persistentes, ingestión de tóxicos, y traumatismos severos. Ante la duda, siempre es mejor consultar."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Por qué mi perro vomita?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Los vómitos en perros pueden deberse a muchas causas: desde gastroenteritis leve por comer algo en mal estado, hasta obstrucción intestinal, pancreatitis, enfermedades hepáticas, renales, intoxicaciones o infecciones como parvovirus. Un vómito aislado puede no ser grave, pero vómitos repetidos, con sangre, o acompañados de letargo requieren atención veterinaria."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Por qué mi gato no quiere comer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "La anorexia en gatos es siempre un signo importante. Puede deberse a estrés, enfermedades respiratorias (no huele la comida), dolor dental, enfermedad renal, hipertiroidismo o muchas otras causas. IMPORTANTE: un gato que no come durante más de 48-72 horas puede desarrollar lipidosis hepática (hígado graso), una complicación potencialmente mortal. Consultá al veterinario si tu gato no come por más de 24 horas."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cómo sé si mi mascota tiene dolor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Las mascotas ocultan el dolor instintivamente. Signos de dolor incluyen: cambios de comportamiento (agresividad, apatía), lamido excesivo de una zona, posturas anormales, rechazo al ejercicio, vocalización al moverse, temblores, pérdida de apetito, y en gatos, dejar de acicalarse o esconderse. Si sospechás que tu mascota tiene dolor, consultá al veterinario."
+        }
+      }
+    ]
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3904107966422584" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">Pets<span>Guía</span></a>
+    <nav>
+      <a href="/">Inicio</a>
+      <a href="/herramientas/">Herramientas</a>
+      <a href="/contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <section class="tool-hero">
+    <div class="tool-hero-content">
+      <span class="tool-badge">🩺 Herramienta orientativa</span>
+      <h1>Verificador de <em>síntomas</em></h1>
+      <p>Seleccioná los síntomas de tu mascota y recibí orientación sobre posibles condiciones y nivel de urgencia.</p>
+    </div>
+  </section>
+
+  <div class="tool-container">
+
+    <div class="breadcrumb">
+      <a href="/">Inicio</a> › <a href="/herramientas/">Herramientas</a> › Verificador de síntomas
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div class="legal-banner" role="alert">
+      <span style="font-size:1.4rem;margin-right:8px;vertical-align:middle;">⚠️</span><strong>Aviso legal importante</strong>
+      <p>Este verificador es <strong>exclusivamente orientativo y educativo</strong>. NO realiza diagnósticos ni reemplaza la consulta veterinaria. Los resultados son aproximaciones basadas en la combinación de síntomas seleccionados y no consideran el historial clínico, la edad, la raza ni el estado general de tu mascota.</p>
+      <p><strong>Ante cualquier duda sobre la salud de tu mascota, consultá a un veterinario matriculado.</strong></p>
+    </div>
+
+    <!-- PASO 1: ESPECIE -->
+    <div class="tool-card" id="step-especie">
+      <h2>Paso 1: ¿Qué especie es tu mascota?</h2>
+      <div class="form-group">
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="btn-primary" style="flex:1;min-width:140px;opacity:.7" id="btn-perro" onclick="selectEspecie('perro')">🐶 Perro</button>
+          <button class="btn-primary" style="flex:1;min-width:140px;opacity:.7" id="btn-gato" onclick="selectEspecie('gato')">🐱 Gato</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 2: SÍNTOMAS -->
+    <div class="tool-card" id="step-sintomas" style="display:none;">
+      <h2>Paso 2: Seleccioná los síntomas que observás</h2>
+      <p style="font-size:.85rem;color:var(--ink2);margin-bottom:16px;">Podés seleccionar varios síntomas. Cuantos más selecciones, más precisa será la orientación.</p>
+
+      <!-- Barra de seleccionados -->
+      <div class="selected-bar" id="selected-bar">
+        <span class="selected-count" id="selected-count">0 seleccionados</span>
+        <div id="selected-tags"></div>
+      </div>
+
+      <!-- Búsqueda rápida -->
+      <div class="form-group" style="margin-bottom:16px;">
+        <input type="text" id="symptom-search" class="form-input" placeholder="🔍 Buscar síntoma..." oninput="filterSymptoms()"/>
+      </div>
+
+      <!-- Tabs de categoría -->
+      <div class="cat-tabs" id="cat-tabs"></div>
+
+      <!-- Chips de síntomas -->
+      <div class="symptom-grid" id="symptom-grid"></div>
+
+      <button class="btn-primary" onclick="analizar()" style="margin-top:12px;">
+        🩺 Analizar síntomas
+      </button>
+    </div>
+
+    <!-- RESULTADO -->
+    <div class="result-card" id="resultado">
+      <!-- Urgencia general -->
+      <div id="res-urgencia"></div>
+
+      <!-- Disclaimer repetido -->
+      <div class="legal-banner" style="margin-bottom:20px;">
+        <span style="font-size:1.2rem;margin-right:8px;vertical-align:middle;">🩺</span><strong>Recordatorio importante</strong>
+        <p>Los resultados son orientativos. <strong>Solo un veterinario puede realizar un diagnóstico correcto</strong> tras examinar a tu mascota y realizar los estudios correspondientes. No tomes decisiones médicas basándote únicamente en esta herramienta.</p>
+      </div>
+
+      <!-- Condiciones encontradas -->
+      <h3 style="font-family:var(--font-display);font-size:1.15rem;margin-bottom:16px;">Posibles condiciones</h3>
+      <div id="res-condiciones"></div>
+
+      <!-- Sin resultados -->
+      <div id="res-sin-resultados" style="display:none;">
+        <div class="no-results">
+          <div class="nr-icon">🔍</div>
+          <p>No se encontraron condiciones que coincidan con la combinación de síntomas seleccionados. Esto NO significa que tu mascota esté sana. <strong>Consultá al veterinario</strong> si te preocupa algún síntoma.</p>
+        </div>
+      </div>
+
+      <!-- Siguiente paso -->
+      <div style="background:var(--bg);border-radius:10px;padding:18px;margin-top:20px;">
+        <h3 style="font-family:var(--font-display);font-size:1rem;margin-bottom:8px;">📝 Antes de ir al veterinario</h3>
+        <ul style="font-size:.85rem;line-height:1.7;color:var(--ink2);padding-left:20px;">
+          <li>Anotá <strong>cuándo empezaron</strong> los síntomas y si empeoraron.</li>
+          <li>Registrá si tu mascota <strong>comió algo inusual</strong> o estuvo en contacto con otros animales.</li>
+          <li>Anotá <strong>frecuencia de vómitos/diarrea</strong> y si hay sangre.</li>
+          <li>Si es posible, llevá una <strong>muestra de orina o materia fecal</strong>.</li>
+          <li>Mencioná todos los <strong>medicamentos, suplementos o antiparasitarios</strong> que recibe.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+      <div style="margin-top:32px;">
+        <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;padding-bottom:16px;border-bottom:2px solid var(--border);">Preguntas frecuentes</h2>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Este verificador reemplaza la consulta veterinaria?</button>
+        <div class="faq-answer"><div class="faq-answer-inner"><strong>Absolutamente NO.</strong> Este verificador es una herramienta orientativa y educativa. No realiza diagnósticos. Los síntomas pueden corresponder a muchas condiciones diferentes, y solo un veterinario puede examinar a tu mascota, realizar estudios complementarios y llegar a un diagnóstico correcto. <strong>Ante cualquier duda, siempre consultá a un profesional.</strong></div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Cuándo debo llevar a mi mascota al veterinario de urgencia?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Señales de emergencia incluyen: <strong>dificultad para respirar, convulsiones, sangrado abundante, imposibilidad de orinar</strong> (especialmente gatos machos), <strong>abdomen hinchado y duro, pérdida de conciencia, vómitos o diarrea con sangre</strong> persistentes, ingestión de tóxicos, y traumatismos severos. <strong>Ante la duda, siempre es mejor consultar.</strong></div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Por qué mi perro vomita?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Los vómitos en perros pueden deberse a muchas causas: desde <strong>gastroenteritis leve</strong> por comer algo en mal estado, hasta obstrucción intestinal, pancreatitis, enfermedades hepáticas, renales, intoxicaciones o infecciones como parvovirus. Un vómito aislado puede no ser grave, pero <strong>vómitos repetidos, con sangre, o acompañados de letargo</strong> requieren atención veterinaria.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Por qué mi gato no quiere comer?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">La anorexia en gatos es <strong>siempre un signo importante</strong>. Puede deberse a estrés, enfermedades respiratorias (no huele la comida), dolor dental, enfermedad renal, hipertiroidismo o muchas otras causas. <strong>IMPORTANTE:</strong> un gato que no come durante más de 48-72 horas puede desarrollar <strong>lipidosis hepática</strong> (hígado graso), una complicación potencialmente mortal. Consultá al veterinario si tu gato no come por más de 24 horas.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">¿Cómo sé si mi mascota tiene dolor?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Las mascotas ocultan el dolor instintivamente. Signos de dolor incluyen: <strong>cambios de comportamiento</strong> (agresividad, apatía), <strong>lamido excesivo</strong> de una zona, posturas anormales, rechazo al ejercicio, vocalización al moverse, temblores, pérdida de apetito, y en gatos, dejar de acicalarse o esconderse. Si sospechás que tu mascota tiene dolor, <strong>consultá al veterinario</strong>.</div></div>
+      </div>
+    </div>
+
+    <!-- INFO SEO -->
+    <div class="tool-info">
+      <h2>¿Cómo funciona el verificador de síntomas?</h2>
+      <p>Nuestro verificador compara los síntomas que seleccionás con una <strong>base de datos de más de 25 condiciones veterinarias comunes</strong>, evaluando el grado de coincidencia. El sistema considera:</p>
+      <ul>
+        <li><strong>Síntomas clave:</strong> los más característicos de cada condición (mayor peso en la puntuación).</li>
+        <li><strong>Síntomas complementarios:</strong> signos adicionales que refuerzan la sospecha.</li>
+        <li><strong>Nivel de urgencia:</strong> clasificado en bajo, moderado, alto y crítico según la gravedad potencial.</li>
+        <li><strong>Especie:</strong> algunas condiciones son exclusivas de perros o gatos, y la presentación puede diferir.</li>
+      </ul>
+
+      <h2>Limitaciones del verificador</h2>
+      <ul>
+        <li>No considera la <strong>edad, raza, peso ni historial médico</strong> de tu mascota.</li>
+        <li>Muchas condiciones comparten síntomas similares; <strong>solo un veterinario puede diferenciarlas</strong>.</li>
+        <li>No incluye todas las enfermedades posibles, solo las más comunes.</li>
+        <li>La ausencia de resultados <strong>no significa que tu mascota esté sana</strong>.</li>
+        <li>Esta herramienta <strong>NO reemplaza la consulta veterinaria</strong> bajo ninguna circunstancia.</li>
+      </ul>
+
+      <h2>Condiciones incluidas</h2>
+      <p>El verificador evalúa más de <strong>25 condiciones frecuentes</strong> en nueve sistemas corporales: digestivo, piel y pelaje, respiratorio, locomotor, urinario, ocular, ótico, neurológico y estado general. Incluye desde cuadros leves (alergias, otitis) hasta emergencias (torsión gástrica, obstrucción uretral, intoxicaciones).</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-card">
+      <h3>¿Preocupado por algo que comió tu mascota?</h3>
+      <p>Buscá cualquier alimento en nuestro semáforo de seguridad alimentaria para perros y gatos.</p>
+      <a href="/herramientas/buscador-alimentos/">Buscar alimentos</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-logo">PetsGuía</span>
+      <div class="footer-links">
+        <a href="/">Inicio</a>
+        <a href="/herramientas/">Herramientas</a>
+        <a href="/privacidad.html">Privacidad</a>
+        <a href="/contacto.html">Contacto</a>
+        <a href="/aviso-legal.html">Aviso Legal</a>
+      </div>
+      <span class="footer-copy">© 2026 PetsGuía. Todos los derechos reservados.</span>
+    </div>
+  </footer>
+
+  <script>
+  function toggleFaq(btn) {
+    var item = btn.parentElement;
+    var answer = item.querySelector('.faq-answer');
+    if (item.classList.contains('open')) {
+      item.classList.remove('open');
+      answer.style.maxHeight = '0';
+    } else {
+      document.querySelectorAll('.faq-item.open').forEach(function(i) {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = '0';
+      });
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
+  var datos = null;
+  var especieActual = '';
+  var seleccionados = [];
+  var categoriaActiva = 'todos';
+
+  function normalize(str) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
+
+  async function init() {
+    try {
+      datos = await fetch('/data/sintomas-mascotas.json').then(function(r) { return r.json(); });
+    } catch(e) {
+      console.warn('No se pudo cargar sintomas-mascotas.json:', e);
+    }
+  }
+
+  function selectEspecie(esp) {
+    especieActual = esp;
+    seleccionados = [];
+
+    /* Highlight botón */
+    document.getElementById('btn-perro').style.opacity = esp === 'perro' ? '1' : '.5';
+    document.getElementById('btn-gato').style.opacity = esp === 'gato' ? '1' : '.5';
+
+    /* Mostrar paso 2 */
+    document.getElementById('step-sintomas').style.display = 'block';
+    document.getElementById('resultado').style.display = 'none';
+
+    renderCategoryTabs();
+    renderSymptoms();
+    updateSelectedBar();
+
+    document.getElementById('step-sintomas').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function renderCategoryTabs() {
+    if (!datos) return;
+    var cats = datos.categorias_sintomas;
+    var html = '<button class="cat-tab active" onclick="filterCategory(\'todos\')">Todos</button>';
+    for (var i = 0; i < cats.length; i++) {
+      var count = datos.sintomas.filter(function(s) {
+        return s.cat === cats[i].id && s.especies.indexOf(especieActual) !== -1;
+      }).length;
+      html += '<button class="cat-tab" data-cat="' + cats[i].id + '" onclick="filterCategory(\'' + cats[i].id + '\')">' +
+              cats[i].icono + ' ' + cats[i].nombre +
+              '<span class="cat-count">' + count + '</span></button>';
+    }
+    document.getElementById('cat-tabs').innerHTML = html;
+  }
+
+  function renderSymptoms() {
+    if (!datos) return;
+    var sintomas = datos.sintomas.filter(function(s) {
+      return s.especies.indexOf(especieActual) !== -1;
+    });
+    var html = '';
+    for (var i = 0; i < sintomas.length; i++) {
+      var s = sintomas[i];
+      var selected = seleccionados.indexOf(s.id) !== -1;
+      html += '<button class="symptom-chip' + (selected ? ' selected' : '') + '" ' +
+              'data-id="' + s.id + '" data-cat="' + s.cat + '" data-nombre="' + normalize(s.nombre) + '" ' +
+              'onclick="toggleSymptom(\'' + s.id + '\')">' +
+              s.nombre + '</button>';
+    }
+    document.getElementById('symptom-grid').innerHTML = html;
+  }
+
+  function filterCategory(cat) {
+    categoriaActiva = cat;
+
+    /* Update tabs */
+    var tabs = document.querySelectorAll('.cat-tab');
+    for (var i = 0; i < tabs.length; i++) {
+      var tabCat = tabs[i].getAttribute('data-cat') || 'todos';
+      tabs[i].classList.toggle('active', tabCat === cat || (cat === 'todos' && !tabs[i].getAttribute('data-cat')));
+    }
+
+    /* Show/hide chips */
+    var chips = document.querySelectorAll('.symptom-chip');
+    for (var i = 0; i < chips.length; i++) {
+      if (cat === 'todos') {
+        chips[i].classList.remove('hidden');
+      } else {
+        chips[i].classList.toggle('hidden', chips[i].getAttribute('data-cat') !== cat);
+      }
+    }
+
+    /* Re-apply search filter */
+    filterSymptoms();
+  }
+
+  function filterSymptoms() {
+    var query = normalize(document.getElementById('symptom-search').value.trim());
+    var chips = document.querySelectorAll('.symptom-chip');
+    for (var i = 0; i < chips.length; i++) {
+      var matchCat = categoriaActiva === 'todos' || chips[i].getAttribute('data-cat') === categoriaActiva;
+      var matchSearch = !query || chips[i].getAttribute('data-nombre').indexOf(query) !== -1;
+      chips[i].classList.toggle('hidden', !(matchCat && matchSearch));
+    }
+  }
+
+  function toggleSymptom(id) {
+    var idx = seleccionados.indexOf(id);
+    if (idx === -1) {
+      seleccionados.push(id);
+    } else {
+      seleccionados.splice(idx, 1);
+    }
+
+    /* Update chip visual */
+    var chips = document.querySelectorAll('.symptom-chip');
+    for (var i = 0; i < chips.length; i++) {
+      if (chips[i].getAttribute('data-id') === id) {
+        chips[i].classList.toggle('selected', seleccionados.indexOf(id) !== -1);
+      }
+    }
+
+    updateSelectedBar();
+  }
+
+  function removeSymptom(id) {
+    toggleSymptom(id);
+  }
+
+  function updateSelectedBar() {
+    var bar = document.getElementById('selected-bar');
+    var countEl = document.getElementById('selected-count');
+    var tagsEl = document.getElementById('selected-tags');
+
+    if (seleccionados.length === 0) {
+      bar.classList.remove('visible');
+      return;
+    }
+
+    bar.classList.add('visible');
+    countEl.textContent = seleccionados.length + ' seleccionado' + (seleccionados.length > 1 ? 's' : '');
+
+    var html = '';
+    for (var i = 0; i < seleccionados.length; i++) {
+      var s = datos.sintomas.find(function(x) { return x.id === seleccionados[i]; });
+      if (s) {
+        html += '<span class="selected-tag">' + s.nombre +
+                '<span class="remove" onclick="removeSymptom(\'' + s.id + '\')">&times;</span></span>';
+      }
+    }
+    tagsEl.innerHTML = html;
+  }
+
+  function analizar() {
+    if (seleccionados.length < 1) {
+      alert('Seleccioná al menos un síntoma.');
+      return;
+    }
+
+    var resultados = [];
+    var condiciones = datos.condiciones.filter(function(c) {
+      return c.especies.indexOf(especieActual) !== -1;
+    });
+
+    for (var i = 0; i < condiciones.length; i++) {
+      var c = condiciones[i];
+      var matchClave = 0;
+      var matchExtra = 0;
+      var matchedIds = [];
+
+      for (var j = 0; j < seleccionados.length; j++) {
+        if (c.sintomas_clave.indexOf(seleccionados[j]) !== -1) {
+          matchClave++;
+          matchedIds.push(seleccionados[j]);
+        } else if (c.sintomas_extra.indexOf(seleccionados[j]) !== -1) {
+          matchExtra++;
+          matchedIds.push(seleccionados[j]);
+        }
+      }
+
+      var totalMatch = matchClave + matchExtra;
+      if (totalMatch >= c.min_match && matchClave >= 1) {
+        /* Score: síntomas clave valen 3 puntos, extras valen 1 */
+        var score = (matchClave * 3) + matchExtra;
+        /* Bonus por urgencia */
+        var urgBonus = c.urgencia === 'critica' ? 2 : c.urgencia === 'alta' ? 1 : 0;
+
+        resultados.push({
+          condicion: c,
+          matchClave: matchClave,
+          matchExtra: matchExtra,
+          totalMatch: totalMatch,
+          matchedIds: matchedIds,
+          score: score + urgBonus
+        });
+      }
+    }
+
+    /* Ordenar por score descendente */
+    resultados.sort(function(a, b) { return b.score - a.score; });
+
+    mostrarResultados(resultados);
+  }
+
+  function mostrarResultados(resultados) {
+    var resCard = document.getElementById('resultado');
+    resCard.style.display = 'block';
+
+    if (resultados.length === 0) {
+      document.getElementById('res-urgencia').innerHTML = '';
+      document.getElementById('res-condiciones').innerHTML = '';
+      document.getElementById('res-sin-resultados').style.display = 'block';
+      resCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+
+    document.getElementById('res-sin-resultados').style.display = 'none';
+
+    /* Urgencia máxima */
+    var urgOrder = ['baja', 'moderada', 'alta', 'critica'];
+    var maxUrg = 'baja';
+    for (var i = 0; i < resultados.length; i++) {
+      var u = resultados[i].condicion.urgencia;
+      if (urgOrder.indexOf(u) > urgOrder.indexOf(maxUrg)) maxUrg = u;
+    }
+
+    var niv = datos.niveles_urgencia[maxUrg];
+    document.getElementById('res-urgencia').innerHTML =
+      '<div class="urgency-banner" style="background:' + niv.fondo + ';border:2px solid ' + niv.borde + ';color:' + niv.texto_color + ';">' +
+      '<span style="font-size:1.4rem;margin-right:8px;vertical-align:middle;">' + niv.icono + '</span>' +
+      '<strong>' + niv.titulo + '</strong>' +
+      '<p>' + niv.mensaje + '</p>' +
+      '</div>';
+
+    /* Condiciones */
+    var html = '';
+    for (var i = 0; i < resultados.length; i++) {
+      var r = resultados[i];
+      var c = r.condicion;
+      var urg = datos.niveles_urgencia[c.urgencia];
+
+      html += '<div class="condition-card" style="border-left-color:' + urg.color + ';">';
+      html += '<div class="cond-header">';
+      html += '<span class="cond-name">' + c.nombre + '</span>';
+      html += '<span class="cond-urgency" style="background:' + urg.fondo + ';color:' + urg.texto_color + ';">' + urg.icono + ' ' + urg.titulo + '</span>';
+      html += '</div>';
+
+      /* Matched symptoms pills */
+      var allSyms = c.sintomas_clave.concat(c.sintomas_extra);
+      html += '<div class="cond-match"><strong>' + r.totalMatch + ' de ' + allSyms.length + '</strong> síntomas coinciden</div>';
+      html += '<div class="matched-symptoms">';
+      for (var j = 0; j < allSyms.length; j++) {
+        var sym = datos.sintomas.find(function(s) { return s.id === allSyms[j]; });
+        if (sym) {
+          var isMatch = r.matchedIds.indexOf(allSyms[j]) !== -1;
+          html += '<span class="matched-symptom' + (isMatch ? ' is-match' : '') + '">' +
+                  (isMatch ? '✓ ' : '') + sym.nombre + '</span>';
+        }
+      }
+      html += '</div>';
+
+      html += '<p class="cond-desc">' + c.descripcion + '</p>';
+
+      html += '<div class="cond-section"><h4>💊 Qué hacer</h4><p>' + c.que_hacer + '</p></div>';
+      html += '<div class="cond-section"><h4>🚨 Cuándo es urgente</h4><p>' + c.cuando_urgente + '</p></div>';
+
+      html += '</div>';
+    }
+    document.getElementById('res-condiciones').innerHTML = html;
+
+    resCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  init();
+  </script>
+
+</body>
+</html>
