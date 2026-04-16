@@ -1,0 +1,37 @@
+{
+  "perro": {
+    "obligatorias": [
+      {"id":"parvo1","nombre":"Parvovirus (1ª dosis)","semana_min":6,"semana_max":8,"notas":"Primera dosis. Protege contra parvovirus canino, enfermedad grave y potencialmente mortal."},
+      {"id":"moquillo1","nombre":"Moquillo (1ª dosis)","semana_min":6,"semana_max":8,"notas":"Primera dosis contra distemper canino. Se aplica junto con parvovirus."},
+      {"id":"parvo2","nombre":"Parvovirus (2ª dosis)","semana_min":10,"semana_max":12,"notas":"Refuerzo de parvovirus. Fundamental para completar la protección."},
+      {"id":"moquillo2","nombre":"Moquillo (2ª dosis)","semana_min":10,"semana_max":12,"notas":"Segundo refuerzo de distemper canino."},
+      {"id":"hepatitis","nombre":"Hepatitis infecciosa canina","semana_min":10,"semana_max":12,"notas":"Protege contra adenovirus canino tipo 2. Se suele aplicar en vacuna polivalente."},
+      {"id":"parvo3","nombre":"Parvovirus (3ª dosis)","semana_min":14,"semana_max":16,"notas":"Tercera y última dosis del cachorro. Asegura inmunidad completa."},
+      {"id":"moquillo3","nombre":"Moquillo (3ª dosis)","semana_min":14,"semana_max":16,"notas":"Tercer refuerzo. Completa la serie de vacunación primaria."},
+      {"id":"rabia","nombre":"Rabia","semana_min":14,"semana_max":16,"notas":"Obligatoria por ley en la mayoría de países. Una sola dosis inicial, luego refuerzo anual o trianual según la vacuna."},
+      {"id":"refuerzo_anual","nombre":"Refuerzo anual (polivalente + rabia)","semana_min":66,"semana_max":70,"notas":"Refuerzo al año de la última dosis. Luego se repite anualmente o según indicación del veterinario."}
+    ],
+    "opcionales": [
+      {"id":"leptospirosis1","nombre":"Leptospirosis (1ª dosis)","semana_min":10,"semana_max":12,"notas":"Recomendada en zonas con roedores, inundaciones o contacto con agua estancada. Se transmite por orina de animales infectados."},
+      {"id":"leptospirosis2","nombre":"Leptospirosis (2ª dosis)","semana_min":14,"semana_max":16,"notas":"Refuerzo 2-4 semanas después de la primera dosis. Luego refuerzo anual."},
+      {"id":"bordetella","nombre":"Bordetella (tos de las perreras)","semana_min":8,"semana_max":12,"notas":"Recomendada para perros que van a guarderías, pensiones o parques con muchos perros. Puede ser intranasal o inyectable."},
+      {"id":"giardia","nombre":"Giardia","semana_min":10,"semana_max":12,"notas":"Opcional. Recomendada en zonas endémicas o perros con acceso a agua de ríos o lagos."},
+      {"id":"influenza","nombre":"Influenza canina","semana_min":10,"semana_max":12,"notas":"Recomendada en zonas con brotes confirmados. Dos dosis con 2-4 semanas de diferencia."}
+    ]
+  },
+  "gato": {
+    "obligatorias": [
+      {"id":"triple_felina1","nombre":"Triple felina PRC (1ª dosis)","semana_min":8,"semana_max":9,"notas":"Protege contra panleucopenia, rinotraqueítis y calicivirus. Primera dosis del cachorro."},
+      {"id":"triple_felina2","nombre":"Triple felina PRC (2ª dosis)","semana_min":12,"semana_max":13,"notas":"Refuerzo a las 4 semanas de la primera dosis. Fundamental para inmunidad completa."},
+      {"id":"triple_felina3","nombre":"Triple felina PRC (3ª dosis)","semana_min":16,"semana_max":17,"notas":"Tercer refuerzo. Algunos veterinarios omiten esta dosis si las dos anteriores se dieron correctamente."},
+      {"id":"rabia_gato","nombre":"Rabia","semana_min":12,"semana_max":16,"notas":"Obligatoria por ley en muchos países, especialmente si el gato sale al exterior. Una dosis inicial, luego refuerzo anual."},
+      {"id":"refuerzo_anual_gato","nombre":"Refuerzo anual (triple + rabia)","semana_min":60,"semana_max":65,"notas":"Refuerzo al año de la última dosis. Luego se repite anualmente. Gatos indoor pueden espaciar más según criterio veterinario."}
+    ],
+    "opcionales": [
+      {"id":"leucemia1","nombre":"Leucemia felina FeLV (1ª dosis)","semana_min":8,"semana_max":10,"notas":"Muy recomendada para gatos que salen al exterior o conviven con gatos de estado desconocido. Se debe testear antes de vacunar."},
+      {"id":"leucemia2","nombre":"Leucemia felina FeLV (2ª dosis)","semana_min":12,"semana_max":14,"notas":"Refuerzo 3-4 semanas después de la primera dosis. Luego refuerzo anual para gatos de riesgo."},
+      {"id":"clamidia","nombre":"Clamidia felina","semana_min":9,"semana_max":12,"notas":"Opcional. Recomendada en criaderos o hogares con múltiples gatos. Previene conjuntivitis y problemas respiratorios."},
+      {"id":"fip","nombre":"PIF (Peritonitis infecciosa felina)","semana_min":16,"semana_max":20,"notas":"Vacuna intranasal, eficacia debatida. Solo recomendada en situaciones muy específicas bajo criterio veterinario."}
+    ]
+  }
+}
