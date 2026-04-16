@@ -1,9 +1,9 @@
 name: Publicar artículo diario
 
 on:
-  schedule:
-    # Todos los días a las 8:00 AM UTC (5:00 AM Argentina)
-    - cron: '0 8 * * 1'
+  # schedule:
+  #   # Todos los días a las 8:00 AM UTC (5:00 AM Argentina)
+  #   - cron: '0 8 * * 1'
   workflow_dispatch:   # permite ejecutarlo manualmente desde GitHub
 
 jobs:
