@@ -180,6 +180,10 @@
       <button class="btn-primary" onclick="generar()">
         💉 Generar calendario
       </button>
+
+      <div class="disclaimer" style="margin-top:20px;">
+        <strong>⚠️ Aviso:</strong> Este calendario es orientativo y se basa en protocolos estándar. Las fechas y vacunas necesarias pueden variar según la región, el estado de salud y el estilo de vida de tu mascota. <strong>Consultá siempre con tu veterinario</strong> antes de vacunar.
+      </div>
     </div>
 
     <!-- RESULT -->
@@ -458,7 +462,18 @@
 
   function toggleFaq(btn) {
     const item = btn.parentElement;
-    item.classList.toggle('open');
+    const answer = item.querySelector('.faq-answer');
+    if (item.classList.contains('open')) {
+      item.classList.remove('open');
+      answer.style.maxHeight = '0';
+    } else {
+      document.querySelectorAll('.faq-item.open').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = '0';
+      });
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
   }
 
   init();
