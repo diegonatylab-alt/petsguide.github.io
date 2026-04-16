@@ -4,8 +4,8 @@
   <script>if(location.protocol!=='https:')location.replace('https://'+location.hostname+location.pathname+location.search);</script>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Predictor de peso adulto de cachorro por raza – ¿Cuánto va a pesar? | PetsGuía</title>
-  <meta name="description" content="Calculá cuánto va a pesar tu cachorro cuando sea adulto. Ingresá la raza, edad actual y peso, y obtené una estimación basada en curvas de crecimiento por tamaño."/>
+  <title>Predictor de peso adulto de cachorro (perros) – ¿Cuánto va a pesar? | PetsGuía</title>
+  <meta name="description" content="Calculá cuánto va a pesar tu cachorro de perro cuando sea adulto. Ingresá la raza, edad actual y peso, y obtené una estimación basada en curvas de crecimiento caninas."/>
   <meta name="keywords" content="cuánto va a pesar mi cachorro, peso adulto cachorro, predictor peso perro, calculadora peso cachorro, crecimiento cachorro por raza"/>
   <meta property="og:title" content="Predictor de peso adulto de cachorro – PetsGuía"/>
   <meta property="og:description" content="Estimá el peso adulto de tu cachorro según su raza, edad y peso actual. Fórmula por curva de crecimiento."/>
@@ -113,9 +113,9 @@
 
   <section class="tool-hero">
     <div class="tool-hero-content">
-      <span class="tool-badge">📏 Calculadora gratuita</span>
+      <span class="tool-badge">� Calculadora gratuita · Solo perros</span>
       <h1>¿Cuánto va a pesar tu <em>cachorro</em> de adulto?</h1>
-      <p>Estimación basada en curvas de crecimiento veterinarias por raza y tamaño.</p>
+      <p>Estimación para perros basada en curvas de crecimiento veterinarias por raza y tamaño.</p>
     </div>
   </section>
 
@@ -422,7 +422,18 @@
 
   function toggleFaq(btn) {
     const item = btn.parentElement;
-    item.classList.toggle('open');
+    const answer = item.querySelector('.faq-answer');
+    if (item.classList.contains('open')) {
+      item.classList.remove('open');
+      answer.style.maxHeight = '0';
+    } else {
+      document.querySelectorAll('.faq-item.open').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = '0';
+      });
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
   }
 
   init();
