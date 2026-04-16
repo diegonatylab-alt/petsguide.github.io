@@ -5,10 +5,10 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Generador de nombres para perros y gatos – Ideas originales | PetsGuía</title>
-  <meta name="description" content="Generador interactivo de nombres para perros y gatos. Filtrá por especie, sexo y categoría (divertidos, elegantes, mitología, comida). +100 ideas con significado."/>
+  <meta name="description" content="Generador interactivo de nombres para perros y gatos. Filtrá por especie, sexo y categoría (divertidos, elegantes, mitología, comida). +1000 ideas con significado."/>
   <meta name="keywords" content="nombres para perros, nombres para gatos, nombres de mascotas, nombres originales perros, generador nombres mascota, nombres graciosos perro"/>
   <meta property="og:title" content="Generador de nombres para perros y gatos – PetsGuía"/>
-  <meta property="og:description" content="Encontrá el nombre perfecto para tu mascota. +100 ideas con significado, filtradas por especie, sexo y estilo."/>
+  <meta property="og:description" content="Encontrá el nombre perfecto para tu mascota. +1000 ideas con significado, filtradas por especie, sexo y estilo."/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://petsguia.com/herramientas/generador-nombres/"/>
   <link rel="canonical" href="https://petsguia.com/herramientas/generador-nombres/"/>
@@ -61,6 +61,9 @@
     .empty-state .emoji{font-size:3rem;margin-bottom:12px}
     .empty-state p{font-size:.95rem;max-width:400px;margin:0 auto}
 
+    .btn-ver-mas{display:block;width:100%;padding:14px;margin-top:16px;background:var(--surface);border:2px solid var(--accent);border-radius:10px;font-family:var(--font-body);font-size:1rem;font-weight:600;color:var(--accent);cursor:pointer;transition:all .2s;text-align:center}
+    .btn-ver-mas:hover{background:var(--accent);color:#fff}
+
     .share-btn{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:6px 14px;border:1px solid var(--border);border-radius:100px;font-size:.78rem;cursor:pointer;background:var(--surface);color:var(--ink2);transition:all .2s}
     .share-btn:hover{border-color:var(--accent);color:var(--accent)}
 
@@ -75,7 +78,7 @@
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Generador de nombres para perros y gatos",
-    "description": "Generador interactivo de nombres para mascotas con filtros por especie, sexo y categoría. Más de 100 ideas con significado y origen.",
+    "description": "Generador interactivo de nombres para mascotas con filtros por especie, sexo y categoría. Más de 1000 ideas con significado y origen.",
     "url": "https://petsguia.com/herramientas/generador-nombres/",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Web",
@@ -140,7 +143,7 @@
     <div class="tool-hero-content">
       <span class="tool-badge">✨ Generador gratuito</span>
       <h1>Generador de nombres para tu <em>mascota</em></h1>
-      <p>+100 ideas originales con significado. Filtrá por especie, sexo y estilo, o dejá que el azar decida.</p>
+      <p>+1000 ideas originales con significado. Filtrá por especie, sexo y estilo, o dejá que el azar decida.</p>
     </div>
   </section>
 
@@ -188,6 +191,7 @@
     <!-- RESULTS -->
     <div class="result-count" id="resultCount"></div>
     <div class="name-grid" id="nameGrid"></div>
+    <div id="verMasContainer" style="display:none;"></div>
     <div class="empty-state" id="emptyState" style="display:none;">
       <div class="emoji">🤔</div>
       <p>No encontramos nombres con esos filtros. Probá cambiar la especie, sexo o categoría.</p>
@@ -231,7 +235,7 @@
     <!-- INFO SEO -->
     <div class="tool-info">
       <h2>¿Cómo funciona el generador de nombres para mascotas?</h2>
-      <p>Nuestro generador contiene <strong>más de 100 nombres para perros y gatos</strong>, cada uno con su significado y origen. Podés filtrar por:</p>
+      <p>Nuestro generador contiene <strong>más de 1000 nombres para perros y gatos</strong>, cada uno con su significado y origen. Podés filtrar por:</p>
       <ul>
         <li><strong>Especie:</strong> nombres que funcionan mejor para perros, para gatos, o para ambos.</li>
         <li><strong>Sexo:</strong> macho, hembra o unisex.</li>
@@ -277,6 +281,8 @@
   let filtroEspecie = 'todos';
   let filtroSexo = 'todos';
   let filtrosCat = new Set();
+  let mostrados = 12;
+  const PASO = 12;
 
   function escapeHtml(t){const d=document.createElement('div');d.textContent=t;return d.innerHTML;}
 
@@ -344,15 +350,18 @@
     });
   }
 
-  function renderNames() {
+  function renderNames(resetPagination) {
+    if (resetPagination !== false) mostrados = PASO;
     const filtered = getFiltered();
     const grid = document.getElementById('nameGrid');
     const empty = document.getElementById('emptyState');
     const count = document.getElementById('resultCount');
+    const verMasC = document.getElementById('verMasContainer');
 
     if (filtered.length === 0) {
       grid.innerHTML = '';
       empty.style.display = 'block';
+      verMasC.style.display = 'none';
       count.textContent = '';
       return;
     }
@@ -364,8 +373,9 @@
     DATA.categorias.forEach(c => { catMap[c.id] = c; });
 
     const sexIcon = { macho: '♂', hembra: '♀', unisex: '⚥' };
+    const visible = filtered.slice(0, mostrados);
 
-    grid.innerHTML = filtered.map(n =>
+    grid.innerHTML = visible.map(n =>
       '<div class="name-card">' +
         '<div class="name-card-top">' +
           '<span class="name-card-name">' + escapeHtml(n.nombre) + '</span>' +
@@ -381,6 +391,19 @@
         '</div>' +
       '</div>'
     ).join('');
+
+    const rest = filtered.length - mostrados;
+    if (rest > 0) {
+      verMasC.style.display = 'block';
+      verMasC.innerHTML = '<button class="btn-ver-mas" onclick="verMas()">Ver más nombres (' + rest + ' restantes)</button>';
+    } else {
+      verMasC.style.display = 'none';
+    }
+  }
+
+  function verMas() {
+    mostrados += PASO;
+    renderNames(false);
   }
 
   function nombreAleatorio() {
@@ -394,7 +417,18 @@
 
   function toggleFaq(btn) {
     const item = btn.parentElement;
-    item.classList.toggle('open');
+    const answer = item.querySelector('.faq-answer');
+    if (item.classList.contains('open')) {
+      item.classList.remove('open');
+      answer.style.maxHeight = '0';
+    } else {
+      document.querySelectorAll('.faq-item.open').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = '0';
+      });
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
   }
 
   init();
