@@ -47,6 +47,7 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { overflow-x: hidden; }
 
     body {
       background: var(--bg);
@@ -494,7 +495,7 @@
       color: var(--accent2);
     }
 
-    .footer-links { display: flex; gap: 20px; font-size: 0.85rem; }
+    .footer-links { display: flex; gap: 20px; font-size: 0.85rem; flex-wrap: wrap; justify-content: center; }
     .footer-links a:hover { color: white; }
     .footer-copy { font-size: 0.8rem; }
 
