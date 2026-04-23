@@ -47,6 +47,7 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { overflow-x: hidden; }
 
     body {
       background: var(--bg);
@@ -161,6 +162,7 @@
       font-weight: 500;
       cursor: pointer;
       transition: all 0.2s;
+      white-space: nowrap;
     }
     .hero-cat:hover {
       background: var(--accent);
@@ -494,7 +496,7 @@
       color: var(--accent2);
     }
 
-    .footer-links { display: flex; gap: 20px; font-size: 0.85rem; }
+    .footer-links { display: flex; gap: 20px; font-size: 0.85rem; flex-wrap: wrap; justify-content: center; }
     .footer-links a:hover { color: white; }
     .footer-copy { font-size: 0.8rem; }
 
@@ -564,6 +566,18 @@
       .featured-img { min-height: 160px; }
       .articles-grid { grid-template-columns: 1fr; }
       nav { display: none; }
+      .hero p { margin-bottom: 20px; }
+      .hero-cats {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 0 24px;
+        margin: 0 -24px;
+      }
+      .hero-cats::-webkit-scrollbar { display: none; }
+      .hero-cat { padding: 6px 14px; font-size: 0.8rem; }
     }
     .icon { display: inline-block; width: 16px; height: 16px; vertical-align: -2px; margin-right: 4px; }
     .icon-lg { width: 20px; height: 20px; vertical-align: -4px; }
