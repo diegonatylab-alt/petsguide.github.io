@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <script>if(location.protocol!=='https:')location.replace('https://'+location.hostname+location.pathname+location.search);</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{TITLE}} – PetsGuía</title>
+  <meta name="description" content="{{DESCRIPTION}}"/>
+  <link rel="canonical" href="https://petsguia.com/articulos/{{SLUG}}/"/>
+  <link rel="alternate" hreflang="es" href="https://petsguia.com/articulos/{{SLUG}}/"/>
+  <link rel="alternate" hreflang="x-default" href="https://petsguia.com/articulos/{{SLUG}}/"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="{{TITLE}}"/>
+  <meta property="og:description" content="{{DESCRIPTION}}"/>
+  <meta property="og:url" content="https://petsguia.com/articulos/{{SLUG}}/"/>
+  <meta property="og:image" content="{{IMAGE}}"/>
+  <meta property="og:site_name" content="PetsGuía"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="{{TITLE}}"/>
+  <meta name="twitter:description" content="{{DESCRIPTION}}"/>
+  <meta name="twitter:image" content="{{IMAGE}}"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{TITLE}}",
+    "description": "{{DESCRIPTION}}",
+    "image": "{{IMAGE}}",
+    "datePublished": "{{DATE_ISO}}",
+    "author": {"@type": "Organization", "name": "PetsGuía"},
+    "publisher": {"@type": "Organization", "name": "PetsGuía", "logo": {"@type": "ImageObject", "url": "https://petsguia.com/favicon-48.png"}},
+    "mainEntityOfPage": "https://petsguia.com/articulos/{{SLUG}}/"
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3904107966422584" crossorigin="anonymous"></script>
+  <style>
+    :root{--bg:#faf7f2;--surface:#fff;--surface2:#f2ede4;--ink:#1a1510;--ink2:#5a5040;--accent:#c8541a;--accent2:#e8a44a;--green:#3a7d44;--border:#e0d8cc;--radius:12px;--font-display:'Fraunces',Georgia,serif;--font-body:'DM Sans',sans-serif;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{overflow-x:hidden;}
+    body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.6;}
+    a{color:inherit;text-decoration:none;}
+    header{background:var(--ink);color:var(--bg);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;}
+    .logo{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--accent2);letter-spacing:-0.5px;}
+    .logo span{color:var(--bg);}
+    nav{display:flex;gap:24px;}
+    nav a{font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.75);transition:color 0.2s;}
+    nav a:hover{color:var(--accent2);}
+    .article-wrap{max-width:780px;margin:0 auto;padding:48px 24px 80px;}
+    .back-link{display:inline-flex;align-items:center;gap:6px;font-size:0.875rem;color:var(--ink2);margin-bottom:24px;transition:color 0.2s;}
+    .back-link:hover{color:var(--accent);}
+    .tag{display:inline-block;background:var(--accent);color:white;font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:3px 10px;border-radius:4px;margin-bottom:12px;}
+    h1{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;line-height:1.2;margin-bottom:16px;}
+    .article-meta{display:flex;gap:16px;color:var(--ink2);font-size:0.85rem;margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid var(--border);flex-wrap:wrap;}
+    .article-author{display:flex;align-items:center;gap:12px;margin-bottom:32px;padding:16px;background:var(--surface2);border-radius:var(--radius);}
+    .author-avatar{width:40px;height:40px;border-radius:50%;background:var(--accent);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;flex-shrink:0;}
+    .author-name{font-weight:600;color:var(--ink);font-size:0.9rem;}
+    .author-role{font-size:0.8rem;color:var(--ink2);}
+    .article-content h2{font-family:var(--font-display);font-size:1.5rem;margin:32px 0 12px;}
+    .article-content h3{font-family:var(--font-display);font-size:1.15rem;margin:24px 0 8px;}
+    .article-content p{margin-bottom:16px;line-height:1.75;color:#2a2218;}
+    .article-content ul,.article-content ol{padding-left:24px;margin-bottom:16px;}
+    .article-content ul li,.article-content ol li{margin-bottom:8px;line-height:1.6;}
+    .article-content figure{margin:0 0 28px 0;}
+    .article-content figcaption{font-size:0.75rem;color:#888;margin-top:6px;}
+    .article-content blockquote{border-left:4px solid var(--accent);padding:12px 20px;margin:20px 0;background:var(--surface2);border-radius:0 var(--radius) var(--radius) 0;font-style:italic;color:var(--ink2);}
+    .article-sources{margin-top:40px;padding:24px;background:var(--surface2);border-radius:var(--radius);font-size:0.85rem;}
+    .article-sources h3{font-family:var(--font-display);font-size:1.1rem;margin-bottom:12px;}
+    .article-sources ul{padding-left:20px;}
+    .article-sources ul li{margin-bottom:6px;color:var(--ink2);}
+    .article-sources a{color:var(--accent);text-decoration:underline;}
+    footer{background:var(--ink);color:rgba(255,255,255,0.6);padding:40px 24px;margin-top:32px;}
+    .footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+    .footer-logo{font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--accent2);}
+    .footer-links{display:flex;gap:20px;font-size:0.85rem;flex-wrap:wrap;justify-content:center;}
+    .footer-links a:hover{color:white;}
+    .footer-copy{font-size:0.8rem;}
+    .icon{display:inline-block;width:16px;height:16px;vertical-align:-2px;margin-right:4px;}
+    @media(max-width:600px){nav{display:none;}.footer-inner{flex-direction:column;text-align:center;}}
+  </style>
+</head>
+<body>
+<header>
+  <a href="https://petsguia.com" class="logo">Pets<span>Guía</span></a>
+  <nav>
+    <a href="https://petsguia.com">Inicio</a>
+    <a href="https://petsguia.com/herramientas/">Herramientas</a>
+    <a href="https://petsguia.com/acerca-de.html">Nosotros</a>
+  </nav>
+</header>
+<div class="article-wrap">
+  <a href="https://petsguia.com" class="back-link">← Volver al inicio</a>
+  <span class="tag">{{CATEGORY}}</span>
+  <h1>{{TITLE}}</h1>
+  <div class="article-meta">
+    <span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>{{DATE_DISPLAY}}</span>
+    <span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>{{READ_TIME}} min de lectura</span>
+    <span>{{CATEGORY}}</span>
+  </div>
+  <div class="article-author">
+    <div class="author-avatar">EP</div>
+    <div>
+      <div class="author-name">Equipo Editorial PetsGuía</div>
+      <div class="author-role">Redacción y verificación de contenido</div>
+    </div>
+  </div>
+  <div class="article-content">
+{{CONTENT}}
+  </div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <span class="footer-logo">PetsGuía</span>
+    <div class="footer-links">
+      <a href="https://petsguia.com">Inicio</a>
+      <a href="https://petsguia.com/herramientas/">Herramientas</a>
+      <a href="https://petsguia.com/privacidad.html">Privacidad</a>
+      <a href="https://petsguia.com/contacto.html">Contacto</a>
+      <a href="https://petsguia.com/aviso-legal.html">Aviso Legal</a>
+      <a href="https://petsguia.com/acerca-de.html">Acerca del sitio</a>
+    </div>
+    <span class="footer-copy">© 2026 PetsGuía. Todos los derechos reservados.</span>
+  </div>
+</footer>
+</body>
+</html>
